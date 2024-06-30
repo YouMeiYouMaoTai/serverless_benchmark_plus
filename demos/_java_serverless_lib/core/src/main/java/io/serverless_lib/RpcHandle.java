@@ -80,22 +80,23 @@ public class RpcHandle<T> {
         }
 
         // Deserialize request
-        Object[] params;
-        try {
-            JsonObject jsonObject = gson.fromJson(argStr, JsonObject.class);
+        JsonObject req = gson.fromJson(argStr, JsonObject.class);
+        Object[] params={req};
+        // try {
+        //     JsonObject jsonObject = gson.fromJson(argStr, JsonObject.class);
 
-            // Extract parameters from JSON and convert to appropriate types
-            Map<String, Class<?>> paramMeta = rpcFunc.getParameters();
-            params = new Object[paramMeta.size()];
-            int index = 0;
-            for (Map.Entry<String, Class<?>> entry : paramMeta.entrySet()) {
-                String paramName = entry.getKey();
-                Class<?> paramType = entry.getValue();
-                params[index++] = gson.fromJson(jsonObject.get(paramName), paramType);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to deserialize request", e);
-        }
+        //     // Extract parameters from JSON and convert to appropriate types
+        //     Map<String, Class<?>> paramMeta = rpcFunc.getParameters();
+        //     params = new Object[paramMeta.size()];
+        //     int index = 0;
+        //     for (Map.Entry<String, Class<?>> entry : paramMeta.entrySet()) {
+        //         String paramName = entry.getKey();
+        //         Class<?> paramType = entry.getValue();
+        //         params[index++] = gson.fromJson(jsonObject.get(paramName), paramType);
+        //     }
+        // } catch (Exception e) {
+        //     throw new RuntimeException("Failed to deserialize request", e);
+        // }
 
         // Call the method
         Object responseObj;
@@ -115,7 +116,9 @@ public class RpcHandle<T> {
         // } catch (Exception e) {
         // throw new RuntimeException("Failed to serialize response", e);
         // }
+        Gson gson = new Gson();
+        String jsonString = gson.toJson((JsonObject)responseObj);
 
-        return gson.toJson(responseObj);
+        return jsonString;
     }
 }

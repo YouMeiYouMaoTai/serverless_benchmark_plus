@@ -1,56 +1,41 @@
-
-package test;
-
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonObject;
-import java.io.PrintStream;
-import javax.annotation.PostConstruct;
-import test.functions.Resize;
-
-class NullOutputStream extends java.io.OutputStream {
-    @Override
-    public void write(int b) {
-        // 不做任何处理
-    }
-}
-
-@Component
-class Entrypoint {
-    @Autowired
-    private Resize resize;
-
-    @PostConstruct
-    public void init() {
-        // parse json from arg[0]
-        // 创建JsonParser对象
-        JsonParser parser = new JsonParser();
-
-        // 将JSON字符串解析为JsonObject
-        JsonObject arg = parser.parse(Application.arg).getAsJsonObject();
-        JsonObject resp = resize.call(arg);
-
-        Application.out.println(resp.toString());
-    }
-}
-
-@SpringBootApplication
-@ComponentScan(basePackages = {"test"})
-public class Application {
-    public static PrintStream out=null;
-    public static String arg=null;
-    public static void main(String[] args) {
-        out=System.out;
-        arg=args[0];
-        // 禁用System.out
-        System.setOut(new PrintStream(new NullOutputStream()));
-        // 禁用System.err
-        System.setErr(new PrintStream(new NullOutputStream()));
-
-        SpringApplication.run(Application.class, args);
-    }
-}
+// ！！！请勿修改此文件，此文件由脚本生成
+package test;// ！！！请勿修改此文件，此文件由脚本生成
+// ！！！请勿修改此文件，此文件由脚本生成
+// ！！！请勿修改此文件，此文件由脚本生成
+// ！！！请勿修改此文件，此文件由脚本生成
+import com.google.gson.JsonObject;// ！！！请勿修改此文件，此文件由脚本生成
+import com.google.gson.JsonParser;// ！！！请勿修改此文件，此文件由脚本生成
+import test.functions.Resize;// ！！！请勿修改此文件，此文件由脚本生成
+// ！！！请勿修改此文件，此文件由脚本生成
+// ！！！请勿修改此文件，此文件由脚本生成
+class NullOutputStream extends java.io.OutputStream {// ！！！请勿修改此文件，此文件由脚本生成
+    @Override// ！！！请勿修改此文件，此文件由脚本生成
+    public void write(int b) {// ！！！请勿修改此文件，此文件由脚本生成
+        // 不做任何处理// ！！！请勿修改此文件，此文件由脚本生成
+    }// ！！！请勿修改此文件，此文件由脚本生成
+}// ！！！请勿修改此文件，此文件由脚本生成
+// ！！！请勿修改此文件，此文件由脚本生成
+public class Application {// ！！！请勿修改此文件，此文件由脚本生成
+    // ！！！请勿修改此文件，此文件由脚本生成
+    public static JsonObject main(JsonObject args) {  // ！！！请勿修改此文件，此文件由脚本生成
+        return new Resize().call(args);// ！！！请勿修改此文件，此文件由脚本生成
+    }// ！！！请勿修改此文件，此文件由脚本生成
+// ！！！请勿修改此文件，此文件由脚本生成
+    // for simple call// ！！！请勿修改此文件，此文件由脚本生成
+    public static void main(String[] args){// ！！！请勿修改此文件，此文件由脚本生成
+        java.io.PrintStream out=System.out;// ！！！请勿修改此文件，此文件由脚本生成
+// ！！！请勿修改此文件，此文件由脚本生成
+        // 禁用System.out// ！！！请勿修改此文件，此文件由脚本生成
+        System.setOut(new java.io.PrintStream(new NullOutputStream()));// ！！！请勿修改此文件，此文件由脚本生成
+        // 禁用System.err// ！！！请勿修改此文件，此文件由脚本生成
+        System.setErr(new java.io.PrintStream(new NullOutputStream()));// ！！！请勿修改此文件，此文件由脚本生成
+        // ！！！请勿修改此文件，此文件由脚本生成
+        JsonParser parser = new JsonParser();// ！！！请勿修改此文件，此文件由脚本生成
+        // 将JSON字符串解析为JsonObject// ！！！请勿修改此文件，此文件由脚本生成
+        JsonObject req = parser.parse(args[0]).getAsJsonObject();// ！！！请勿修改此文件，此文件由脚本生成
+        JsonObject resp=new Resize().call(req);// ！！！请勿修改此文件，此文件由脚本生成
+        // ！！！请勿修改此文件，此文件由脚本生成
+        out.println(resp.toString());// ！！！请勿修改此文件，此文件由脚本生成
+    }// ！！！请勿修改此文件，此文件由脚本生成
+}// ！！！请勿修改此文件，此文件由脚本生成
+// ！！！请勿修改此文件，此文件由脚本生成

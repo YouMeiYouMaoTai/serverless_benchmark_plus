@@ -1,0 +1,22 @@
+scheduler:
+  enabled: true
+metrics:
+  prometheusEnabled: true
+  userMetricsEnabled: true
+invoker:
+  containerFactory:
+    impl: "kubernetes"
+whisk:
+  # Ingress defines how to access OpenWhisk from outside the Kubernetes cluster.
+  # Only a subset of the values are actually used on any specific type of cluster.
+  # See the "Configuring OpenWhisk section" of the docs/k8s-*.md that matches
+  # your cluster type for details on what values to provide and how to get them.
+  ingress:
+    apiHostName: "192.168.31.162"
+    apiHostProto: "http"
+  limits:
+    actionsInvokesConcurrent: 30
+# utility:
+#   imageName: "openwhisk/ow-utils"
+#   imageTag: "415ae98"
+#   imagePullPolicy: "IfNotPresent"

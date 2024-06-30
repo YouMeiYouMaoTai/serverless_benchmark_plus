@@ -1,6 +1,7 @@
 
 ### chdir
 import os
+import yaml
 CUR_FPATH = os.path.abspath(__file__)
 CUR_FDIR = os.path.dirname(CUR_FPATH)
 # chdir to the directory of this script
@@ -26,13 +27,21 @@ def run_cmd_return(cmd):
     
     return result
 
+
+with open("config.yaml") as f:
+    conf=yaml.safe_load(f)
+waverless_rel_path=conf["waverless_rel_path"]
+proto_src_dir=os.path.join(waverless_rel_path,"src/worker/func/shared/")
+proto_src=os.path.join(proto_src_dir,'process_rpc_proto.proto')
+
+
 print("Proto Src Dir:")
-os_system_sure("ls ../../../src/worker/func/shared/")
+os_system_sure(f"ls {proto_src_dir}")
 print("\n\n")
 
 print("Proto target Dir:")
 os_system_sure("ls ../core/src/main/java/io/serverless_lib/")
 print("\n\n"  )
 
-os_system_sure("protoc --proto_path=../../../src/ \
---java_out=../core/src/main/java/io/serverless_lib ../../../src/worker/func/shared/process_rpc_proto.proto")
+os_system_sure(f"protoc --proto_path={proto_src_dir} \
+--java_out=../core/src/main/java/io/serverless_lib {proto_src}")

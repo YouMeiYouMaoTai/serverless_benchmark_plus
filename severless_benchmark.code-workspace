@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "middlewares/waverless/waverless"
+		},
+		{
+			"path": "bencher"
+		}
+	],
+	"settings": {}
+}

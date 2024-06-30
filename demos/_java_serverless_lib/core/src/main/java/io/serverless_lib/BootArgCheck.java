@@ -5,7 +5,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.DefaultApplicationArguments;
 import org.springframework.core.env.Environment;
@@ -32,30 +32,32 @@ public class BootArgCheck implements CommandLineRunner
     @Autowired
     private Environment environment;
 
-    String agentSock = "";
+    // @Autowired
+    // private WebServerApplicationContext webServerAppCtxt;
 
     @Override
     public void run(String... _args) throws Exception {
         System.out.println("BootArgCheck run");
         ApplicationArguments args = new DefaultApplicationArguments(_args);
 
-        String[] agentsock = { "" };
-        if (args.containsOption("agentSock")) {
-            System.out.println("Option agentSock is present: " + args.getOptionValues("agentSock"));
-            agentsock[0] = args.getOptionValues("agentSock").get(0);
-        } else {
-            // throw new IllegalArgumentException("No arguments provided, application cannot
-            // start.");
-            if (context != null) {
+        String[] argsarr = { "agentSock","appName" };
+        for(int i=0;i<argsarr.length;i++){
+            if(args.containsOption(argsarr[i])){
+                String arg=args.getOptionValues(argsarr[i]).get(0);
+                System.out.println("Option "+argsarr[i]+" is present: " + arg);
+                argsarr[i]=arg;
+            }else{
+                if (context != null) {
+                    ((ConfigurableApplicationContext) context).close();
+                }
                 System.err.println("No arguments provided, application cannot start.");
-                ((ConfigurableApplicationContext) context).close();
                 System.exit(0);
             }
         }
 
-        String port = environment.getProperty("local.server.port");
+        String port = "";
 
         // beanConfig.bootArgReady();
-        applicationEventPublisher.publishEvent(new BootArgCheckOkEvent(agentsock[0], port));
+        applicationEventPublisher.publishEvent(new BootArgCheckOkEvent(argsarr[0],argsarr[1], port));
     }
 }

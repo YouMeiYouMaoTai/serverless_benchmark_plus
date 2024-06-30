@@ -1,4 +1,3 @@
-test/Entrypoint.class
 test/Application.class
 test/functions/Resize.class
 test/NullOutputStream.class

@@ -46,6 +46,17 @@ def find_folders_recursively(directory,target:str):
             # folders.append(os.path.join(root, dir))
     return folders
 
+def add_cant_change_comment(dir,comment):
+    for root, dirs, files in os.walk(dir):
+        for file in files:
+            if file.endswith(".java"):
+                file_path = os.path.join(root, file)
+                with open(file_path, 'r') as f:
+                    content = f.read()
+                content=(comment+"\n").join(content.split("\n"))
+                with open(file_path, 'w') as f:
+                    f.write(content)
+
 def bigcamel_to_snake(name):
     # 将大驼峰命名转换为蛇形命名
     s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
@@ -99,6 +110,15 @@ if len(sys.argv)!=2:
 
 prj = sys.argv[1]
 
+
+# check jdk8
+if not os.path.exists("/usr/lib/jvm/java-8-openjdk-amd64/"):
+    print("!!! openjdk 8 not found")
+    exit(1)
+
+# JAVA_HOME
+os.environ["JAVA_HOME"] = "/usr/lib/jvm/java-8-openjdk-amd64/"
+
 temp_prj_dir="ow/"+prj
 os_system_sure(f"rm -rf ow")
 os_system_sure(f"mkdir -p ow/{prj}/tmp")
@@ -135,16 +155,12 @@ for fn in functions:
     application_java=f"""
 package {package_name};
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import com.google.gson.JsonParser;
+
+
 import com.google.gson.JsonObject;
-import java.io.PrintStream;
-import javax.annotation.PostConstruct;
+import com.google.gson.JsonParser;
 import {package_name}.functions.{snake_to_big_camel(fn)};
+
 
 class NullOutputStream extends java.io.OutputStream {{
     @Override
@@ -153,41 +169,30 @@ class NullOutputStream extends java.io.OutputStream {{
     }}
 }}
 
-@Component
-class Entrypoint {{
-    @Autowired
-    private {snake_to_big_camel(fn)} {fn};
-
-    @PostConstruct
-    public void init() {{
-        // parse json from arg[0]
-        // 创建JsonParser对象
-        JsonParser parser = new JsonParser();
-
-        // 将JSON字符串解析为JsonObject
-        JsonObject arg = parser.parse(Application.arg).getAsJsonObject();
-        JsonObject resp = {fn}.call(arg);
-
-        Application.out.println(resp.toString());
-    }}
-}}
-
-@SpringBootApplication
-@ComponentScan(basePackages = {{"{package_name}"}})
 public class Application {{
-    public static PrintStream out=null;
-    public static String arg=null;
-    public static void main(String[] args) {{
-        out=System.out;
-        arg=args[0];
-        // 禁用System.out
-        System.setOut(new PrintStream(new NullOutputStream()));
-        // 禁用System.err
-        System.setErr(new PrintStream(new NullOutputStream()));
+    
+    public static JsonObject main(JsonObject args) {{  
+        return new {snake_to_big_camel(fn)}().call(args);
+    }}
 
-        SpringApplication.run(Application.class, args);
+    // for simple call
+    public static void main(String[] args){{
+        java.io.PrintStream out=System.out;
+
+        // 禁用System.out
+        System.setOut(new java.io.PrintStream(new NullOutputStream()));
+        // 禁用System.err
+        System.setErr(new java.io.PrintStream(new NullOutputStream()));
+        
+        JsonParser parser = new JsonParser();
+        // 将JSON字符串解析为JsonObject
+        JsonObject req = parser.parse(args[0]).getAsJsonObject();
+        JsonObject resp=new {snake_to_big_camel(fn)}().call(req);
+        
+        out.println(resp.toString());
     }}
 }}
+
 """
     with open(f"{functions_parent_dir}/Application.java","w") as f:
         f.write(application_java)
@@ -196,3 +201,5 @@ public class Application {{
     os_system_sure(f"mvn clean package")
     os.chdir("../../..")
 os_system_sure("rm -rf ow/*/tmp")
+add_cant_change_comment("ow","// ！！！请勿修改此文件，此文件由脚本生成")
+

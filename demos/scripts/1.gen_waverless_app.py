@@ -5,11 +5,29 @@ import yaml
 import zipfile
 import re
 import xml.etree.ElementTree as ET
-
+import importlib.util
+import inspect
 CUR_FPATH = os.path.abspath(__file__)
 CUR_FDIR = os.path.dirname(CUR_FPATH)
 # chdir to the directory of this script
 os.chdir(CUR_FDIR)
+class FunctionContainer:
+    pass
+def load_functions_into_object(file_path, obj):
+    # 从指定文件路径导入模块
+    spec = importlib.util.spec_from_file_location("module.name", file_path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    # 获取模块中定义的所有函数
+    functions = {name: obj for name, obj in inspect.getmembers(module)}
+    # 将函数添加到对象中
+    for func_name, func in functions.items():
+        setattr(obj, func_name, func)
+# 使用示例
+file_path = '../../pylib.py'
+pylib = FunctionContainer()
+load_functions_into_object(file_path, pylib)
+#################################################################################################
 
 # os.system('ansible-playbook -vv 2.ans_install_build.yml -i ../local_ansible_conf.ini')
 ### utils
@@ -45,6 +63,18 @@ def find_folders_recursively(directory,target:str):
                 folders.append(os.path.join(root, dir))
             # folders.append(os.path.join(root, dir))
     return folders
+
+def add_cant_change_comment(dir,comment):
+    for root, dirs, files in os.walk(dir):
+        for file in files:
+            if file.endswith(".java"):
+                file_path = os.path.join(root, file)
+                with open(file_path, 'r') as f:
+                    content = f.read()
+                content=(comment+"\n").join(content.split("\n"))
+                with open(file_path, 'w') as f:
+                    f.write(content)
+
 
 def bigcamel_to_snake(name):
     # 将大驼峰命名转换为蛇形命名
@@ -99,7 +129,9 @@ if len(sys.argv)!=2:
 
 prj = sys.argv[1]
 
-temp_prj_dir="waverless/"+prj
+temp_prj_dir=os.path.abspath("waverless/"+prj)
+
+
 os_system_sure(f"rm -rf {temp_prj_dir}")
 os_system_sure(f"mkdir -p {temp_prj_dir}")
 
@@ -110,17 +142,21 @@ os_system_sure(f"cp -r ../{prj} ./waverless/")
 #  find functions dir in prj
 functions_dir = find_folders_recursively(f"./waverless/{prj}","functions")[0]
 print(functions_dir)
-app_yml={prj:{}}
+app_yml={"fns":{}}
 #  for each XXX.java, construct app.yml
 for fnfile in os.listdir(functions_dir):
     if fnfile.endswith(".java"):
         fnname = bigcamel_to_snake(fnfile.split(".")[0])
-        app_yml[prj][fnname]={
-            "rpc": None
+        app_yml["fns"][fnname]={
+            "http.post": {
+                "call": "direct"
+            }
         }
         # app_yml = f"""name: {fnname}
 #  encode to file
-with open(f"{temp_prj_dir}/app.yml","w") as f:
+
+os_system_sure(f"mkdir -p {temp_prj_dir}/pack")
+with open(f"{temp_prj_dir}/pack/app.yml","w") as f:
     yaml.dump(app_yml,f)
 
 ## gen adapt codes
@@ -160,15 +196,14 @@ with open(f"{functions_parent_dir}/Application.java","w") as f:
 
 #  ServiceDispatcher.java
 emmbed_fns=""
-for fn in app_yml[prj]:
+for fn in app_yml["fns"]:
     emmbed_fns+=f"""
-    @Autowired
-    private {snake_to_big_camel(fn)} {fn};
+    private {snake_to_big_camel(fn)} {fn}= new {snake_to_big_camel(fn)}();
     public JsonObject {fn}(JsonObject arg){{
         return {fn}.call(arg);
     }}
     """
-import_fns="".join([f"import {package_name}.functions.{snake_to_big_camel(fn)};\n" for fn in app_yml[prj]])
+import_fns="".join([f"import {package_name}.functions.{snake_to_big_camel(fn)};\n" for fn in app_yml["fns"]])
 
 service_dispatcher_java= f"""
 package {package_name};
@@ -204,6 +239,16 @@ public class ServiceDispatcher {{
 with open(f"{functions_parent_dir}/ServiceDispatcher.java","w") as f:
     f.write(service_dispatcher_java)
 
+add_cant_change_comment("waverless","// ！！！请勿修改此文件，此文件由脚本生成")
 
-os.chdir(temp_prj_dir)
-os_system_sure("mvn clean package")
+
+def build_app_lib():
+    os.chdir("../_java_serverless_lib")
+    pylib.os_system_sure("mvn clean install")
+pylib.key_step(build_app_lib)
+
+def build_app():
+    os.chdir(temp_prj_dir)
+    pylib.os_system_sure("mvn clean package")
+    pylib.os_system_sure("cp target/hello-1.0-SNAPSHOT-jar-with-dependencies.jar pack/app.jar")
+pylib.key_step(build_app)
