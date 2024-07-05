@@ -58,7 +58,11 @@ def find_folders_recursively(directory,target:str):
     
     # 遍历目录及其子目录
     for root, dirs, files in os.walk(directory):
+        if root.find("target")>=0:
+            continue
         for dir in dirs:
+            # if dir == "target":
+            #     continue
             if dir == target:
                 folders.append(os.path.join(root, dir))
             # folders.append(os.path.join(root, dir))
@@ -141,6 +145,7 @@ os_system_sure(f"cp -r ../{prj} ./waverless/")
 ## construct app config file for waverless
 #  find functions dir in prj
 functions_dir = find_folders_recursively(f"./waverless/{prj}","functions")[0]
+functions_dir = os.path.abspath(functions_dir)
 print(functions_dir)
 app_yml={"fns":{}}
 #  for each XXX.java, construct app.yml
@@ -200,7 +205,15 @@ for fn in app_yml["fns"]:
     emmbed_fns+=f"""
     private {snake_to_big_camel(fn)} {fn}= new {snake_to_big_camel(fn)}();
     public JsonObject {fn}(JsonObject arg){{
-        return {fn}.call(arg);
+        long fnStartTime = System.currentTimeMillis();
+
+        JsonObject res= {fn}.call(arg);
+        
+        long fnEndTime=System.currentTimeMillis();
+        res.addProperty("recover_begin_time",io.serverless_lib.CracManager.recoverBeginTime);
+        res.addProperty("fn_start_time",fnStartTime);
+        res.addProperty("fn_end_time",fnEndTime);
+        return res;
     }}
     """
 import_fns="".join([f"import {package_name}.functions.{snake_to_big_camel(fn)};\n" for fn in app_yml["fns"]])
@@ -236,7 +249,10 @@ public class ServiceDispatcher {{
     {emmbed_fns}    
 }}
 """
-with open(f"{functions_parent_dir}/ServiceDispatcher.java","w") as f:
+
+dispatcher_file=f"{functions_parent_dir}/ServiceDispatcher.java"
+print(f"creating {dispatcher_file}")
+with open(dispatcher_file,"w") as f:
     f.write(service_dispatcher_java)
 
 add_cant_change_comment("waverless","// ！！！请勿修改此文件，此文件由脚本生成")

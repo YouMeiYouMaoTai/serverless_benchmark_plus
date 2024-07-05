@@ -172,7 +172,14 @@ class NullOutputStream extends java.io.OutputStream {{
 public class Application {{
     
     public static JsonObject main(JsonObject args) {{  
-        return new {snake_to_big_camel(fn)}().call(args);
+        long fnStartTime = System.currentTimeMillis();
+
+        JsonObject res= new {snake_to_big_camel(fn)}().call(args);
+        
+        long fnEndTime=System.currentTimeMillis();
+        res.addProperty("fn_start_time",fnStartTime);
+        res.addProperty("fn_end_time",fnEndTime);
+        return res;
     }}
 
     // for simple call

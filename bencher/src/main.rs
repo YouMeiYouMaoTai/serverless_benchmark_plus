@@ -1,22 +1,26 @@
-mod img_resize;
+mod demo_img_resize;
+mod platform_ow;
+mod platform_wl;
 
-use std::path::PathBuf;
-use std::process;
-
+use async_trait::async_trait;
 use clap::arg;
 use clap::value_parser;
 use clap::{command, Command};
 use clap::{Parser, Subcommand};
+use enum_dispatch::enum_dispatch;
 use goose::prelude::*;
 use s3::creds::Credentials;
 use s3::Bucket;
 use s3::BucketConfiguration;
 use s3::Region;
+use std::path::PathBuf;
+use std::process;
 use std::sync::mpsc;
+use std::time::Duration;
 use tokio::sync::oneshot;
 use tokio::sync::Mutex;
 
-#[derive(Parser)]
+#[derive(Parser, Clone)]
 #[command(version, about, long_about = None)]
 struct Cli {
     // #[arg(action = clap::ArgAction::Count)]
@@ -28,6 +32,13 @@ struct Cli {
 
     #[arg(long, action = clap::ArgAction::Count)]
     with_wl: u8,
+
+    #[arg(long, action = clap::ArgAction::Count)]
+    bench_mode: u8,
+
+    // create many function copy and collect the average cold start
+    #[arg(long, action = clap::ArgAction::Count)]
+    first_call_mode: u8,
 }
 
 lazy_static::lazy_static! {
@@ -71,6 +82,106 @@ lazy_static::lazy_static! {
     };
 }
 
+fn is_bench_mode(cli: &Cli) -> bool {
+    cli.bench_mode > 0
+}
+
+fn is_first_call_mode(cli: &Cli) -> bool {
+    cli.first_call_mode > 0
+}
+
+fn is_once_mode(cli: &Cli) -> bool {
+    !is_bench_mode(cli) && !is_first_call_mode(cli)
+}
+
+#[enum_dispatch(SpecTarget)]
+enum SpecTargetBind {
+    ImgResize(demo_img_resize::ImgResize),
+}
+
+/// unit: ms
+struct Metric {
+    start_call_time: u64,
+    req_arrive_time: u64,
+    bf_exec_time: u64,
+    recover_begin_time: u64,
+    fn_start_time: u64,
+    fn_end_time: u64,
+    receive_resp_time: u64,
+}
+
+impl Metric {
+    // println!(
+    //     "\ntotal request latency: {}",
+    //     receive_resp_time - start_call_ms
+    // );
+
+    // println!("- req trans time: {}", req_arrive_time - start_call_ms);
+    // println!("- app verify time: {}", bf_exec_time - req_arrive_time);
+    // println!("- cold start time: {}", recover_begin_time - bf_exec_time);
+    // println!("- cold start time2: {}", fn_start_ms - recover_begin_time);
+    // println!("- exec time:{}", fn_end_ms - fn_start_ms);
+
+    fn get_total_req(&self) -> u64 {
+        self.receive_resp_time - self.start_call_time
+    }
+    fn get_req_trans_time(&self) -> u64 {
+        self.req_arrive_time - self.start_call_time
+    }
+    fn get_app_verify_time(&self) -> u64 {
+        self.bf_exec_time - self.req_arrive_time
+    }
+    fn get_cold_start_time(&self) -> u64 {
+        self.recover_begin_time - self.bf_exec_time
+    }
+    fn get_cold_start_time2(&self) -> u64 {
+        self.fn_start_time - self.recover_begin_time
+    }
+    fn get_exec_time(&self) -> u64 {
+        self.fn_end_time - self.fn_start_time
+    }
+}
+
+#[enum_dispatch]
+trait SpecTarget: Send + 'static {
+    fn set_platform(&mut self, platform: PlatformOpsBind);
+    fn get_platform(&mut self) -> &mut PlatformOpsBind;
+
+    async fn prepare_once(&mut self, _seed: String, _cli: Cli) {
+        unimplemented!()
+    }
+    async fn call_once(&mut self, _cli: Cli) -> Metric {
+        unimplemented!()
+    }
+    async fn prepare_bench(&mut self, _seed: String, _cli: Cli) {}
+    async fn call_bench(&mut self, _cli: Cli) {
+        unimplemented!()
+    }
+    async fn prepare_first_call(&mut self, _seed: String, _cli: Cli) {
+        unimplemented!()
+    }
+    async fn call_first_call(&mut self, _cli: Cli) {
+        unimplemented!()
+    }
+}
+
+#[enum_dispatch(PlatformOps)]
+enum PlatformOpsBind {
+    PlatfromOw(platform_ow::PlatfromOw),
+    PlatfromWl(platform_wl::PlatfromWl),
+}
+
+#[enum_dispatch]
+pub trait PlatformOps: Send + 'static {
+    async fn remove_all_fn(&self);
+    async fn upload_fn(&mut self, demo: &str, rename_sub: &str);
+    async fn call_fn(&self, app: &str, func: &str, arg_json_value: &serde_json::Value) -> String;
+}
+// pub struct CallRes {
+//     out: String,
+//     err: String,
+// }
+
 #[tokio::main]
 async fn main() -> Result<(), GooseError> {
     // don't go thouph proxy when performance
@@ -78,60 +189,44 @@ async fn main() -> Result<(), GooseError> {
     std::env::remove_var("https_proxy");
 
     let cli = Cli::parse();
+    let seed = "helloworld";
 
     assert!(
         !(cli.with_ow > 0 && cli.with_wl > 0),
         "Cannot run with both OpenWhisk and Waverless"
     );
 
-    if cli.with_ow > 0 {
-        // run python3 ../middlewares/openwhisk/7.clean_all_fns.py
-        process::Command::new("python3")
-            .args(&["../middlewares/openwhisk/7.clean_all_fns.py"])
-            .status()
-            .expect("Failed to execute python3 ../middlewares/openwhisk/7.clean_all_fns.py");
+    assert!(
+        cli.bench_mode + cli.first_call_mode <= 1,
+        "Cannot test multiple modes at one time {}",
+        cli.bench_mode + cli.first_call_mode
+    );
 
-        // run python3 ../middlewares/openwhisk/8.add_func.py <func>
-        if cli.img_resize > 0 {
-            process::Command::new("python3")
-                .args(&["../middlewares/openwhisk/8.add_func.py", "img_resize"])
-                .status()
-                .expect(
-                    "Failed to execute python3 ../middlewares/openwhisk/8.add_func.py img_resize",
-                );
-        }
+    let mut target = if cli.img_resize > 0 {
+        SpecTargetBind::from(demo_img_resize::ImgResize::default())
+    } else {
+        unreachable!()
+    };
+    target.set_platform(if cli.with_ow > 0 {
+        PlatformOpsBind::from(platform_ow::PlatfromOw::default())
+    } else {
+        PlatformOpsBind::from(platform_wl::PlatfromWl::new())
+    });
+
+    if is_bench_mode(&cli) {
+        target.prepare_bench(seed.to_owned(), cli.clone()).await;
+        target.call_bench(cli).await;
+    } else if is_first_call_mode(&cli) {
+        target
+            .prepare_first_call(seed.to_owned(), cli.clone())
+            .await;
+        target.call_first_call(cli).await;
+    } else if is_once_mode(&cli) {
+        target.prepare_once(seed.to_owned(), cli.clone()).await;
+        // wait for the system to be stable
+        tokio::time::sleep(Duration::from_secs(5)).await;
+        target.call_once(cli).await;
     }
-
-    if cli.img_resize > 0 {
-        // docker compose up -d at ../middlewares/minio/docker-compose.yaml
-        // process::Command::new("docker-compose")
-        //     .args(&["down"])
-        //     .current_dir("../middlewares/minio")
-        //     .status()
-        //     .expect("Failed to execute docker-compose down");
-        // process::Command::new("docker-compose")
-        //     .args(&["up", "-d"])
-        //     .current_dir("../middlewares/minio")
-        //     .status()
-        //     .expect("Failed to execute docker-compose up -d");
-    }
-
-    // let mut bucket = BUCKET.lock().await;
-
-    let seed = "helloworld";
-    img_resize::prepare(seed);
-
-    if cli.img_resize > 0 {
-        img_resize::test_call(cli).await;
-        return Ok(());
-    }
-
-    // GooseAttack::initialize()?
-    //     .register_scenario(
-    //         scenario!("LoadtestTransactions").register_transaction(transaction!(img_resize)),
-    //     )
-    //     .execute()
-    //     .await?;
 
     Ok(())
 }

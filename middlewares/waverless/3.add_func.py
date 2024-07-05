@@ -36,10 +36,11 @@ def run_cmd_with_res(cmd):
 
 
 import sys
-if len(sys.argv) !=2:
-    print("Usage: python 3.add_func.py <demo_app>")
+if len(sys.argv) !=3:
+    print("Usage: python 3.add_func.py <demo_app> <rename_sub>")
     exit(1)
 demo_app=sys.argv[1]
+rename_sub=sys.argv[2]
 
 # targetname=sys.argv[2]
 srcyaml=pylib.read_yaml("../cluster_config.yml")
@@ -48,10 +49,10 @@ for n in srcyaml:
     if "is_master" not in srcyaml[n]:
         first_worker_ip=srcyaml[n]["ip"]
         break
+
+
 os.chdir(f"../../demos")
-pylib.os_system_sure(f"python3 scripts/1.gen_waverless_app.py {demo_app}")
-
-
+# pylib.os_system_sure(f"python3 scripts/1.gen_waverless_app.py {demo_app}")
 def upload_app(appname,rename):
     appdir=f"scripts/waverless/{appname}/pack"
     
@@ -72,9 +73,9 @@ def upload_app(appname,rename):
     files.append((rename, (filepath.split('/')[-1], f, 'application/zip')))
     
     try:
-        response = requests.post(f'http://192.168.31.54:2501/appmgmt/upload_app', files=files)
+        response = requests.post(f'http://{first_worker_ip}:2501/appmgmt/upload_app', files=files)
         print(response.status_code, response.text)
     except requests.exceptions.RequestException as e:
         print(f"An error occurred: {e}")
 
-upload_app(demo_app,demo_app)
+upload_app(demo_app,demo_app+rename_sub)

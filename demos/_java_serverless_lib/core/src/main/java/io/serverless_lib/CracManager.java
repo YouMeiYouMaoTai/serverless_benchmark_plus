@@ -20,6 +20,8 @@ public class CracManager implements org.crac.Resource
     @Autowired 
     UdsBackend uds;    
 
+    public static long recoverBeginTime=System.currentTimeMillis();
+
     @EventListener
     public void bootArgCheckOk(BootArgCheckOkEvent e) {
         //                                                 /-----------------------\
@@ -68,6 +70,7 @@ public class CracManager implements org.crac.Resource
     public void afterRestore(org.crac.Context<? extends org.crac.Resource> context) throws Exception {
         // Handle after restore
         System.out.println("CracManager after restore.");
+        recoverBeginTime=System.currentTimeMillis();
         uds.start();
     }
 
