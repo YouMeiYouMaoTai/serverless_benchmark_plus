@@ -7,6 +7,7 @@ import re
 import xml.etree.ElementTree as ET
 import importlib.util
 import inspect
+import glob
 CUR_FPATH = os.path.abspath(__file__)
 CUR_FDIR = os.path.dirname(CUR_FPATH)
 # chdir to the directory of this script
@@ -266,5 +267,13 @@ pylib.key_step(build_app_lib)
 def build_app():
     os.chdir(temp_prj_dir)
     pylib.os_system_sure("mvn clean package")
-    pylib.os_system_sure("cp target/hello-1.0-SNAPSHOT-jar-with-dependencies.jar pack/app.jar")
+    jar_files = glob.glob('target/*-with-dependencies.jar')
+    
+    if not jar_files:
+        raise FileNotFoundError("No jar file with 'with-dependencies' in its name found in target directory.")
+    
+    # Use the first matched jar file
+    jar_file = jar_files[0]
+    
+    pylib.os_system_sure(f"cp {jar_file} pack/app.jar")
 pylib.key_step(build_app)
