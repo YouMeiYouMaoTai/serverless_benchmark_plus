@@ -56,8 +56,8 @@ impl PlatformOps for PlatfromWl {
             .await
             .expect(&format!("Failed to add func {} as {}", demo, rename_sub));
     }
-
     async fn call_fn(&self, app: &str, func: &str, arg_json_value: &serde_json::Value) -> String {
+        println!("{}/{}/{}", self.master_url, app, func);
         let res = reqwest::Client::new()
             .post(format!("{}/{}/{}", self.master_url, app, func))
             .body(serde_json::to_string(&arg_json_value).unwrap())

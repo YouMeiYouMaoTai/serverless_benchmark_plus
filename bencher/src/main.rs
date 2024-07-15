@@ -1,4 +1,7 @@
 mod demo_img_resize;
+mod demo_word_count;
+mod demo_parallel;
+mod demo_sequential;
 mod platform_ow;
 mod platform_wl;
 
@@ -26,6 +29,15 @@ struct Cli {
     // #[arg(action = clap::ArgAction::Count)]
     #[arg(long, action = clap::ArgAction::Count)]
     img_resize: u8,
+
+    #[arg(long, action = clap::ArgAction::Count)]
+    word_count: u8,
+
+    #[arg(long, action = clap::ArgAction::Count)]
+    parallel: u8,
+
+    #[arg(long, action = clap::ArgAction::Count)]
+    sequential: u8,
 
     #[arg(long, action = clap::ArgAction::Count)]
     with_ow: u8,
@@ -97,6 +109,9 @@ fn is_once_mode(cli: &Cli) -> bool {
 #[enum_dispatch(SpecTarget)]
 enum SpecTargetBind {
     ImgResize(demo_img_resize::ImgResize),
+    WordCount(demo_word_count::WordCount),
+    Parallel(demo_parallel::Parallel),
+    Sequential(demo_sequential::Sequential)
 }
 
 /// unit: ms
@@ -204,13 +219,21 @@ async fn main() -> Result<(), GooseError> {
 
     let mut target = if cli.img_resize > 0 {
         SpecTargetBind::from(demo_img_resize::ImgResize::default())
+    } else if cli.word_count > 0 {
+        SpecTargetBind::from(demo_word_count::WordCount::default())
+    } else if cli.parallel > 0 {
+        SpecTargetBind::from(demo_parallel::Parallel::default())
+    } else if cli.sequential > 0 {
+        SpecTargetBind::from(demo_sequential::Sequential::default())
     } else {
         unreachable!()
     };
     target.set_platform(if cli.with_ow > 0 {
         PlatformOpsBind::from(platform_ow::PlatfromOw::default())
-    } else {
+    } else if cli.with_wl > 0 {
         PlatformOpsBind::from(platform_wl::PlatfromWl::new())
+    } else{
+        panic!();
     });
 
     if is_bench_mode(&cli) {
