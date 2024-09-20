@@ -1,0 +1,10 @@
+img_resize:
+  resize:
+
+parallel_composition:
+  parallel:
+  sequential:
+
+word_count:
+  split_word:
+

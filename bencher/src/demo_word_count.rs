@@ -7,11 +7,14 @@ use serde::{Deserialize, Serialize};
 use serde_json::json;
 use std::fmt::{format, Debug};
 use std::fs::{self, File};
+use std::io::BufReader;
+use std::io::Write;
 use std::path::Path;
 use std::process::{self, Command as Process};
 use std::time::{SystemTime, UNIX_EPOCH};
 
 use super::PlatformOpsBind;
+use crate::parse_app::App;
 use crate::{Metric, PlatformOps, SpecTarget, BUCKET};
 
 #[derive(Default)]
@@ -37,6 +40,10 @@ impl WordCount {
 }
 
 impl SpecTarget for WordCount {
+    fn app(&self) -> App {
+        App::WordCount
+    }
+
     fn set_platform(&mut self, platform: PlatformOpsBind) {
         self.0 = Some(platform);
     }
@@ -52,17 +59,14 @@ impl SpecTarget for WordCount {
     }
 
     async fn call_once(&mut self, cli: Cli) -> Metric {
-        
         let file_path = "word_count/random_words.txt";
 
         // 读取文件内容
         let text = fs::read(file_path).expect("Failed to read file");
 
         // 上传文件到存储桶
-        BUCKET.put_object("random_words.txt", &text)
-            .await
-            .expect("Failed to upload file to bucket");
-            
+        BUCKET.put_object("random_words.txt", &text).await.unwrap();
+
         let arg = Args {
             text_s3_path: "random_words.txt".to_string(),
         };
@@ -108,33 +112,34 @@ impl SpecTarget for WordCount {
         }
 
         let slice_keys: Vec<String> = res
-        .as_object()
-        .unwrap()
-        .iter()
-        .filter_map(|(key, _value)| {
-            if key.starts_with("slice_wordcount_slice") {
-                Some(key.clone())
-            } else {
-                None
-            }
-        })
-        .collect();
+            .as_object()
+            .unwrap()
+            .iter()
+            .filter_map(|(key, _value)| {
+                if key.starts_with("slice_wordcount_slice") {
+                    Some(key.clone())
+                } else {
+                    None
+                }
+            })
+            .collect();
 
         // Fetch objects from the bucket for each slice key
         for key in slice_keys {
             let slice_path = res.get(&key).unwrap().as_str().unwrap();
 
-            let slice_content:  Vec<u8> = BUCKET.get_object(slice_path)
+            let slice_content: Vec<u8> = BUCKET
+                .get_object(slice_path)
                 .await
                 .expect("Failed to get slice from bucket")
                 .to_vec();
 
             let file_name = Path::new(slice_path).file_name().unwrap().to_str().unwrap();
             let local_file_path = format!("word_count/{}", file_name);
-        
+
             // Write slice content to local file
-            std::fs::write(&local_file_path, &slice_content).expect("Failed to write slice to file");
-           
+            std::fs::write(&local_file_path, &slice_content)
+                .expect("Failed to write slice to file");
         }
 
         Metric {
@@ -236,4 +241,3 @@ fn generate_random_text<R: Rng>(rng: &mut R, length: usize) -> Vec<u8> {
 
     text
 }
-

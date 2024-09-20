@@ -1,57 +1,35 @@
 mod demo_img_resize;
-mod demo_word_count;
 mod demo_parallel;
 mod demo_sequential;
+mod demo_word_count;
+mod metric;
+mod parse;
+mod parse_app;
+mod parse_platform;
+mod parse_test_mode;
 mod platform_ow;
 mod platform_wl;
+mod prometheus;
 
 use async_trait::async_trait;
-use clap::arg;
-use clap::value_parser;
-use clap::{command, Command};
-use clap::{Parser, Subcommand};
+
+use clap::Parser;
 use enum_dispatch::enum_dispatch;
 use goose::prelude::*;
+use parse::Cli;
+use parse_app::App;
 use s3::creds::Credentials;
 use s3::Bucket;
 use s3::BucketConfiguration;
 use s3::Region;
+use serde::Deserialize;
+use serde::Serialize;
 use std::path::PathBuf;
 use std::process;
 use std::sync::mpsc;
 use std::time::Duration;
 use tokio::sync::oneshot;
 use tokio::sync::Mutex;
-
-#[derive(Parser, Clone)]
-#[command(version, about, long_about = None)]
-struct Cli {
-    // #[arg(action = clap::ArgAction::Count)]
-    #[arg(long, action = clap::ArgAction::Count)]
-    img_resize: u8,
-
-    #[arg(long, action = clap::ArgAction::Count)]
-    word_count: u8,
-
-    #[arg(long, action = clap::ArgAction::Count)]
-    parallel: u8,
-
-    #[arg(long, action = clap::ArgAction::Count)]
-    sequential: u8,
-
-    #[arg(long, action = clap::ArgAction::Count)]
-    with_ow: u8,
-
-    #[arg(long, action = clap::ArgAction::Count)]
-    with_wl: u8,
-
-    #[arg(long, action = clap::ArgAction::Count)]
-    bench_mode: u8,
-
-    // create many function copy and collect the average cold start
-    #[arg(long, action = clap::ArgAction::Count)]
-    first_call_mode: u8,
-}
 
 lazy_static::lazy_static! {
     pub static ref BUCKET:Bucket={
@@ -72,7 +50,23 @@ lazy_static::lazy_static! {
 
             let mut bucket=Bucket::new(bucket_name,region.clone(), credentials.clone()).unwrap().with_path_style();
 
-            if bucket.exists().await.unwrap() {
+            let bucket_exist=match bucket.exists().await{
+                Err(e)=>{
+                    tracing::warn!("test s3 is not started, automatically start it");
+                    // docker-compose up -d at ../middlewares/minio/
+                    process::Command::new("docker-compose")
+                        .arg("up")
+                        .arg("-d")
+                        .current_dir(PathBuf::from("../middlewares/minio/"))
+                        .output()
+                        .expect("failed to start minio");
+                    tokio::time::sleep(Duration::from_secs(15)).await;
+                    bucket.exists().await.unwrap()
+                }
+                Ok(ok)=>ok
+            };
+
+            if bucket_exist {
                 for b in bucket.list("".to_owned(),None).await.unwrap(){
                     bucket.delete_object(b.name).await.unwrap();
                     // bucket.delete().await.unwrap();
@@ -111,18 +105,19 @@ enum SpecTargetBind {
     ImgResize(demo_img_resize::ImgResize),
     WordCount(demo_word_count::WordCount),
     Parallel(demo_parallel::Parallel),
-    Sequential(demo_sequential::Sequential)
+    Sequential(demo_sequential::Sequential),
 }
 
 /// unit: ms
+#[derive(Debug, Serialize, Deserialize, Clone)]
 struct Metric {
-    start_call_time: u64,
-    req_arrive_time: u64,
-    bf_exec_time: u64,
-    recover_begin_time: u64,
-    fn_start_time: u64,
-    fn_end_time: u64,
-    receive_resp_time: u64,
+    pub start_call_time: u64,
+    pub req_arrive_time: u64,
+    pub bf_exec_time: u64,
+    pub recover_begin_time: u64,
+    pub fn_start_time: u64,
+    pub fn_end_time: u64,
+    pub receive_resp_time: u64,
 }
 
 impl Metric {
@@ -159,6 +154,7 @@ impl Metric {
 
 #[enum_dispatch]
 trait SpecTarget: Send + 'static {
+    fn app(&self) -> App;
     fn set_platform(&mut self, platform: PlatformOpsBind);
     fn get_platform(&mut self) -> &mut PlatformOpsBind;
 
@@ -202,6 +198,8 @@ async fn main() -> Result<(), GooseError> {
     // don't go thouph proxy when performance
     std::env::remove_var("http_proxy");
     std::env::remove_var("https_proxy");
+    let subscriber = tracing_subscriber::FmtSubscriber::new();
+    tracing::subscriber::set_global_default(subscriber).unwrap();
 
     let cli = Cli::parse();
     let seed = "helloworld";
@@ -232,7 +230,7 @@ async fn main() -> Result<(), GooseError> {
         PlatformOpsBind::from(platform_ow::PlatfromOw::default())
     } else if cli.with_wl > 0 {
         PlatformOpsBind::from(platform_wl::PlatfromWl::new())
-    } else{
+    } else {
         panic!();
     });
 

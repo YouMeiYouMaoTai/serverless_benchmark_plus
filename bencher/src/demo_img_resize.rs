@@ -14,7 +14,11 @@ use std::process::{self, Command as Process};
 use std::time::{SystemTime, UNIX_EPOCH};
 
 use super::PlatformOpsBind;
-use crate::{Metric, PlatformOps, SpecTarget, BUCKET};
+use crate::metric::Recorder;
+use crate::parse_app::App;
+use crate::parse_platform::Platform;
+use crate::parse_test_mode::TestMode;
+use crate::{prometheus, Metric, PlatformOps, SpecTarget, BUCKET};
 
 #[derive(Default)]
 pub struct ImgResize(Option<PlatformOpsBind>);
@@ -56,6 +60,9 @@ impl ImgResize {
 }
 
 impl SpecTarget for ImgResize {
+    fn app(&self) -> App {
+        App::ImgResize
+    }
     fn set_platform(&mut self, platform: PlatformOpsBind) {
         self.0 = Some(platform);
     }
@@ -93,13 +100,42 @@ impl SpecTarget for ImgResize {
             .get_platform()
             .call_fn("img_resize", "resize", &serde_json::to_value(arg).unwrap())
             .await;
+        // tracing::info!("debug output {}", output);
+        let res: serde_json::Value = serde_json::from_str(&output).unwrap_or_else(|e| {
+            tracing::error!("failed to parse json: {}", e);
+            panic!("output is not json: '{}'", output);
+        });
 
-        let res: serde_json::Value = serde_json::from_str(&output).unwrap();
-        let req_arrive_time = res.get("req_arrive_time").unwrap().as_u64().unwrap();
-        let bf_exec_time = res.get("bf_exec_time").unwrap().as_u64().unwrap();
-        let recover_begin_time = res.get("recover_begin_time").unwrap().as_u64().unwrap();
+        let mut req_arrive_time = res
+            .get("req_arrive_time")
+            .map(|v| v.as_u64().unwrap())
+            .unwrap_or(0);
+
+        let mut bf_exec_time = res
+            .get("bf_exec_time")
+            .map(|v| v.as_u64().unwrap())
+            .unwrap_or(0);
+
+        let mut recover_begin_time = res
+            .get("recover_begin_time")
+            .map(|v| v.as_u64().unwrap())
+            .unwrap_or(0);
+
         let fn_start_ms = res.get("fn_start_time").unwrap().as_u64().unwrap();
+        {
+            if req_arrive_time == 0 {
+                req_arrive_time = fn_start_ms;
+            }
+            if bf_exec_time == 0 {
+                bf_exec_time = fn_start_ms;
+            }
+            if recover_begin_time == 0 {
+                recover_begin_time = fn_start_ms;
+            }
+        }
+
         let fn_end_ms = res.get("fn_end_time").unwrap().as_u64().unwrap();
+
         let receive_resp_time = SystemTime::now()
             .duration_since(UNIX_EPOCH)
             .expect("Time went backwards")
@@ -146,12 +182,23 @@ impl SpecTarget for ImgResize {
     }
 
     async fn call_first_call(&mut self, cli: Cli) {
+        let mut recorder = Recorder::new(
+            self.app().to_string(),
+            TestMode::from(&cli),
+            Platform::from(&cli),
+        );
+
         let mut metrics = vec![];
         for _ in 0..20 {
             self.get_platform().upload_fn("img_resize", "").await;
-            metrics.push(self.call_once(cli.clone()).await);
+            let m = self.call_once(cli.clone()).await;
+            recorder.record(m.clone());
+            // prometheus::upload_fn_call_metric("img_resize", &m).await;
+            metrics.push(m);
         }
+        recorder.persist();
 
+        println!("Average metrics:");
         println!(
             "\ntotal request latency: {}",
             metrics.iter().map(|v| v.get_total_req()).sum::<u64>() as f32 / metrics.len() as f32

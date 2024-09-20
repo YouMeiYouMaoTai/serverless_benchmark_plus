@@ -40,6 +40,8 @@ def find_folders_recursively(directory,target:str):
     
     # 遍历目录及其子目录
     for root, dirs, files in os.walk(directory):
+        if root.find("target")>=0:
+            continue
         for dir in dirs:
             if dir == target:
                 folders.append(os.path.join(root, dir))
