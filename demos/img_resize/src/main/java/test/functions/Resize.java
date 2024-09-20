@@ -80,6 +80,8 @@ public class Resize {
         String imagepath = args.get("image_s3_path").getAsString();
         int targetWidth = args.get("target_width").getAsInt();
         int targetHeight = args.get("target_height").getAsInt();
+
+        JsonObject result = new JsonObject();
         try {
             // Download the file from the bucket
             GetObjectArgs getObjectArgs = GetObjectArgs.builder()
@@ -104,14 +106,14 @@ public class Resize {
             );
 
 
-            JsonObject result = new JsonObject();
+            
             result.addProperty("resized_image", renameFile(imagepath));
-            return result;
         }
         catch (Exception e) {
             e.printStackTrace();
+            result.addProperty("error", e.getMessage());
         }
-        return null;
+        return result;
     }
     byte[] resizeImage(byte[] imageData, int targetWidth, int targetHeight) {
         try {

@@ -14,16 +14,18 @@ use std::process::{self, Command as Process};
 use std::time::{SystemTime, UNIX_EPOCH};
 
 use super::PlatformOpsBind;
+use crate::parse_app::App;
 use crate::{Metric, PlatformOps, SpecTarget, BUCKET};
 
 #[derive(Default)]
 pub struct Sequential(Option<PlatformOpsBind>);
 
-impl Sequential {
-
-}
+impl Sequential {}
 
 impl SpecTarget for Sequential {
+    fn app(&self) -> App {
+        App::Sequential
+    }
     fn set_platform(&mut self, platform: PlatformOpsBind) {
         self.0 = Some(platform);
     }
@@ -32,15 +34,13 @@ impl SpecTarget for Sequential {
     }
     async fn prepare_once(&mut self, seed: String, cli: Cli) {
         self.get_platform().remove_all_fn().await;
-        self.get_platform().upload_fn("parallel_composition", "").await;
-
+        self.get_platform()
+            .upload_fn("parallel_composition", "")
+            .await;
     }
 
     async fn call_once(&mut self, cli: Cli) -> Metric {
-
-        let arg = Args {
-            loopTime: 10000000,
-        };
+        let arg = Args { loopTime: 10000000 };
 
         let start_call_ms = SystemTime::now()
             .duration_since(UNIX_EPOCH)
@@ -48,7 +48,11 @@ impl SpecTarget for Sequential {
             .as_millis() as u64;
         let output = self
             .get_platform()
-            .call_fn("parallel_composition", "sequential", &serde_json::to_value(arg).unwrap())
+            .call_fn(
+                "parallel_composition",
+                "sequential",
+                &serde_json::to_value(arg).unwrap(),
+            )
             .await;
 
         let res: serde_json::Value = serde_json::from_str(&output).unwrap();
@@ -82,7 +86,6 @@ impl SpecTarget for Sequential {
             println!("- receive resp time: {}", receive_resp_time - fn_end_ms);
         }
 
-
         Metric {
             start_call_time: start_call_ms,
             req_arrive_time,
@@ -101,7 +104,9 @@ impl SpecTarget for Sequential {
     async fn call_first_call(&mut self, cli: Cli) {
         let mut metrics = vec![];
         for _ in 0..20 {
-            self.get_platform().upload_fn("parallel_composition", "").await;
+            self.get_platform()
+                .upload_fn("parallel_composition", "")
+                .await;
             metrics.push(self.call_once(cli.clone()).await);
         }
 

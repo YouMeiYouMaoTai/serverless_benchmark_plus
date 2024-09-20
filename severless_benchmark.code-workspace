@@ -1,9 +1,6 @@
 {
 	"folders": [
 		{
-			"path": "middlewares/waverless/waverless"
-		},
-		{
 			"path": "bencher"
 		},
 		{

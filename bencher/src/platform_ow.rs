@@ -38,8 +38,10 @@ impl PlatformOps for PlatfromOw {
             assert!(res.success());
             self.gen_demos.insert(demo.to_owned());
         }
-        let res = process::Command::new("python3")
-            .args(&["../middlewares/openwhisk/8.add_func.py", demo, rename_sub])
+        let mut cmd2 = process::Command::new("python3");
+        cmd2.args(&["../middlewares/openwhisk/8.add_func.py", demo, rename_sub]);
+        tracing::info!("run cmd: {:?}", cmd2);
+        let res = cmd2
             .status()
             .await
             .expect(&format!("Failed to add func {} as {}", demo, rename_sub));
@@ -59,6 +61,8 @@ impl PlatformOps for PlatfromOw {
                 _ => v.to_string(),
             });
         }
+
+        tracing::info!("run cmd: {:?}", p);
 
         let res = p
             .output()

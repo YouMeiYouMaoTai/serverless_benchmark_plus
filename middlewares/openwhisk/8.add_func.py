@@ -24,11 +24,12 @@ def run_cmd_with_res(cmd):
 
 
 import sys
-if len(sys.argv) !=2:
-    print("Usage: python 8.add_func.py <demo_app>")
+if len(sys.argv) !=3:
+    print("Usage: python 8.add_func.py <demo_app> <rename_sub>")
     exit(1)
 
 demo_app=sys.argv[1]
+rename=demo_app+sys.argv[2]
 # targetname=sys.argv[2]
 
 os.chdir(f"../../demos")
