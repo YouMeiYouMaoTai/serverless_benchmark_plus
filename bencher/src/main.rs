@@ -2,6 +2,7 @@ mod demo_img_resize;
 mod demo_word_count;
 mod demo_parallel;
 mod demo_sequential;
+mod demo_javakv_test;
 mod platform_ow;
 mod platform_wl;
 
@@ -38,6 +39,9 @@ struct Cli {
 
     #[arg(long, action = clap::ArgAction::Count)]
     sequential: u8,
+
+    #[arg(long, action = clap::ArgAction::Count)]
+    javakv_test: u8,
 
     #[arg(long, action = clap::ArgAction::Count)]
     with_ow: u8,
@@ -111,7 +115,8 @@ enum SpecTargetBind {
     ImgResize(demo_img_resize::ImgResize),
     WordCount(demo_word_count::WordCount),
     Parallel(demo_parallel::Parallel),
-    Sequential(demo_sequential::Sequential)
+    Sequential(demo_sequential::Sequential),
+    JavaKvTest(demo_javakv_test::JavaKvTest),
 }
 
 /// unit: ms
@@ -225,6 +230,8 @@ async fn main() -> Result<(), GooseError> {
         SpecTargetBind::from(demo_parallel::Parallel::default())
     } else if cli.sequential > 0 {
         SpecTargetBind::from(demo_sequential::Sequential::default())
+    } else if cli.javakv_test > 0 {
+        SpecTargetBind::from(demo_javakv_test::JavaKvTest::default())
     } else {
         unreachable!()
     };

@@ -6,14 +6,16 @@
 #   is_master:
 # lab3: 
 #   ip: 192.168.31.96
-
+lab4: 
+  ip: 192.168.31.109
+  is_master:
 # lab7:
 #   ip: 192.168.31.89
 # lab8:
 #   ip: 192.168.31.54
-lab9:
-  ip: 192.168.31.9
-  is_master:
+# lab9:
+#   ip: 192.168.31.9
+#   is_master:
 lab10:
   ip: 192.168.31.240
 # lab11:
