@@ -4,6 +4,7 @@ use std::{collections::HashMap, fs::File, io::BufReader};
 #[derive(serde::Deserialize, Debug, Clone)]
 pub struct FnDetails {
     pub args: Option<HashMap<String, Value>>,
+    pub big_data: Option<Vec<String>>,
 }
 
 #[derive(serde::Deserialize, Debug, Clone)]

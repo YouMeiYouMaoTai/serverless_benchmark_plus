@@ -97,12 +97,6 @@ public class Resize {
 
         JsonObject result = new JsonObject();
         try {
-            // Download the file from the bucket
-            // GetObjectArgs getObjectArgs = GetObjectArgs.builder()
-            //             .bucket("serverless-bench")
-            //             .object(imagepath)
-            //             .build();
-            byte[] imageData = dataApi.get(imagepath);
             // ByteBuffer bf=readToByteBuffer(downloadedStream);
             // GetObjectArgs getObjectArgs = GetObjectArgs.builder()
             //             .bucket("serverless-bench")
@@ -112,21 +106,11 @@ public class Resize {
             // ByteBuffer bf=readToByteBuffer(downloadedStream);
 
 
-            byte[] resizedImage = resizeImage(imageData, targetWidth, targetHeight);
             byte[] resizedImage = resizeImage(imageData, targetWidth, targetHeight);
             
             // ByteArrayInputStream inputStream = new ByteArrayInputStream(resizedImage);
             // ByteArrayInputStream inputStream = new ByteArrayInputStream(resizedImage);
 
-            dataApi.put(renameFile(imagepath), resizedImage);
-            // minioClient.putObject(
-            //         PutObjectArgs.builder()
-            //                 .bucket("serverless-bench")
-            //                 .object(renameFile(imagepath))
-            //                 .stream(inputStream, resizedImage.length, -1)
-            //                 .contentType("image/jpeg")
-            //                 .build()
-            // );
             dataApi.put(renameFile(imagepath), resizedImage);
             // minioClient.putObject(
             //         PutObjectArgs.builder()

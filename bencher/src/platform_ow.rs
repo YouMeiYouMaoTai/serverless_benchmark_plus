@@ -12,19 +12,12 @@ pub struct PlatfromOw {
     pub gen_demos: HashSet<String>,
     cli: Cli,
     config: Config,
-    cli: Cli,
-    config: Config,
 }
 
 impl PlatfromOw {
     pub fn new(cli: &Cli, config: &Config) -> Self {
         Self {
-impl PlatfromOw {
-    pub fn new(cli: &Cli, config: &Config) -> Self {
-        Self {
             gen_demos: HashSet::new(),
-            cli: cli.clone(),
-            config: config.clone(),
             cli: cli.clone(),
             config: config.clone(),
         }

@@ -95,7 +95,6 @@ def upload_app(appname,rename):
     print(f"{appdir} contains {entries_concat}")
 
     print(f"zipping app pack: {entries_concat} to {rename}.zip")
-    print(f"zipping app pack: {entries_concat} to {rename}.zip")
     os.system(f"zip -r {rename}.zip {entries_concat}")
     os.system(f"mv {rename}.zip {CUR_FDIR}")
     os.chdir(CUR_FDIR)
@@ -106,9 +105,7 @@ def upload_app(appname,rename):
     files.append((rename, (filepath.split('/')[-1], f, 'application/zip')))
     
     print(f"uploading {filepath} to {first_worker_ip}")
-    print(f"uploading {filepath} to {first_worker_ip}")
     try:
-        response = requests.post(f'http://{first_worker_ip}/appmgmt/upload_app', files=files)
         response = requests.post(f'http://{first_worker_ip}/appmgmt/upload_app', files=files)
         print(response.status_code, response.text)
     except requests.exceptions.RequestException as e:

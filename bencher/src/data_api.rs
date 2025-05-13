@@ -80,13 +80,17 @@ impl FnDetails {
             // panic if file not exists
 
             if !to_read_path.exists() {
-                panic!("{} not exists", to_read_path.display());
+                panic!(
+                    "{} not exists, please run --prepare mode first",
+                    to_read_path.display()
+                );
             }
 
             // read all content
             let content = read_file(&to_read_path).await;
 
             if use_minio {
+                tracing::info!("writing big data to minio");
                 // write to minio
                 let bucket = BUCKET.get().unwrap();
                 bucket
@@ -99,6 +103,7 @@ impl FnDetails {
                     .unwrap();
             } else {
                 // try platform write_data
+                tracing::info!("writing big data to embbed storage");
                 platform.write_data(big_data_write_path, &content).await;
             }
         }

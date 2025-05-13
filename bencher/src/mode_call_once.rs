@@ -114,7 +114,7 @@ pub async fn call(platform: &mut PlatformOpsBind, cli: Cli, config: &Config) -> 
         .as_millis() as u64;
 
     // |
-    println!("debug output: {:?}", output);
+    println!("debug output: {:?}", res);
     println!(
         "\ntotal request latency: {} ms",
         receive_resp_time - start_call_ms
