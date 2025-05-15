@@ -50,6 +50,10 @@ pub trait PlatformOps: Send + 'static {
         // big_data: &Option<Vec<String>>,
     ) -> String;
     async fn prepare_apps_bin(&self, apps: Vec<String>, config: &Config);
-    /// may panic if not support
-    async fn write_data(&self, key: &str, data: &[u8]);
+
+    /// waverless embbed data storage
+    /// - binded request data and big data in DataSet
+    ///   https://fvd360f8oos.feishu.cn/wiki/M4ubwJkvcichuHkiGhjc0miHn5f#share-F0WBdFFhdop2ELxS3ZlcHWvZnD8
+    /// - may panic if not support
+    async fn write_data(&self, key: &str, arg_json_value: &serde_json::Value, data: &[u8]);
 }

@@ -23,18 +23,18 @@ models:
     fns:
       resize:
         big_data:
-        - image_to_resize.png:image_to_resize.png
+        - image_to_resize:image_to_resize
         args: 
-          use_minio: true
-          image_s3_path: "image_to_resize.png"
+          # use_minio: true
+          image_s3_path: "image_to_resize"
           target_width: 50
           target_height: 50
-    prepare_data: ["image_to_resize.png"]
+    prepare_data: ["image_to_resize"]
     prepare_scripts: 
     - |
       from PIL import Image, ImageDraw
       import random
-
+      import os
       def generate_random_image(width, height, output_path):
           # 创建一个空白图像
           image = Image.new('RGB', (width, height), 'white')
@@ -49,16 +49,25 @@ models:
                   draw.point((x, y), fill=(r, g, b))
 
           # 保存图像
-          image.save(output_path)
+          if not output_path.endswith('.png'):
+              # output_path = output_path + '.png'
+              image.save(output_path + '.png')
+              # mv back to output_path
+              os.rename(output_path + '.png', output_path)
+          else:
+              image.save(output_path)
+
+          # move to 
           print(f"Image saved to {output_path}")
 
       # 指定图片的宽度和高度
       width = 800
       height = 600
-      output_path = 'image_to_resize.png'
+      output_path = 'image_to_resize'
 
       # 生成随机图片
       generate_random_image(width, height, output_path)
+
 
   word_count:
     prepare_data: 

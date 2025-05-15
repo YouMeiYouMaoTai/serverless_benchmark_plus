@@ -148,22 +148,12 @@ os_system_sure(f"cp -r ../{prj} ./waverless/")
 functions_dir = find_folders_recursively(f"./waverless/{prj}","functions")[0]
 functions_dir = os.path.abspath(functions_dir)
 print(functions_dir)
-app_yml={"fns":{}}
-#  for each XXX.java, construct app.yml
-for fnfile in os.listdir(functions_dir):
-    if fnfile.endswith(".java"):
-        fnname = bigcamel_to_snake(fnfile.split(".")[0])
-        app_yml["fns"][fnname]={
-            "http.post": {
-                "call": "direct"
-            }
-        }
-        # app_yml = f"""name: {fnname}
-#  encode to file
 
 os_system_sure(f"mkdir -p {temp_prj_dir}/pack")
-with open(f"{temp_prj_dir}/pack/app.yml","w") as f:
-    yaml.dump(app_yml,f)
+
+# directly copy app.yml
+os_system_sure(f"cp ../{prj}/app.yml {temp_prj_dir}/pack/app.yml")
+app_yml=yaml.load(open(f"{temp_prj_dir}/pack/app.yml","r"))
 
 ## gen adapt codes
 #  pom.xml

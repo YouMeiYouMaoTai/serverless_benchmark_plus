@@ -124,7 +124,8 @@ impl PlatformOps for PlatfromOw {
             from_utf8(&res.stderr).unwrap().to_owned()
         }
     }
-    async fn write_data(&self, key: &str, data: &[u8]) {
+
+    async fn write_data(&self, key: &str, arg_json_value: &serde_json::Value, data: &[u8]) {
         panic!("openwhisk doesn't support write data");
     }
 }

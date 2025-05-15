@@ -115,28 +115,38 @@ impl PlatformOps for PlatfromWl {
             .await;
         res.unwrap()
     }
-    async fn write_data(&self, key: &str, data: &[u8]) {
+
+    /// waverless embbed data storage
+    /// - binded request data and big data in DataSet
+    ///   https://fvd360f8oos.feishu.cn/wiki/M4ubwJkvcichuHkiGhjc0miHn5f#share-F0WBdFFhdop2ELxS3ZlcHWvZnD8
+    /// - may panic if not support
+    async fn write_data(&self, key: &str, arg_json_value: &serde_json::Value, data: &[u8]) {
         let client = reqwest::Client::new();
-        let upload_endpoint = format!("{}/data_upload", self.master_url);
-
-        // 使用 multipart 格式上传数据
-        let part = reqwest::multipart::Part::bytes(data.to_vec()).file_name("data"); // 可选：为上传的数据提供文件名
-
+        let upload_endpoint = format!("{}/upload_data", self.master_url);
+        let arg_json_str = serde_json::to_string(&arg_json_value).unwrap();
         let form = reqwest::multipart::Form::new()
-            .text("key", key.to_string())
-            .part("file", part);
+            // request data part
+            .part(
+                key.to_owned(),
+                reqwest::multipart::Part::bytes(arg_json_str.into_bytes()),
+            )
+            // big data part
+            .part(
+                "",
+                reqwest::multipart::Part::bytes(data.to_vec()).file_name(""),
+            );
 
         match client.post(&upload_endpoint).multipart(form).send().await {
             Ok(response) => {
                 if !response.status().is_success() {
-                    eprintln!("上传失败，状态码: {}", response.status());
+                    tracing::error!("上传失败，状态码: {}", response.status());
                     if let Ok(text) = response.text().await {
-                        eprintln!("错误信息: {}", text);
+                        tracing::error!("错误信息: {}", text);
                     }
                 }
             }
             Err(e) => {
-                eprintln!("上传请求发送失败: {}", e);
+                tracing::error!("上传请求发送失败: {}", e);
             }
         }
     }
