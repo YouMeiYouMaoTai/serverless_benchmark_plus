@@ -3,7 +3,9 @@ use tokio::process;
 use crate::config::Config;
 use crate::parse::Cli;
 use crate::platform::PlatformOps;
+use crate::util::CommandDebugStdio;
 use std::collections::HashSet;
+use std::process::Stdio;
 use std::{collections::HashMap, fs::File, io::BufReader, str::from_utf8};
 
 pub struct PlatfromWl {
@@ -66,11 +68,18 @@ impl PlatformOps for PlatfromWl {
             .collect();
 
         for app in model_apps {
-            let res = process::Command::new("python3")
+            let (_, _, mut child) = process::Command::new("python3")
                 .args(&["../demos/scripts/1.gen_waverless_app.py", &app])
-                .status()
-                .await
-                .expect(&format!("Failed to gen demo {}", app));
+                .stdout(Stdio::piped())
+                .stderr(Stdio::piped())
+                .spawn_debug()
+                .await;
+
+            let res = child.wait().await.unwrap();
+            // .status()
+            // .await
+            // .
+            // .expect(&format!("Failed to gen demo {}", app));
 
             assert!(res.success(), "Failed to gen demo app: {}", app);
             // self.gen_demos.insert(demo.to_owned());

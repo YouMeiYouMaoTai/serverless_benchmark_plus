@@ -52,7 +52,7 @@ public class CracManager implements org.crac.Resource
 
         if (!checkpointed) {            
             System.out.println("CracManager requires for snapshot.");
-            uds.send(new UdsPack(UpdateCheckpoint.newBuilder().build(),0));
+            uds.send(new UdsPack(UpdateCheckpoint.newBuilder().build(),0,-1));
             // TODO: change to rpc
             checkpointed = true;
         }

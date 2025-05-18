@@ -6,11 +6,19 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import javax.annotation.PostConstruct;
 import process_rpc_proto.ProcessRpcProto.AppStarted;
 import process_rpc_proto.ProcessRpcProto.FuncCallReq;
 import process_rpc_proto.ProcessRpcProto.FuncCallResp;
+import process_rpc_proto.ProcessRpcProto.UpdateCheckpoint;
+import process_rpc_proto.ProcessRpcProto.KvRequest;
+import process_rpc_proto.ProcessRpcProto.KvResponse;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -41,6 +49,7 @@ import org.springframework.boot.DefaultApplicationArguments;
 import java.util.ArrayList;
 import java.util.concurrent.locks.ReentrantLock;
 import java.lang.ProcessHandle;
+import com.google.protobuf.Message;
 
 public class UdsBackend
 // DisposableBean
@@ -59,8 +68,16 @@ public class UdsBackend
 
     String appName="";
 
+
     private final ReentrantLock sendlock = new ReentrantLock();
     List<UdsPack> waitingPacks=new ArrayList<>();
+
+    // Add an atomic counter for generating unique task IDs
+    private final AtomicInteger taskIdCounter = new AtomicInteger(1);
+
+    // Map to store pending RPC requests
+    private final ConcurrentHashMap<Integer, CompletableFuture<Message>> pendingRpcRequests = new ConcurrentHashMap<>();
+
 
     @EventListener
     public void bootArgCheckOk(BootArgCheckOkEvent e) {
@@ -120,6 +137,85 @@ public class UdsBackend
             sendlock.unlock();
         }
     }
+
+
+    /**
+     * Creates a new UdsPack with an automatically generated task ID
+     * @param message The message to pack (FuncCallResp, UpdateCheckpoint, KvRequest, or KvResponse)
+     * @return A new UdsPack instance with a unique task ID
+     */
+    public UdsPack newRpcReqUdsPack(Message message, String func) {
+        // Generate a new unique task ID atomically
+        int newTaskId = taskIdCounter.getAndIncrement();
+        UdsPack pack = new UdsPack(message, newTaskId,-1);
+
+        if (pack.id==5){
+            KvRequest kvRequest = (KvRequest) pack.pack;
+            // Use the protobuf setters according to the message structure
+            if (kvRequest.hasGet()){
+                KvRequest.KvGetRequest inner=kvRequest.getGet().toBuilder().setAppFn(appName+"/"+func).build();
+                pack.pack=kvRequest.toBuilder().setGet(inner).build();
+            }else if (kvRequest.hasSet()){
+                KvRequest.KvPutRequest inner=kvRequest.getSet().toBuilder().setAppFn(appName+"/"+func).build();
+                pack.pack=kvRequest.toBuilder().setSet(inner).build();
+            }else if (kvRequest.hasDelete()){
+                KvRequest.KvDeleteRequest inner=kvRequest.getDelete().toBuilder().setAppFn(appName+"/"+func).build();
+                pack.pack=kvRequest.toBuilder().setDelete(inner).build();
+            }else{
+                throw new IllegalArgumentException("Invalid kv request without any oneof: "+pack.toString());
+            }
+        } else {
+            throw new IllegalArgumentException("Unsupported rpc pack type: "+pack.toString());
+        }
+
+        pack.setRpcCtx(appName, func);
+
+        return pack;
+    }
+
+    /**
+     * Sends an RPC request and waits for a response
+     * @param pack The UdsPack containing the request
+     * @param timeout The maximum time to wait
+     * @param unit The time unit of the timeout
+     * @return The response ByteBuf
+     * @throws Exception If an error occurs or the timeout is reached
+     */
+    public Message sendRpc(UdsPack pack, long timeout, TimeUnit unit) throws Exception {
+        CompletableFuture<Message> responseFuture = new CompletableFuture<>();
+        
+        // Register this request in the pending requests map
+        pendingRpcRequests.put(pack.taskId, responseFuture);
+        
+        // Send the pack
+        send(pack);
+        
+        System.out.println("RPC request sent with taskId: " + pack.taskId);
+        
+        // Wait for the response with timeout
+        try {
+            return responseFuture.get(timeout, unit);
+        } catch (Exception e) {
+            // Make sure to remove the future from the map if there's an error
+            pendingRpcRequests.remove(pack.taskId);
+            throw e;
+        }
+    }
+
+    /**
+     * Called by the message handler when a response is received
+     * @param taskId The task ID from the response
+     * @param responseData The response data
+     */
+    public void handleRpcResponse(int taskId, Message responseData) {
+        CompletableFuture<Message> future = pendingRpcRequests.remove(taskId);
+        if (future != null) {
+            future.complete(responseData);
+            System.out.println("RPC response received and processed for taskId: " + taskId);
+        } else {
+            System.out.println("Received response for unknown taskId: " + taskId);
+        }
+    }
 }
 
 class ByteBufInputStream extends InputStream {
@@ -154,15 +250,15 @@ class ByteBufInputStream extends InputStream {
     }
 }
 
-class RpcPack {
-    public int taskId;
-    public ByteBuf packData;
+// class RpcPack {
+//     // public ByteBuf packData;
+//     public UdsPack pack;
 
-    public RpcPack(int taskId, ByteBuf packData) {
-        this.taskId = taskId;
-        this.packData = packData;
-    }
-}
+//     public RpcPack(int packId, int taskId, ByteBuf packData) {
+//         // this.packData = packData;
+//         this.pack = UdsPack.decodeRecv(packId, taskId, packData);
+//     }
+// }
 
 class UnixChannelHandle {
     static void waitingForSockFile(Path sock_path) {
@@ -210,6 +306,7 @@ class UnixChannelHandle {
                                             in.markReaderIndex();
 
                                             // 读取长度字段
+                                            int packId = in.readShort();
                                             int length = in.readInt();
                                             int taskId = in.readInt();
                                             System.out.println("Received message from server: " + length + " bytes, taskId: " + taskId);
@@ -223,40 +320,50 @@ class UnixChannelHandle {
 
                                             // 读取数据
                                             ByteBuf frame = in.readBytes(length);
-                                            out.add(new RpcPack(taskId, frame));
+                                            out.add(UdsPack.decodeRecv(packId, taskId, frame));
                                         }
                                     })
-                                    .addLast(new SimpleChannelInboundHandler<RpcPack>() {
+                                    .addLast(new SimpleChannelInboundHandler<UdsPack>() {
                                         @Override
-                                        protected void channelRead0(ChannelHandlerContext ctx, RpcPack msg)
+                                        protected void channelRead0(ChannelHandlerContext ctx, UdsPack msg)
                                                 throws Exception {
-                                            System.out.println(
-                                                    "Received message from server: " + msg.packData.readableBytes());
-                                            // read four bytre for id
-                                            ByteBufInputStream stream = new ByteBufInputStream(msg.packData);
-
-                                            FuncCallReq funcCallReq = FuncCallReq
-                                                    .parseFrom(stream);
-
-                                            // Handle the deserialized message
-                                            String func = funcCallReq.getFunc();
-                                            String argStr = funcCallReq.getArgStr();
-
-                                            // 需要一个线程池来处理消息
-                                            try {
-                                                String resStr = rpcHandleOwner.rpcHandle.handleRpc(func, argStr);
-                                                FuncCallResp resp = FuncCallResp.newBuilder().setRetStr(resStr)
-                                                        .build();
+                                            System.out.println("Received message from server, id:" + msg.id);
+                                            
+                                            // // If this is a FuncCallResp (ID=3), it might be a response to our RPC
+                                            // if (messageTypeId == 3) { // FuncCallResp ID
+                                            //     // Parse the response
+                                            //     FuncCallResp funcCallResp = FuncCallResp.parseFrom(stream);
+                                            //     String responseData = funcCallResp.getRetStr();
                                                 
-                                                // byte[] data = resp.toByteArray();
-                                                // ByteBuf buffer = Unpooled.buffer(8 + data.length);
-                                                // buffer.writeInt(data.length);
-                                                // buffer.writeInt(msg.taskId);
-                                                // buffer.writeBytes(data);
-                                                ctx.writeAndFlush(new UdsPack(resp,msg.taskId).encode());
-                                                System.out.println("Response sent.");
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
+                                            //     // Notify the waiting future
+                                            //     udsHandle.handleRpcResponse(msg.taskId, responseData);
+                                            // } 
+                                            // If this is a FuncCallReq (ID=1), handle it as a request
+                                            if (msg.id==2){ // FuncCallReq ID
+                                                FuncCallReq funcCallReq = (FuncCallReq) msg.pack;
+                                                
+                                                String func = funcCallReq.getFunc();
+                                                String argStr = funcCallReq.getArgStr();
+                                                
+                                                // Process the request
+                                                try {
+                                                    String resStr = rpcHandleOwner.rpcHandle.handleFuncRpc(funcCallReq.getSrcTaskId(),func, argStr);
+                                                    FuncCallResp resp = FuncCallResp.newBuilder().setRetStr(resStr).build();
+                                                    ctx.writeAndFlush(new UdsPack(resp, msg.taskId,3).encode());
+                                                    System.out.println("Response sent.");
+                                                } catch (Exception e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                            // rpc response
+                                            else if (msg.isRpcResponse()) {
+                                                System.out.println("Received rpc response, id:" + msg.id);
+                                                // handle rpc response
+                                                udsHandle.handleRpcResponse(msg.taskId, msg.pack);
+                                            }
+                                            // Other message types can be handled here
+                                            else {
+                                                System.out.println("unhandled message type, id:" + msg.id);
                                             }
                                         }
 

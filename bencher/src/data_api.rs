@@ -44,6 +44,7 @@ impl FnDetails {
         &self,
         app_name: &str,
         fn_name: &str,
+        arg_json_value: &serde_json::Value,
         platform: &PlatformOpsBind,
     ) -> bool {
         // read file content and write
@@ -104,7 +105,9 @@ impl FnDetails {
             } else {
                 // try platform write_data
                 tracing::info!("writing big data to embbed storage");
-                platform.write_data(big_data_write_path, &content).await;
+                platform
+                    .write_data(big_data_write_path, arg_json_value, &content)
+                    .await;
             }
         }
         use_minio

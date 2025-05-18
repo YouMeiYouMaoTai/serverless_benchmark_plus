@@ -7,6 +7,8 @@ import io.minio.MakeBucketArgs;
 import io.minio.PutObjectArgs;
 import io.minio.RemoveObjectArgs;
 import io.minio.errors.MinioException;
+import io.netty.buffer.ByteBuf;
+
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -15,9 +17,21 @@ import java.io.InputStream;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 import java.util.Map;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+
+// Import the protocol buffer classes
+import process_rpc_proto.ProcessRpcProto.KeyRange;
+import process_rpc_proto.ProcessRpcProto.KvPair;
+import process_rpc_proto.ProcessRpcProto.KvRequest;
+import process_rpc_proto.ProcessRpcProto.KvResponse;
+import com.google.protobuf.ByteString;
+import com.google.protobuf.Message;
+import process_rpc_proto.ProcessRpcProto.FnTaskId;
 
 /**
  * DataApi用于处理数据存储，支持内存模式和MinIO模式
@@ -26,6 +40,9 @@ public class DataApi implements InitializingBean {
     
     // 静态实例，可以在任何地方访问
     private static DataApi instance;
+
+    @Autowired
+    private UdsBackend udsBackend;
     
     /**
      * 获取DataApi实例的静态方法
@@ -78,7 +95,7 @@ public class DataApi implements InitializingBean {
             if (use_minio == null || use_minio.isEmpty()) {
                 // 使用内存Map模式
                 memoryStorage = new ConcurrentHashMap<>();
-                storageMode = "memory";
+                storageMode = "waverless_storage";
                 System.out.println("DataApi initialized in memory mode");
             } else {
                 // 连接到MinIO
@@ -106,7 +123,7 @@ public class DataApi implements InitializingBean {
                 } catch (Exception e) {
                     // 连接MinIO失败，回退到内存模式
                     memoryStorage = new ConcurrentHashMap<>();
-                    storageMode = "memory";
+                    storageMode = "waverless_storage";
                     System.err.println("Failed to connect to MinIO, fallback to memory mode: " + e.getMessage());
                 }
             }
@@ -118,26 +135,63 @@ public class DataApi implements InitializingBean {
     
     /**
      * 保存数据
+     * @param func_name 函数名
      * @param key 键
-     * @param value 字节数组值
+     * @param values 二维字节数组值
      * @throws IOException 操作失败时抛出异常
      */
-    public void put(String key, byte[] value) throws IOException {
+    public void put(FnTaskId srcTaskId,String func_name, String key, byte[][] values) throws IOException {
         if (!initialized) {
             throw new IllegalStateException("DataApi not initialized. Call init() first.");
         }
         
-        if ("memory".equals(storageMode)) {
-            memoryStorage.put(key, value);
+        if ("waverless_storage".equals(storageMode)) {
+            try {
+                // Build the KvPair using protobuf builder
+                KvPair.Builder kvBuilder = KvPair.newBuilder()
+                    .setKey(ByteString.copyFrom(key.getBytes()));
+                
+                // Add each value as a ByteString
+                for (byte[] value : values) {
+                    kvBuilder.addValues(ByteString.copyFrom(value));
+                }
+                
+                // Build the KvPutRequest using protobuf builder
+                KvRequest.KvPutRequest.Builder putBuilder = KvRequest.KvPutRequest.newBuilder()
+                    .setSrcTaskId(srcTaskId)
+                    .setKv(kvBuilder);
+                
+                // Build the KvRequest using protobuf builder
+                KvRequest req = KvRequest.newBuilder()
+                    .setSet(putBuilder)
+                    .build();
+
+                KvResponse response = (KvResponse) udsBackend.sendRpc(
+                    udsBackend.newRpcReqUdsPack(
+                        req,
+                        func_name
+                    ),
+                    60,
+                    TimeUnit.SECONDS
+                );
+            } catch (Exception e) {
+                throw new IOException("Failed to put data to waverless storage: " + e.getMessage(), e);
+            }
         } else {
             try {
+                // MinIO only supports single values, so we use the first value
+                if (values == null || values.length == 0) {
+                    throw new IllegalArgumentException("No values provided for MinIO storage");
+                }
+                
+                byte[] singleValue = values[0];
                 // 将字节数组上传到MinIO
-                ByteArrayInputStream bais = new ByteArrayInputStream(value);
+                ByteArrayInputStream bais = new ByteArrayInputStream(singleValue);
                 minioClient.putObject(
                     PutObjectArgs.builder()
                         .bucket(storageBucket)
                         .object(key)
-                        .stream(bais, value.length, -1)
+                        .stream(bais, singleValue.length, -1)
                         .contentType("application/octet-stream")
                         .build()
                 );
@@ -150,17 +204,70 @@ public class DataApi implements InitializingBean {
     
     /**
      * 获取数据
+     * @param func_name 函数名
      * @param key 键
-     * @return 字节数组值，如果键不存在则返回null
+     * @param item_idxs 数据项索引
+     * @return data item idx -> byte[]
      * @throws IOException 操作失败时抛出异常
      */
-    public byte[] get(String key) throws IOException {
+    public Map<Integer, byte[]> get(FnTaskId srcTaskId,String func_name, String key, int[] item_idxs) throws IOException {
         if (!initialized) {
             throw new IllegalStateException("DataApi not initialized. Call init() first.");
         }
         
-        if ("memory".equals(storageMode)) {
-            return memoryStorage.get(key);
+        Map<Integer, byte[]> result = new HashMap<>();
+        
+        if ("waverless_storage".equals(storageMode)) {
+            try {
+                // Create KeyRange for the KvGetRequest
+                KeyRange.Builder rangeBuilder = KeyRange.newBuilder().setStart(ByteString.copyFromUtf8(key));
+                
+                // Build the KvGetRequest
+                KvRequest.KvGetRequest.Builder getBuilder = KvRequest.KvGetRequest.newBuilder()
+                    .setSrcTaskId(srcTaskId)
+                    .setRange(rangeBuilder);
+                
+                // Add all indexes
+                for (int idx : item_idxs) {
+                    getBuilder.addIdxs(idx);
+                }
+                
+                // Build the final KvRequest
+                KvRequest req = KvRequest.newBuilder()
+                    .setGet(getBuilder)
+                    .build();
+                
+                KvResponse kvResponse = (KvResponse) udsBackend.sendRpc(
+                    udsBackend.newRpcReqUdsPack(
+                        req,
+                        func_name
+                    ),
+                    60,
+                    TimeUnit.SECONDS
+                );
+                
+                
+                if (kvResponse.hasGet()) {
+                    KvResponse.KvGetResponse getResponse = kvResponse.getGet();
+                    
+                    // Check if response size matches request
+                    if (getResponse.getIdxsCount() != item_idxs.length) {
+                        throw new IOException("Failed to get object " + key + " from storage: response count doesn't match required item_idxs count");
+                    }
+                    
+                    // Process the returned values
+                    for (int i = 0; i < getResponse.getIdxsCount(); i++) {
+                        int idx = getResponse.getIdxs(i);
+                        ByteString value = getResponse.getValues(i);
+                        result.put(idx, value.toByteArray());
+                    }
+                } else {
+                    throw new IOException("Failed to get object " + key + " from storage: response doesn't contain get field");
+                }
+            } catch (Exception e) {
+                throw new IOException("Failed to get data from waverless storage: " + e.getMessage(), e);
+            }
+            return result;
         } else {
             try {
                 // 从MinIO获取对象
@@ -180,27 +287,81 @@ public class DataApi implements InitializingBean {
                 }
                 
                 stream.close();
+                byte[] data = baos.toByteArray();
                 baos.close();
-                return baos.toByteArray();
                 
+                // 我们只返回索引0，因为我们只支持单元素数组
+                if (item_idxs == null || arrayContains(item_idxs, 0)) {
+                    result.put(0, data);
+                }
+                
+                return result;
             } catch (MinioException | InvalidKeyException | NoSuchAlgorithmException e) {
-                throw new IOException("Failed to get object "+key+" from MinIO: " + e.getMessage(), e);
+                throw new IOException("Failed to get object " + key + " from MinIO: " + e.getMessage(), e);
             }
         }
     }
     
+    // 辅助方法，检查数组是否包含某个值
+    private boolean arrayContains(int[] array, int value) {
+        if (array == null) return false;
+        for (int i : array) {
+            if (i == value) return true;
+        }
+        return false;
+    }
+
+
     /**
      * 删除数据
+     * @param func_name 函数名
      * @param key 要删除的键
      * @throws IOException 操作失败时抛出异常
      */
-    public void delete(String key) throws IOException {
+    public byte[][] delete(FnTaskId srcTaskId,String func_name, String key) throws IOException {
         if (!initialized) {
             throw new IllegalStateException("DataApi not initialized. Call init() first.");
         }
         
-        if ("memory".equals(storageMode)) {
-            memoryStorage.remove(key);
+        if ("waverless_storage".equals(storageMode)) {
+            try {
+                // Create KeyRange for the KvDeleteRequest
+                KeyRange.Builder rangeBuilder = KeyRange.newBuilder().setStart(ByteString.copyFromUtf8(key));
+                
+                // Build the KvDeleteRequest
+                KvRequest.KvDeleteRequest.Builder deleteBuilder = KvRequest.KvDeleteRequest.newBuilder()
+                    .setSrcTaskId(srcTaskId)
+                    .setRange(rangeBuilder);
+                
+                // Build the final KvRequest
+                KvRequest req = KvRequest.newBuilder()
+                    .setDelete(deleteBuilder)
+                    .build();
+                
+                KvResponse kvResponse = (KvResponse) udsBackend.sendRpc(
+                    udsBackend.newRpcReqUdsPack(
+                        req,
+                        func_name
+                    ),
+                    60,
+                    TimeUnit.SECONDS
+                );
+
+
+                if (kvResponse.hasPutOrDel()) {
+                    KvResponse.KvPutOrDelResponse putOrDelResponse = kvResponse.getPutOrDel();
+                    byte[][] result = new byte[putOrDelResponse.getKv().getValuesCount()][];
+                    for (int i = 0; i < putOrDelResponse.getKv().getValuesCount(); i++) {
+                        result[i] = putOrDelResponse.getKv().getValues(i).toByteArray();
+                    }
+                    return result;
+                } else {
+                    throw new IOException("Failed to delete object " + key + " from storage: response doesn't contain putOrDel field");
+                }
+                
+            } catch (Exception e) {
+                throw new IOException("Failed to delete data from waverless storage: " + e.getMessage(), e);
+            }
         } else {
             try {
                 // 从MinIO删除对象
@@ -213,6 +374,8 @@ public class DataApi implements InitializingBean {
             } catch (MinioException | InvalidKeyException | NoSuchAlgorithmException e) {
                 throw new IOException("Failed to delete object from MinIO: " + e.getMessage(), e);
             }
+
+            return null;
         }
     }
     

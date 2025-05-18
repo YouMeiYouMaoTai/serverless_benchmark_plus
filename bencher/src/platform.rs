@@ -19,11 +19,14 @@ impl PlatformOpsBind {
         &self,
         app: &str,
         func: &str,
+        arg_json_value: &serde_json::Value,
         big_data: &Option<Vec<String>>,
         fn_details: &FnDetails,
     ) -> bool {
         // write big data
-        let use_minio = fn_details.write_big_data(app, func, self).await;
+        let use_minio = fn_details
+            .write_big_data(app, func, arg_json_value, self)
+            .await;
 
         // self.call_fn(
         //     &fn_details.app,

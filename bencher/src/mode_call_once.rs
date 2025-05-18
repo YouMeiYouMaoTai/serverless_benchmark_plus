@@ -43,10 +43,13 @@ pub async fn call(platform: &mut PlatformOpsBind, cli: Cli, config: &Config) -> 
     //     .call_fn("img_resize", "resize", &serde_json::to_value(args).unwrap())
     //     .await;
 
+    let request_arg_json = serde_json::to_value(&fndetail.args).unwrap();
+
     let need_call_fn = platform
         .bf_call_fn(
             &cli.app().unwrap(),
             &cli.func().unwrap(),
+            &request_arg_json,
             &fndetail.big_data,
             &fndetail,
         )
@@ -57,7 +60,7 @@ pub async fn call(platform: &mut PlatformOpsBind, cli: Cli, config: &Config) -> 
             .call_fn(
                 &cli.app().unwrap(),
                 &cli.func().unwrap(),
-                &serde_json::to_value(fndetail.args).unwrap(),
+                &request_arg_json,
                 // &fndetail.big_data,
             )
             .await;

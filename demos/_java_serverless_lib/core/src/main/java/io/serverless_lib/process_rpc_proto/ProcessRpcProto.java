@@ -14,49 +14,578 @@ public final class ProcessRpcProto {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
+  public interface FnTaskIdOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:process_rpc_proto.FnTaskId)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>uint32 call_node_id = 1;</code>
+     */
+    int getCallNodeId();
+
+    /**
+     * <code>uint32 task_id = 2;</code>
+     */
+    int getTaskId();
+  }
+  /**
+   * Protobuf type {@code process_rpc_proto.FnTaskId}
+   */
+  public  static final class FnTaskId extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:process_rpc_proto.FnTaskId)
+      FnTaskIdOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use FnTaskId.newBuilder() to construct.
+    private FnTaskId(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private FnTaskId() {
+      callNodeId_ = 0;
+      taskId_ = 0;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private FnTaskId(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              callNodeId_ = input.readUInt32();
+              break;
+            }
+            case 16: {
+
+              taskId_ = input.readUInt32();
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_FnTaskId_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_FnTaskId_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              process_rpc_proto.ProcessRpcProto.FnTaskId.class, process_rpc_proto.ProcessRpcProto.FnTaskId.Builder.class);
+    }
+
+    public static final int CALL_NODE_ID_FIELD_NUMBER = 1;
+    private int callNodeId_;
+    /**
+     * <code>uint32 call_node_id = 1;</code>
+     */
+    public int getCallNodeId() {
+      return callNodeId_;
+    }
+
+    public static final int TASK_ID_FIELD_NUMBER = 2;
+    private int taskId_;
+    /**
+     * <code>uint32 task_id = 2;</code>
+     */
+    public int getTaskId() {
+      return taskId_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (callNodeId_ != 0) {
+        output.writeUInt32(1, callNodeId_);
+      }
+      if (taskId_ != 0) {
+        output.writeUInt32(2, taskId_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (callNodeId_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(1, callNodeId_);
+      }
+      if (taskId_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(2, taskId_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof process_rpc_proto.ProcessRpcProto.FnTaskId)) {
+        return super.equals(obj);
+      }
+      process_rpc_proto.ProcessRpcProto.FnTaskId other = (process_rpc_proto.ProcessRpcProto.FnTaskId) obj;
+
+      boolean result = true;
+      result = result && (getCallNodeId()
+          == other.getCallNodeId());
+      result = result && (getTaskId()
+          == other.getTaskId());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + CALL_NODE_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getCallNodeId();
+      hash = (37 * hash) + TASK_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getTaskId();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static process_rpc_proto.ProcessRpcProto.FnTaskId parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static process_rpc_proto.ProcessRpcProto.FnTaskId parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static process_rpc_proto.ProcessRpcProto.FnTaskId parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static process_rpc_proto.ProcessRpcProto.FnTaskId parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static process_rpc_proto.ProcessRpcProto.FnTaskId parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static process_rpc_proto.ProcessRpcProto.FnTaskId parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static process_rpc_proto.ProcessRpcProto.FnTaskId parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static process_rpc_proto.ProcessRpcProto.FnTaskId parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static process_rpc_proto.ProcessRpcProto.FnTaskId parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static process_rpc_proto.ProcessRpcProto.FnTaskId parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static process_rpc_proto.ProcessRpcProto.FnTaskId parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static process_rpc_proto.ProcessRpcProto.FnTaskId parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(process_rpc_proto.ProcessRpcProto.FnTaskId prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code process_rpc_proto.FnTaskId}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:process_rpc_proto.FnTaskId)
+        process_rpc_proto.ProcessRpcProto.FnTaskIdOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_FnTaskId_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_FnTaskId_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                process_rpc_proto.ProcessRpcProto.FnTaskId.class, process_rpc_proto.ProcessRpcProto.FnTaskId.Builder.class);
+      }
+
+      // Construct using process_rpc_proto.ProcessRpcProto.FnTaskId.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        callNodeId_ = 0;
+
+        taskId_ = 0;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_FnTaskId_descriptor;
+      }
+
+      @java.lang.Override
+      public process_rpc_proto.ProcessRpcProto.FnTaskId getDefaultInstanceForType() {
+        return process_rpc_proto.ProcessRpcProto.FnTaskId.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public process_rpc_proto.ProcessRpcProto.FnTaskId build() {
+        process_rpc_proto.ProcessRpcProto.FnTaskId result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public process_rpc_proto.ProcessRpcProto.FnTaskId buildPartial() {
+        process_rpc_proto.ProcessRpcProto.FnTaskId result = new process_rpc_proto.ProcessRpcProto.FnTaskId(this);
+        result.callNodeId_ = callNodeId_;
+        result.taskId_ = taskId_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof process_rpc_proto.ProcessRpcProto.FnTaskId) {
+          return mergeFrom((process_rpc_proto.ProcessRpcProto.FnTaskId)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(process_rpc_proto.ProcessRpcProto.FnTaskId other) {
+        if (other == process_rpc_proto.ProcessRpcProto.FnTaskId.getDefaultInstance()) return this;
+        if (other.getCallNodeId() != 0) {
+          setCallNodeId(other.getCallNodeId());
+        }
+        if (other.getTaskId() != 0) {
+          setTaskId(other.getTaskId());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        process_rpc_proto.ProcessRpcProto.FnTaskId parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (process_rpc_proto.ProcessRpcProto.FnTaskId) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private int callNodeId_ ;
+      /**
+       * <code>uint32 call_node_id = 1;</code>
+       */
+      public int getCallNodeId() {
+        return callNodeId_;
+      }
+      /**
+       * <code>uint32 call_node_id = 1;</code>
+       */
+      public Builder setCallNodeId(int value) {
+        
+        callNodeId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint32 call_node_id = 1;</code>
+       */
+      public Builder clearCallNodeId() {
+        
+        callNodeId_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int taskId_ ;
+      /**
+       * <code>uint32 task_id = 2;</code>
+       */
+      public int getTaskId() {
+        return taskId_;
+      }
+      /**
+       * <code>uint32 task_id = 2;</code>
+       */
+      public Builder setTaskId(int value) {
+        
+        taskId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint32 task_id = 2;</code>
+       */
+      public Builder clearTaskId() {
+        
+        taskId_ = 0;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:process_rpc_proto.FnTaskId)
+    }
+
+    // @@protoc_insertion_point(class_scope:process_rpc_proto.FnTaskId)
+    private static final process_rpc_proto.ProcessRpcProto.FnTaskId DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new process_rpc_proto.ProcessRpcProto.FnTaskId();
+    }
+
+    public static process_rpc_proto.ProcessRpcProto.FnTaskId getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<FnTaskId>
+        PARSER = new com.google.protobuf.AbstractParser<FnTaskId>() {
+      @java.lang.Override
+      public FnTaskId parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new FnTaskId(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<FnTaskId> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<FnTaskId> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public process_rpc_proto.ProcessRpcProto.FnTaskId getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface AppStartedOrBuilder extends
       // @@protoc_insertion_point(interface_extends:process_rpc_proto.AppStarted)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string appid = 1;</code>
-     */
-    boolean hasAppid();
-    /**
-     * <code>required string appid = 1;</code>
+     * <code>string appid = 1;</code>
      */
     java.lang.String getAppid();
     /**
-     * <code>required string appid = 1;</code>
+     * <code>string appid = 1;</code>
      */
     com.google.protobuf.ByteString
         getAppidBytes();
 
     /**
-     * <code>optional string http_port = 2;</code>
-     */
-    boolean hasHttpPort();
-    /**
-     * <code>optional string http_port = 2;</code>
+     * <code>string http_port = 2;</code>
      */
     java.lang.String getHttpPort();
     /**
-     * <code>optional string http_port = 2;</code>
+     * <code>string http_port = 2;</code>
      */
     com.google.protobuf.ByteString
         getHttpPortBytes();
 
     /**
-     * <code>required uint32 pid = 3;</code>
-     */
-    boolean hasPid();
-    /**
-     * <code>required uint32 pid = 3;</code>
+     * <code>uint32 pid = 3;</code>
      */
     int getPid();
   }
   /**
    * <pre>
+   *&#47;/////////////////////////////////////////////////////////
+   * Category: Outgoing &gt;&gt;
    * Sample message.
    * </pre>
    *
@@ -102,24 +631,24 @@ public final class ProcessRpcProto {
               done = true;
               break;
             case 10: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000001;
-              appid_ = bs;
+              java.lang.String s = input.readStringRequireUtf8();
+
+              appid_ = s;
               break;
             }
             case 18: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000002;
-              httpPort_ = bs;
+              java.lang.String s = input.readStringRequireUtf8();
+
+              httpPort_ = s;
               break;
             }
             case 24: {
-              bitField0_ |= 0x00000004;
+
               pid_ = input.readUInt32();
               break;
             }
             default: {
-              if (!parseUnknownField(
+              if (!parseUnknownFieldProto3(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -150,17 +679,10 @@ public final class ProcessRpcProto {
               process_rpc_proto.ProcessRpcProto.AppStarted.class, process_rpc_proto.ProcessRpcProto.AppStarted.Builder.class);
     }
 
-    private int bitField0_;
     public static final int APPID_FIELD_NUMBER = 1;
     private volatile java.lang.Object appid_;
     /**
-     * <code>required string appid = 1;</code>
-     */
-    public boolean hasAppid() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
-    /**
-     * <code>required string appid = 1;</code>
+     * <code>string appid = 1;</code>
      */
     public java.lang.String getAppid() {
       java.lang.Object ref = appid_;
@@ -170,14 +692,12 @@ public final class ProcessRpcProto {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          appid_ = s;
-        }
+        appid_ = s;
         return s;
       }
     }
     /**
-     * <code>required string appid = 1;</code>
+     * <code>string appid = 1;</code>
      */
     public com.google.protobuf.ByteString
         getAppidBytes() {
@@ -196,13 +716,7 @@ public final class ProcessRpcProto {
     public static final int HTTP_PORT_FIELD_NUMBER = 2;
     private volatile java.lang.Object httpPort_;
     /**
-     * <code>optional string http_port = 2;</code>
-     */
-    public boolean hasHttpPort() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
-    }
-    /**
-     * <code>optional string http_port = 2;</code>
+     * <code>string http_port = 2;</code>
      */
     public java.lang.String getHttpPort() {
       java.lang.Object ref = httpPort_;
@@ -212,14 +726,12 @@ public final class ProcessRpcProto {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          httpPort_ = s;
-        }
+        httpPort_ = s;
         return s;
       }
     }
     /**
-     * <code>optional string http_port = 2;</code>
+     * <code>string http_port = 2;</code>
      */
     public com.google.protobuf.ByteString
         getHttpPortBytes() {
@@ -238,13 +750,7 @@ public final class ProcessRpcProto {
     public static final int PID_FIELD_NUMBER = 3;
     private int pid_;
     /**
-     * <code>required uint32 pid = 3;</code>
-     */
-    public boolean hasPid() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
-    }
-    /**
-     * <code>required uint32 pid = 3;</code>
+     * <code>uint32 pid = 3;</code>
      */
     public int getPid() {
       return pid_;
@@ -257,14 +763,6 @@ public final class ProcessRpcProto {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasAppid()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasPid()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -272,13 +770,13 @@ public final class ProcessRpcProto {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (!getAppidBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, appid_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (!getHttpPortBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, httpPort_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (pid_ != 0) {
         output.writeUInt32(3, pid_);
       }
       unknownFields.writeTo(output);
@@ -290,13 +788,13 @@ public final class ProcessRpcProto {
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (!getAppidBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, appid_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (!getHttpPortBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, httpPort_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (pid_ != 0) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(3, pid_);
       }
@@ -316,21 +814,12 @@ public final class ProcessRpcProto {
       process_rpc_proto.ProcessRpcProto.AppStarted other = (process_rpc_proto.ProcessRpcProto.AppStarted) obj;
 
       boolean result = true;
-      result = result && (hasAppid() == other.hasAppid());
-      if (hasAppid()) {
-        result = result && getAppid()
-            .equals(other.getAppid());
-      }
-      result = result && (hasHttpPort() == other.hasHttpPort());
-      if (hasHttpPort()) {
-        result = result && getHttpPort()
-            .equals(other.getHttpPort());
-      }
-      result = result && (hasPid() == other.hasPid());
-      if (hasPid()) {
-        result = result && (getPid()
-            == other.getPid());
-      }
+      result = result && getAppid()
+          .equals(other.getAppid());
+      result = result && getHttpPort()
+          .equals(other.getHttpPort());
+      result = result && (getPid()
+          == other.getPid());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -342,18 +831,12 @@ public final class ProcessRpcProto {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasAppid()) {
-        hash = (37 * hash) + APPID_FIELD_NUMBER;
-        hash = (53 * hash) + getAppid().hashCode();
-      }
-      if (hasHttpPort()) {
-        hash = (37 * hash) + HTTP_PORT_FIELD_NUMBER;
-        hash = (53 * hash) + getHttpPort().hashCode();
-      }
-      if (hasPid()) {
-        hash = (37 * hash) + PID_FIELD_NUMBER;
-        hash = (53 * hash) + getPid();
-      }
+      hash = (37 * hash) + APPID_FIELD_NUMBER;
+      hash = (53 * hash) + getAppid().hashCode();
+      hash = (37 * hash) + HTTP_PORT_FIELD_NUMBER;
+      hash = (53 * hash) + getHttpPort().hashCode();
+      hash = (37 * hash) + PID_FIELD_NUMBER;
+      hash = (53 * hash) + getPid();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -451,6 +934,8 @@ public final class ProcessRpcProto {
     }
     /**
      * <pre>
+     *&#47;/////////////////////////////////////////////////////////
+     * Category: Outgoing &gt;&gt;
      * Sample message.
      * </pre>
      *
@@ -492,11 +977,11 @@ public final class ProcessRpcProto {
       public Builder clear() {
         super.clear();
         appid_ = "";
-        bitField0_ = (bitField0_ & ~0x00000001);
+
         httpPort_ = "";
-        bitField0_ = (bitField0_ & ~0x00000002);
+
         pid_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000004);
+
         return this;
       }
 
@@ -523,21 +1008,9 @@ public final class ProcessRpcProto {
       @java.lang.Override
       public process_rpc_proto.ProcessRpcProto.AppStarted buildPartial() {
         process_rpc_proto.ProcessRpcProto.AppStarted result = new process_rpc_proto.ProcessRpcProto.AppStarted(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
         result.appid_ = appid_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-          to_bitField0_ |= 0x00000002;
-        }
         result.httpPort_ = httpPort_;
-        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
-          to_bitField0_ |= 0x00000004;
-        }
         result.pid_ = pid_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
@@ -586,17 +1059,15 @@ public final class ProcessRpcProto {
 
       public Builder mergeFrom(process_rpc_proto.ProcessRpcProto.AppStarted other) {
         if (other == process_rpc_proto.ProcessRpcProto.AppStarted.getDefaultInstance()) return this;
-        if (other.hasAppid()) {
-          bitField0_ |= 0x00000001;
+        if (!other.getAppid().isEmpty()) {
           appid_ = other.appid_;
           onChanged();
         }
-        if (other.hasHttpPort()) {
-          bitField0_ |= 0x00000002;
+        if (!other.getHttpPort().isEmpty()) {
           httpPort_ = other.httpPort_;
           onChanged();
         }
-        if (other.hasPid()) {
+        if (other.getPid() != 0) {
           setPid(other.getPid());
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -606,12 +1077,6 @@ public final class ProcessRpcProto {
 
       @java.lang.Override
       public final boolean isInitialized() {
-        if (!hasAppid()) {
-          return false;
-        }
-        if (!hasPid()) {
-          return false;
-        }
         return true;
       }
 
@@ -633,17 +1098,10 @@ public final class ProcessRpcProto {
         }
         return this;
       }
-      private int bitField0_;
 
       private java.lang.Object appid_ = "";
       /**
-       * <code>required string appid = 1;</code>
-       */
-      public boolean hasAppid() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      /**
-       * <code>required string appid = 1;</code>
+       * <code>string appid = 1;</code>
        */
       public java.lang.String getAppid() {
         java.lang.Object ref = appid_;
@@ -651,16 +1109,14 @@ public final class ProcessRpcProto {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            appid_ = s;
-          }
+          appid_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>required string appid = 1;</code>
+       * <code>string appid = 1;</code>
        */
       public com.google.protobuf.ByteString
           getAppidBytes() {
@@ -676,36 +1132,37 @@ public final class ProcessRpcProto {
         }
       }
       /**
-       * <code>required string appid = 1;</code>
+       * <code>string appid = 1;</code>
        */
       public Builder setAppid(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  
         appid_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string appid = 1;</code>
+       * <code>string appid = 1;</code>
        */
       public Builder clearAppid() {
-        bitField0_ = (bitField0_ & ~0x00000001);
+        
         appid_ = getDefaultInstance().getAppid();
         onChanged();
         return this;
       }
       /**
-       * <code>required string appid = 1;</code>
+       * <code>string appid = 1;</code>
        */
       public Builder setAppidBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  checkByteStringIsUtf8(value);
+        
         appid_ = value;
         onChanged();
         return this;
@@ -713,13 +1170,7 @@ public final class ProcessRpcProto {
 
       private java.lang.Object httpPort_ = "";
       /**
-       * <code>optional string http_port = 2;</code>
-       */
-      public boolean hasHttpPort() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
-      }
-      /**
-       * <code>optional string http_port = 2;</code>
+       * <code>string http_port = 2;</code>
        */
       public java.lang.String getHttpPort() {
         java.lang.Object ref = httpPort_;
@@ -727,16 +1178,14 @@ public final class ProcessRpcProto {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            httpPort_ = s;
-          }
+          httpPort_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>optional string http_port = 2;</code>
+       * <code>string http_port = 2;</code>
        */
       public com.google.protobuf.ByteString
           getHttpPortBytes() {
@@ -752,36 +1201,37 @@ public final class ProcessRpcProto {
         }
       }
       /**
-       * <code>optional string http_port = 2;</code>
+       * <code>string http_port = 2;</code>
        */
       public Builder setHttpPort(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  
         httpPort_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string http_port = 2;</code>
+       * <code>string http_port = 2;</code>
        */
       public Builder clearHttpPort() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        
         httpPort_ = getDefaultInstance().getHttpPort();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string http_port = 2;</code>
+       * <code>string http_port = 2;</code>
        */
       public Builder setHttpPortBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  checkByteStringIsUtf8(value);
+        
         httpPort_ = value;
         onChanged();
         return this;
@@ -789,31 +1239,25 @@ public final class ProcessRpcProto {
 
       private int pid_ ;
       /**
-       * <code>required uint32 pid = 3;</code>
-       */
-      public boolean hasPid() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
-      }
-      /**
-       * <code>required uint32 pid = 3;</code>
+       * <code>uint32 pid = 3;</code>
        */
       public int getPid() {
         return pid_;
       }
       /**
-       * <code>required uint32 pid = 3;</code>
+       * <code>uint32 pid = 3;</code>
        */
       public Builder setPid(int value) {
-        bitField0_ |= 0x00000004;
+        
         pid_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required uint32 pid = 3;</code>
+       * <code>uint32 pid = 3;</code>
        */
       public Builder clearPid() {
-        bitField0_ = (bitField0_ & ~0x00000004);
+        
         pid_ = 0;
         onChanged();
         return this;
@@ -821,7 +1265,7 @@ public final class ProcessRpcProto {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
       @java.lang.Override
@@ -844,7 +1288,7 @@ public final class ProcessRpcProto {
       return DEFAULT_INSTANCE;
     }
 
-    @java.lang.Deprecated public static final com.google.protobuf.Parser<AppStarted>
+    private static final com.google.protobuf.Parser<AppStarted>
         PARSER = new com.google.protobuf.AbstractParser<AppStarted>() {
       @java.lang.Override
       public AppStarted parsePartialFrom(
@@ -876,29 +1320,34 @@ public final class ProcessRpcProto {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string func = 1;</code>
+     * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
      */
-    boolean hasFunc();
+    boolean hasSrcTaskId();
     /**
-     * <code>required string func = 1;</code>
+     * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+     */
+    process_rpc_proto.ProcessRpcProto.FnTaskId getSrcTaskId();
+    /**
+     * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+     */
+    process_rpc_proto.ProcessRpcProto.FnTaskIdOrBuilder getSrcTaskIdOrBuilder();
+
+    /**
+     * <code>string func = 2;</code>
      */
     java.lang.String getFunc();
     /**
-     * <code>required string func = 1;</code>
+     * <code>string func = 2;</code>
      */
     com.google.protobuf.ByteString
         getFuncBytes();
 
     /**
-     * <code>required string arg_str = 2;</code>
-     */
-    boolean hasArgStr();
-    /**
-     * <code>required string arg_str = 2;</code>
+     * <code>string arg_str = 3;</code>
      */
     java.lang.String getArgStr();
     /**
-     * <code>required string arg_str = 2;</code>
+     * <code>string arg_str = 3;</code>
      */
     com.google.protobuf.ByteString
         getArgStrBytes();
@@ -945,19 +1394,32 @@ public final class ProcessRpcProto {
               done = true;
               break;
             case 10: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000001;
-              func_ = bs;
+              process_rpc_proto.ProcessRpcProto.FnTaskId.Builder subBuilder = null;
+              if (srcTaskId_ != null) {
+                subBuilder = srcTaskId_.toBuilder();
+              }
+              srcTaskId_ = input.readMessage(process_rpc_proto.ProcessRpcProto.FnTaskId.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(srcTaskId_);
+                srcTaskId_ = subBuilder.buildPartial();
+              }
+
               break;
             }
             case 18: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000002;
-              argStr_ = bs;
+              java.lang.String s = input.readStringRequireUtf8();
+
+              func_ = s;
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              argStr_ = s;
               break;
             }
             default: {
-              if (!parseUnknownField(
+              if (!parseUnknownFieldProto3(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -988,17 +1450,31 @@ public final class ProcessRpcProto {
               process_rpc_proto.ProcessRpcProto.FuncCallReq.class, process_rpc_proto.ProcessRpcProto.FuncCallReq.Builder.class);
     }
 
-    private int bitField0_;
-    public static final int FUNC_FIELD_NUMBER = 1;
-    private volatile java.lang.Object func_;
+    public static final int SRC_TASK_ID_FIELD_NUMBER = 1;
+    private process_rpc_proto.ProcessRpcProto.FnTaskId srcTaskId_;
     /**
-     * <code>required string func = 1;</code>
+     * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
      */
-    public boolean hasFunc() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+    public boolean hasSrcTaskId() {
+      return srcTaskId_ != null;
     }
     /**
-     * <code>required string func = 1;</code>
+     * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+     */
+    public process_rpc_proto.ProcessRpcProto.FnTaskId getSrcTaskId() {
+      return srcTaskId_ == null ? process_rpc_proto.ProcessRpcProto.FnTaskId.getDefaultInstance() : srcTaskId_;
+    }
+    /**
+     * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+     */
+    public process_rpc_proto.ProcessRpcProto.FnTaskIdOrBuilder getSrcTaskIdOrBuilder() {
+      return getSrcTaskId();
+    }
+
+    public static final int FUNC_FIELD_NUMBER = 2;
+    private volatile java.lang.Object func_;
+    /**
+     * <code>string func = 2;</code>
      */
     public java.lang.String getFunc() {
       java.lang.Object ref = func_;
@@ -1008,14 +1484,12 @@ public final class ProcessRpcProto {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          func_ = s;
-        }
+        func_ = s;
         return s;
       }
     }
     /**
-     * <code>required string func = 1;</code>
+     * <code>string func = 2;</code>
      */
     public com.google.protobuf.ByteString
         getFuncBytes() {
@@ -1031,16 +1505,10 @@ public final class ProcessRpcProto {
       }
     }
 
-    public static final int ARG_STR_FIELD_NUMBER = 2;
+    public static final int ARG_STR_FIELD_NUMBER = 3;
     private volatile java.lang.Object argStr_;
     /**
-     * <code>required string arg_str = 2;</code>
-     */
-    public boolean hasArgStr() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
-    }
-    /**
-     * <code>required string arg_str = 2;</code>
+     * <code>string arg_str = 3;</code>
      */
     public java.lang.String getArgStr() {
       java.lang.Object ref = argStr_;
@@ -1050,14 +1518,12 @@ public final class ProcessRpcProto {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          argStr_ = s;
-        }
+        argStr_ = s;
         return s;
       }
     }
     /**
-     * <code>required string arg_str = 2;</code>
+     * <code>string arg_str = 3;</code>
      */
     public com.google.protobuf.ByteString
         getArgStrBytes() {
@@ -1080,14 +1546,6 @@ public final class ProcessRpcProto {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasFunc()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasArgStr()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -1095,11 +1553,14 @@ public final class ProcessRpcProto {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, func_);
+      if (srcTaskId_ != null) {
+        output.writeMessage(1, getSrcTaskId());
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, argStr_);
+      if (!getFuncBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, func_);
+      }
+      if (!getArgStrBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, argStr_);
       }
       unknownFields.writeTo(output);
     }
@@ -1110,11 +1571,15 @@ public final class ProcessRpcProto {
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, func_);
+      if (srcTaskId_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getSrcTaskId());
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, argStr_);
+      if (!getFuncBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, func_);
+      }
+      if (!getArgStrBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, argStr_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -1132,16 +1597,15 @@ public final class ProcessRpcProto {
       process_rpc_proto.ProcessRpcProto.FuncCallReq other = (process_rpc_proto.ProcessRpcProto.FuncCallReq) obj;
 
       boolean result = true;
-      result = result && (hasFunc() == other.hasFunc());
-      if (hasFunc()) {
-        result = result && getFunc()
-            .equals(other.getFunc());
+      result = result && (hasSrcTaskId() == other.hasSrcTaskId());
+      if (hasSrcTaskId()) {
+        result = result && getSrcTaskId()
+            .equals(other.getSrcTaskId());
       }
-      result = result && (hasArgStr() == other.hasArgStr());
-      if (hasArgStr()) {
-        result = result && getArgStr()
-            .equals(other.getArgStr());
-      }
+      result = result && getFunc()
+          .equals(other.getFunc());
+      result = result && getArgStr()
+          .equals(other.getArgStr());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -1153,14 +1617,14 @@ public final class ProcessRpcProto {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasFunc()) {
-        hash = (37 * hash) + FUNC_FIELD_NUMBER;
-        hash = (53 * hash) + getFunc().hashCode();
+      if (hasSrcTaskId()) {
+        hash = (37 * hash) + SRC_TASK_ID_FIELD_NUMBER;
+        hash = (53 * hash) + getSrcTaskId().hashCode();
       }
-      if (hasArgStr()) {
-        hash = (37 * hash) + ARG_STR_FIELD_NUMBER;
-        hash = (53 * hash) + getArgStr().hashCode();
-      }
+      hash = (37 * hash) + FUNC_FIELD_NUMBER;
+      hash = (53 * hash) + getFunc().hashCode();
+      hash = (37 * hash) + ARG_STR_FIELD_NUMBER;
+      hash = (53 * hash) + getArgStr().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1294,10 +1758,16 @@ public final class ProcessRpcProto {
       @java.lang.Override
       public Builder clear() {
         super.clear();
+        if (srcTaskIdBuilder_ == null) {
+          srcTaskId_ = null;
+        } else {
+          srcTaskId_ = null;
+          srcTaskIdBuilder_ = null;
+        }
         func_ = "";
-        bitField0_ = (bitField0_ & ~0x00000001);
+
         argStr_ = "";
-        bitField0_ = (bitField0_ & ~0x00000002);
+
         return this;
       }
 
@@ -1324,17 +1794,13 @@ public final class ProcessRpcProto {
       @java.lang.Override
       public process_rpc_proto.ProcessRpcProto.FuncCallReq buildPartial() {
         process_rpc_proto.ProcessRpcProto.FuncCallReq result = new process_rpc_proto.ProcessRpcProto.FuncCallReq(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
+        if (srcTaskIdBuilder_ == null) {
+          result.srcTaskId_ = srcTaskId_;
+        } else {
+          result.srcTaskId_ = srcTaskIdBuilder_.build();
         }
         result.func_ = func_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-          to_bitField0_ |= 0x00000002;
-        }
         result.argStr_ = argStr_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
@@ -1383,13 +1849,14 @@ public final class ProcessRpcProto {
 
       public Builder mergeFrom(process_rpc_proto.ProcessRpcProto.FuncCallReq other) {
         if (other == process_rpc_proto.ProcessRpcProto.FuncCallReq.getDefaultInstance()) return this;
-        if (other.hasFunc()) {
-          bitField0_ |= 0x00000001;
+        if (other.hasSrcTaskId()) {
+          mergeSrcTaskId(other.getSrcTaskId());
+        }
+        if (!other.getFunc().isEmpty()) {
           func_ = other.func_;
           onChanged();
         }
-        if (other.hasArgStr()) {
-          bitField0_ |= 0x00000002;
+        if (!other.getArgStr().isEmpty()) {
           argStr_ = other.argStr_;
           onChanged();
         }
@@ -1400,12 +1867,6 @@ public final class ProcessRpcProto {
 
       @java.lang.Override
       public final boolean isInitialized() {
-        if (!hasFunc()) {
-          return false;
-        }
-        if (!hasArgStr()) {
-          return false;
-        }
         return true;
       }
 
@@ -1427,17 +1888,127 @@ public final class ProcessRpcProto {
         }
         return this;
       }
-      private int bitField0_;
+
+      private process_rpc_proto.ProcessRpcProto.FnTaskId srcTaskId_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          process_rpc_proto.ProcessRpcProto.FnTaskId, process_rpc_proto.ProcessRpcProto.FnTaskId.Builder, process_rpc_proto.ProcessRpcProto.FnTaskIdOrBuilder> srcTaskIdBuilder_;
+      /**
+       * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+       */
+      public boolean hasSrcTaskId() {
+        return srcTaskIdBuilder_ != null || srcTaskId_ != null;
+      }
+      /**
+       * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.FnTaskId getSrcTaskId() {
+        if (srcTaskIdBuilder_ == null) {
+          return srcTaskId_ == null ? process_rpc_proto.ProcessRpcProto.FnTaskId.getDefaultInstance() : srcTaskId_;
+        } else {
+          return srcTaskIdBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+       */
+      public Builder setSrcTaskId(process_rpc_proto.ProcessRpcProto.FnTaskId value) {
+        if (srcTaskIdBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          srcTaskId_ = value;
+          onChanged();
+        } else {
+          srcTaskIdBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+       */
+      public Builder setSrcTaskId(
+          process_rpc_proto.ProcessRpcProto.FnTaskId.Builder builderForValue) {
+        if (srcTaskIdBuilder_ == null) {
+          srcTaskId_ = builderForValue.build();
+          onChanged();
+        } else {
+          srcTaskIdBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+       */
+      public Builder mergeSrcTaskId(process_rpc_proto.ProcessRpcProto.FnTaskId value) {
+        if (srcTaskIdBuilder_ == null) {
+          if (srcTaskId_ != null) {
+            srcTaskId_ =
+              process_rpc_proto.ProcessRpcProto.FnTaskId.newBuilder(srcTaskId_).mergeFrom(value).buildPartial();
+          } else {
+            srcTaskId_ = value;
+          }
+          onChanged();
+        } else {
+          srcTaskIdBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+       */
+      public Builder clearSrcTaskId() {
+        if (srcTaskIdBuilder_ == null) {
+          srcTaskId_ = null;
+          onChanged();
+        } else {
+          srcTaskId_ = null;
+          srcTaskIdBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.FnTaskId.Builder getSrcTaskIdBuilder() {
+        
+        onChanged();
+        return getSrcTaskIdFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.FnTaskIdOrBuilder getSrcTaskIdOrBuilder() {
+        if (srcTaskIdBuilder_ != null) {
+          return srcTaskIdBuilder_.getMessageOrBuilder();
+        } else {
+          return srcTaskId_ == null ?
+              process_rpc_proto.ProcessRpcProto.FnTaskId.getDefaultInstance() : srcTaskId_;
+        }
+      }
+      /**
+       * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          process_rpc_proto.ProcessRpcProto.FnTaskId, process_rpc_proto.ProcessRpcProto.FnTaskId.Builder, process_rpc_proto.ProcessRpcProto.FnTaskIdOrBuilder> 
+          getSrcTaskIdFieldBuilder() {
+        if (srcTaskIdBuilder_ == null) {
+          srcTaskIdBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              process_rpc_proto.ProcessRpcProto.FnTaskId, process_rpc_proto.ProcessRpcProto.FnTaskId.Builder, process_rpc_proto.ProcessRpcProto.FnTaskIdOrBuilder>(
+                  getSrcTaskId(),
+                  getParentForChildren(),
+                  isClean());
+          srcTaskId_ = null;
+        }
+        return srcTaskIdBuilder_;
+      }
 
       private java.lang.Object func_ = "";
       /**
-       * <code>required string func = 1;</code>
-       */
-      public boolean hasFunc() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      /**
-       * <code>required string func = 1;</code>
+       * <code>string func = 2;</code>
        */
       public java.lang.String getFunc() {
         java.lang.Object ref = func_;
@@ -1445,16 +2016,14 @@ public final class ProcessRpcProto {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            func_ = s;
-          }
+          func_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>required string func = 1;</code>
+       * <code>string func = 2;</code>
        */
       public com.google.protobuf.ByteString
           getFuncBytes() {
@@ -1470,36 +2039,37 @@ public final class ProcessRpcProto {
         }
       }
       /**
-       * <code>required string func = 1;</code>
+       * <code>string func = 2;</code>
        */
       public Builder setFunc(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  
         func_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string func = 1;</code>
+       * <code>string func = 2;</code>
        */
       public Builder clearFunc() {
-        bitField0_ = (bitField0_ & ~0x00000001);
+        
         func_ = getDefaultInstance().getFunc();
         onChanged();
         return this;
       }
       /**
-       * <code>required string func = 1;</code>
+       * <code>string func = 2;</code>
        */
       public Builder setFuncBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  checkByteStringIsUtf8(value);
+        
         func_ = value;
         onChanged();
         return this;
@@ -1507,13 +2077,7 @@ public final class ProcessRpcProto {
 
       private java.lang.Object argStr_ = "";
       /**
-       * <code>required string arg_str = 2;</code>
-       */
-      public boolean hasArgStr() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
-      }
-      /**
-       * <code>required string arg_str = 2;</code>
+       * <code>string arg_str = 3;</code>
        */
       public java.lang.String getArgStr() {
         java.lang.Object ref = argStr_;
@@ -1521,16 +2085,14 @@ public final class ProcessRpcProto {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            argStr_ = s;
-          }
+          argStr_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>required string arg_str = 2;</code>
+       * <code>string arg_str = 3;</code>
        */
       public com.google.protobuf.ByteString
           getArgStrBytes() {
@@ -1546,36 +2108,37 @@ public final class ProcessRpcProto {
         }
       }
       /**
-       * <code>required string arg_str = 2;</code>
+       * <code>string arg_str = 3;</code>
        */
       public Builder setArgStr(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  
         argStr_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string arg_str = 2;</code>
+       * <code>string arg_str = 3;</code>
        */
       public Builder clearArgStr() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        
         argStr_ = getDefaultInstance().getArgStr();
         onChanged();
         return this;
       }
       /**
-       * <code>required string arg_str = 2;</code>
+       * <code>string arg_str = 3;</code>
        */
       public Builder setArgStrBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  checkByteStringIsUtf8(value);
+        
         argStr_ = value;
         onChanged();
         return this;
@@ -1583,7 +2146,7 @@ public final class ProcessRpcProto {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
       @java.lang.Override
@@ -1606,7 +2169,7 @@ public final class ProcessRpcProto {
       return DEFAULT_INSTANCE;
     }
 
-    @java.lang.Deprecated public static final com.google.protobuf.Parser<FuncCallReq>
+    private static final com.google.protobuf.Parser<FuncCallReq>
         PARSER = new com.google.protobuf.AbstractParser<FuncCallReq>() {
       @java.lang.Override
       public FuncCallReq parsePartialFrom(
@@ -1638,15 +2201,11 @@ public final class ProcessRpcProto {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string ret_str = 1;</code>
-     */
-    boolean hasRetStr();
-    /**
-     * <code>required string ret_str = 1;</code>
+     * <code>string ret_str = 1;</code>
      */
     java.lang.String getRetStr();
     /**
-     * <code>required string ret_str = 1;</code>
+     * <code>string ret_str = 1;</code>
      */
     com.google.protobuf.ByteString
         getRetStrBytes();
@@ -1692,13 +2251,13 @@ public final class ProcessRpcProto {
               done = true;
               break;
             case 10: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000001;
-              retStr_ = bs;
+              java.lang.String s = input.readStringRequireUtf8();
+
+              retStr_ = s;
               break;
             }
             default: {
-              if (!parseUnknownField(
+              if (!parseUnknownFieldProto3(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -1729,17 +2288,10 @@ public final class ProcessRpcProto {
               process_rpc_proto.ProcessRpcProto.FuncCallResp.class, process_rpc_proto.ProcessRpcProto.FuncCallResp.Builder.class);
     }
 
-    private int bitField0_;
     public static final int RET_STR_FIELD_NUMBER = 1;
     private volatile java.lang.Object retStr_;
     /**
-     * <code>required string ret_str = 1;</code>
-     */
-    public boolean hasRetStr() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
-    /**
-     * <code>required string ret_str = 1;</code>
+     * <code>string ret_str = 1;</code>
      */
     public java.lang.String getRetStr() {
       java.lang.Object ref = retStr_;
@@ -1749,14 +2301,12 @@ public final class ProcessRpcProto {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          retStr_ = s;
-        }
+        retStr_ = s;
         return s;
       }
     }
     /**
-     * <code>required string ret_str = 1;</code>
+     * <code>string ret_str = 1;</code>
      */
     public com.google.protobuf.ByteString
         getRetStrBytes() {
@@ -1779,10 +2329,6 @@ public final class ProcessRpcProto {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasRetStr()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -1790,7 +2336,7 @@ public final class ProcessRpcProto {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (!getRetStrBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, retStr_);
       }
       unknownFields.writeTo(output);
@@ -1802,7 +2348,7 @@ public final class ProcessRpcProto {
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (!getRetStrBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, retStr_);
       }
       size += unknownFields.getSerializedSize();
@@ -1821,11 +2367,8 @@ public final class ProcessRpcProto {
       process_rpc_proto.ProcessRpcProto.FuncCallResp other = (process_rpc_proto.ProcessRpcProto.FuncCallResp) obj;
 
       boolean result = true;
-      result = result && (hasRetStr() == other.hasRetStr());
-      if (hasRetStr()) {
-        result = result && getRetStr()
-            .equals(other.getRetStr());
-      }
+      result = result && getRetStr()
+          .equals(other.getRetStr());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -1837,10 +2380,8 @@ public final class ProcessRpcProto {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasRetStr()) {
-        hash = (37 * hash) + RET_STR_FIELD_NUMBER;
-        hash = (53 * hash) + getRetStr().hashCode();
-      }
+      hash = (37 * hash) + RET_STR_FIELD_NUMBER;
+      hash = (53 * hash) + getRetStr().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1975,7 +2516,7 @@ public final class ProcessRpcProto {
       public Builder clear() {
         super.clear();
         retStr_ = "";
-        bitField0_ = (bitField0_ & ~0x00000001);
+
         return this;
       }
 
@@ -2002,13 +2543,7 @@ public final class ProcessRpcProto {
       @java.lang.Override
       public process_rpc_proto.ProcessRpcProto.FuncCallResp buildPartial() {
         process_rpc_proto.ProcessRpcProto.FuncCallResp result = new process_rpc_proto.ProcessRpcProto.FuncCallResp(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
         result.retStr_ = retStr_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
@@ -2057,8 +2592,7 @@ public final class ProcessRpcProto {
 
       public Builder mergeFrom(process_rpc_proto.ProcessRpcProto.FuncCallResp other) {
         if (other == process_rpc_proto.ProcessRpcProto.FuncCallResp.getDefaultInstance()) return this;
-        if (other.hasRetStr()) {
-          bitField0_ |= 0x00000001;
+        if (!other.getRetStr().isEmpty()) {
           retStr_ = other.retStr_;
           onChanged();
         }
@@ -2069,9 +2603,6 @@ public final class ProcessRpcProto {
 
       @java.lang.Override
       public final boolean isInitialized() {
-        if (!hasRetStr()) {
-          return false;
-        }
         return true;
       }
 
@@ -2093,17 +2624,10 @@ public final class ProcessRpcProto {
         }
         return this;
       }
-      private int bitField0_;
 
       private java.lang.Object retStr_ = "";
       /**
-       * <code>required string ret_str = 1;</code>
-       */
-      public boolean hasRetStr() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      /**
-       * <code>required string ret_str = 1;</code>
+       * <code>string ret_str = 1;</code>
        */
       public java.lang.String getRetStr() {
         java.lang.Object ref = retStr_;
@@ -2111,16 +2635,14 @@ public final class ProcessRpcProto {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            retStr_ = s;
-          }
+          retStr_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>required string ret_str = 1;</code>
+       * <code>string ret_str = 1;</code>
        */
       public com.google.protobuf.ByteString
           getRetStrBytes() {
@@ -2136,36 +2658,37 @@ public final class ProcessRpcProto {
         }
       }
       /**
-       * <code>required string ret_str = 1;</code>
+       * <code>string ret_str = 1;</code>
        */
       public Builder setRetStr(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  
         retStr_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string ret_str = 1;</code>
+       * <code>string ret_str = 1;</code>
        */
       public Builder clearRetStr() {
-        bitField0_ = (bitField0_ & ~0x00000001);
+        
         retStr_ = getDefaultInstance().getRetStr();
         onChanged();
         return this;
       }
       /**
-       * <code>required string ret_str = 1;</code>
+       * <code>string ret_str = 1;</code>
        */
       public Builder setRetStrBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  checkByteStringIsUtf8(value);
+        
         retStr_ = value;
         onChanged();
         return this;
@@ -2173,7 +2696,7 @@ public final class ProcessRpcProto {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
       @java.lang.Override
@@ -2196,7 +2719,7 @@ public final class ProcessRpcProto {
       return DEFAULT_INSTANCE;
     }
 
-    @java.lang.Deprecated public static final com.google.protobuf.Parser<FuncCallResp>
+    private static final com.google.protobuf.Parser<FuncCallResp>
         PARSER = new com.google.protobuf.AbstractParser<FuncCallResp>() {
       @java.lang.Override
       public FuncCallResp parsePartialFrom(
@@ -2266,7 +2789,7 @@ public final class ProcessRpcProto {
               done = true;
               break;
             default: {
-              if (!parseUnknownField(
+              if (!parseUnknownFieldProto3(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -2585,7 +3108,7 @@ public final class ProcessRpcProto {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
       @java.lang.Override
@@ -2608,7 +3131,7 @@ public final class ProcessRpcProto {
       return DEFAULT_INSTANCE;
     }
 
-    @java.lang.Deprecated public static final com.google.protobuf.Parser<UpdateCheckpoint>
+    private static final com.google.protobuf.Parser<UpdateCheckpoint>
         PARSER = new com.google.protobuf.AbstractParser<UpdateCheckpoint>() {
       @java.lang.Override
       public UpdateCheckpoint parsePartialFrom(
@@ -2635,6 +3158,8695 @@ public final class ProcessRpcProto {
 
   }
 
+  public interface KeyRangeOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:process_rpc_proto.KeyRange)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>bytes start = 1;</code>
+     */
+    com.google.protobuf.ByteString getStart();
+
+    /**
+     * <code>bytes end = 2;</code>
+     */
+    com.google.protobuf.ByteString getEnd();
+  }
+  /**
+   * Protobuf type {@code process_rpc_proto.KeyRange}
+   */
+  public  static final class KeyRange extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:process_rpc_proto.KeyRange)
+      KeyRangeOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use KeyRange.newBuilder() to construct.
+    private KeyRange(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private KeyRange() {
+      start_ = com.google.protobuf.ByteString.EMPTY;
+      end_ = com.google.protobuf.ByteString.EMPTY;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private KeyRange(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+
+              start_ = input.readBytes();
+              break;
+            }
+            case 18: {
+
+              end_ = input.readBytes();
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KeyRange_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KeyRange_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              process_rpc_proto.ProcessRpcProto.KeyRange.class, process_rpc_proto.ProcessRpcProto.KeyRange.Builder.class);
+    }
+
+    public static final int START_FIELD_NUMBER = 1;
+    private com.google.protobuf.ByteString start_;
+    /**
+     * <code>bytes start = 1;</code>
+     */
+    public com.google.protobuf.ByteString getStart() {
+      return start_;
+    }
+
+    public static final int END_FIELD_NUMBER = 2;
+    private com.google.protobuf.ByteString end_;
+    /**
+     * <code>bytes end = 2;</code>
+     */
+    public com.google.protobuf.ByteString getEnd() {
+      return end_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!start_.isEmpty()) {
+        output.writeBytes(1, start_);
+      }
+      if (!end_.isEmpty()) {
+        output.writeBytes(2, end_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!start_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, start_);
+      }
+      if (!end_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, end_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof process_rpc_proto.ProcessRpcProto.KeyRange)) {
+        return super.equals(obj);
+      }
+      process_rpc_proto.ProcessRpcProto.KeyRange other = (process_rpc_proto.ProcessRpcProto.KeyRange) obj;
+
+      boolean result = true;
+      result = result && getStart()
+          .equals(other.getStart());
+      result = result && getEnd()
+          .equals(other.getEnd());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + START_FIELD_NUMBER;
+      hash = (53 * hash) + getStart().hashCode();
+      hash = (37 * hash) + END_FIELD_NUMBER;
+      hash = (53 * hash) + getEnd().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static process_rpc_proto.ProcessRpcProto.KeyRange parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KeyRange parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KeyRange parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KeyRange parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KeyRange parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KeyRange parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KeyRange parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KeyRange parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KeyRange parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KeyRange parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KeyRange parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KeyRange parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(process_rpc_proto.ProcessRpcProto.KeyRange prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code process_rpc_proto.KeyRange}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:process_rpc_proto.KeyRange)
+        process_rpc_proto.ProcessRpcProto.KeyRangeOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KeyRange_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KeyRange_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                process_rpc_proto.ProcessRpcProto.KeyRange.class, process_rpc_proto.ProcessRpcProto.KeyRange.Builder.class);
+      }
+
+      // Construct using process_rpc_proto.ProcessRpcProto.KeyRange.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        start_ = com.google.protobuf.ByteString.EMPTY;
+
+        end_ = com.google.protobuf.ByteString.EMPTY;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KeyRange_descriptor;
+      }
+
+      @java.lang.Override
+      public process_rpc_proto.ProcessRpcProto.KeyRange getDefaultInstanceForType() {
+        return process_rpc_proto.ProcessRpcProto.KeyRange.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public process_rpc_proto.ProcessRpcProto.KeyRange build() {
+        process_rpc_proto.ProcessRpcProto.KeyRange result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public process_rpc_proto.ProcessRpcProto.KeyRange buildPartial() {
+        process_rpc_proto.ProcessRpcProto.KeyRange result = new process_rpc_proto.ProcessRpcProto.KeyRange(this);
+        result.start_ = start_;
+        result.end_ = end_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof process_rpc_proto.ProcessRpcProto.KeyRange) {
+          return mergeFrom((process_rpc_proto.ProcessRpcProto.KeyRange)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(process_rpc_proto.ProcessRpcProto.KeyRange other) {
+        if (other == process_rpc_proto.ProcessRpcProto.KeyRange.getDefaultInstance()) return this;
+        if (other.getStart() != com.google.protobuf.ByteString.EMPTY) {
+          setStart(other.getStart());
+        }
+        if (other.getEnd() != com.google.protobuf.ByteString.EMPTY) {
+          setEnd(other.getEnd());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        process_rpc_proto.ProcessRpcProto.KeyRange parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (process_rpc_proto.ProcessRpcProto.KeyRange) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private com.google.protobuf.ByteString start_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>bytes start = 1;</code>
+       */
+      public com.google.protobuf.ByteString getStart() {
+        return start_;
+      }
+      /**
+       * <code>bytes start = 1;</code>
+       */
+      public Builder setStart(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        start_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bytes start = 1;</code>
+       */
+      public Builder clearStart() {
+        
+        start_ = getDefaultInstance().getStart();
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.ByteString end_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>bytes end = 2;</code>
+       */
+      public com.google.protobuf.ByteString getEnd() {
+        return end_;
+      }
+      /**
+       * <code>bytes end = 2;</code>
+       */
+      public Builder setEnd(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        end_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bytes end = 2;</code>
+       */
+      public Builder clearEnd() {
+        
+        end_ = getDefaultInstance().getEnd();
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:process_rpc_proto.KeyRange)
+    }
+
+    // @@protoc_insertion_point(class_scope:process_rpc_proto.KeyRange)
+    private static final process_rpc_proto.ProcessRpcProto.KeyRange DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new process_rpc_proto.ProcessRpcProto.KeyRange();
+    }
+
+    public static process_rpc_proto.ProcessRpcProto.KeyRange getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<KeyRange>
+        PARSER = new com.google.protobuf.AbstractParser<KeyRange>() {
+      @java.lang.Override
+      public KeyRange parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new KeyRange(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<KeyRange> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<KeyRange> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public process_rpc_proto.ProcessRpcProto.KeyRange getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface KvPairOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:process_rpc_proto.KvPair)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>bytes key = 1;</code>
+     */
+    com.google.protobuf.ByteString getKey();
+
+    /**
+     * <code>repeated bytes values = 2;</code>
+     */
+    java.util.List<com.google.protobuf.ByteString> getValuesList();
+    /**
+     * <code>repeated bytes values = 2;</code>
+     */
+    int getValuesCount();
+    /**
+     * <code>repeated bytes values = 2;</code>
+     */
+    com.google.protobuf.ByteString getValues(int index);
+  }
+  /**
+   * Protobuf type {@code process_rpc_proto.KvPair}
+   */
+  public  static final class KvPair extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:process_rpc_proto.KvPair)
+      KvPairOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use KvPair.newBuilder() to construct.
+    private KvPair(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private KvPair() {
+      key_ = com.google.protobuf.ByteString.EMPTY;
+      values_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private KvPair(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+
+              key_ = input.readBytes();
+              break;
+            }
+            case 18: {
+              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+                values_ = new java.util.ArrayList<com.google.protobuf.ByteString>();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              values_.add(input.readBytes());
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+          values_ = java.util.Collections.unmodifiableList(values_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvPair_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvPair_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              process_rpc_proto.ProcessRpcProto.KvPair.class, process_rpc_proto.ProcessRpcProto.KvPair.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int KEY_FIELD_NUMBER = 1;
+    private com.google.protobuf.ByteString key_;
+    /**
+     * <code>bytes key = 1;</code>
+     */
+    public com.google.protobuf.ByteString getKey() {
+      return key_;
+    }
+
+    public static final int VALUES_FIELD_NUMBER = 2;
+    private java.util.List<com.google.protobuf.ByteString> values_;
+    /**
+     * <code>repeated bytes values = 2;</code>
+     */
+    public java.util.List<com.google.protobuf.ByteString>
+        getValuesList() {
+      return values_;
+    }
+    /**
+     * <code>repeated bytes values = 2;</code>
+     */
+    public int getValuesCount() {
+      return values_.size();
+    }
+    /**
+     * <code>repeated bytes values = 2;</code>
+     */
+    public com.google.protobuf.ByteString getValues(int index) {
+      return values_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!key_.isEmpty()) {
+        output.writeBytes(1, key_);
+      }
+      for (int i = 0; i < values_.size(); i++) {
+        output.writeBytes(2, values_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!key_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, key_);
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < values_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeBytesSizeNoTag(values_.get(i));
+        }
+        size += dataSize;
+        size += 1 * getValuesList().size();
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof process_rpc_proto.ProcessRpcProto.KvPair)) {
+        return super.equals(obj);
+      }
+      process_rpc_proto.ProcessRpcProto.KvPair other = (process_rpc_proto.ProcessRpcProto.KvPair) obj;
+
+      boolean result = true;
+      result = result && getKey()
+          .equals(other.getKey());
+      result = result && getValuesList()
+          .equals(other.getValuesList());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + KEY_FIELD_NUMBER;
+      hash = (53 * hash) + getKey().hashCode();
+      if (getValuesCount() > 0) {
+        hash = (37 * hash) + VALUES_FIELD_NUMBER;
+        hash = (53 * hash) + getValuesList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static process_rpc_proto.ProcessRpcProto.KvPair parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvPair parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvPair parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvPair parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvPair parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvPair parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvPair parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvPair parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvPair parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvPair parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvPair parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvPair parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(process_rpc_proto.ProcessRpcProto.KvPair prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code process_rpc_proto.KvPair}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:process_rpc_proto.KvPair)
+        process_rpc_proto.ProcessRpcProto.KvPairOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvPair_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvPair_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                process_rpc_proto.ProcessRpcProto.KvPair.class, process_rpc_proto.ProcessRpcProto.KvPair.Builder.class);
+      }
+
+      // Construct using process_rpc_proto.ProcessRpcProto.KvPair.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        key_ = com.google.protobuf.ByteString.EMPTY;
+
+        values_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvPair_descriptor;
+      }
+
+      @java.lang.Override
+      public process_rpc_proto.ProcessRpcProto.KvPair getDefaultInstanceForType() {
+        return process_rpc_proto.ProcessRpcProto.KvPair.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public process_rpc_proto.ProcessRpcProto.KvPair build() {
+        process_rpc_proto.ProcessRpcProto.KvPair result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public process_rpc_proto.ProcessRpcProto.KvPair buildPartial() {
+        process_rpc_proto.ProcessRpcProto.KvPair result = new process_rpc_proto.ProcessRpcProto.KvPair(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        result.key_ = key_;
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          values_ = java.util.Collections.unmodifiableList(values_);
+          bitField0_ = (bitField0_ & ~0x00000002);
+        }
+        result.values_ = values_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof process_rpc_proto.ProcessRpcProto.KvPair) {
+          return mergeFrom((process_rpc_proto.ProcessRpcProto.KvPair)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(process_rpc_proto.ProcessRpcProto.KvPair other) {
+        if (other == process_rpc_proto.ProcessRpcProto.KvPair.getDefaultInstance()) return this;
+        if (other.getKey() != com.google.protobuf.ByteString.EMPTY) {
+          setKey(other.getKey());
+        }
+        if (!other.values_.isEmpty()) {
+          if (values_.isEmpty()) {
+            values_ = other.values_;
+            bitField0_ = (bitField0_ & ~0x00000002);
+          } else {
+            ensureValuesIsMutable();
+            values_.addAll(other.values_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        process_rpc_proto.ProcessRpcProto.KvPair parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (process_rpc_proto.ProcessRpcProto.KvPair) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private com.google.protobuf.ByteString key_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>bytes key = 1;</code>
+       */
+      public com.google.protobuf.ByteString getKey() {
+        return key_;
+      }
+      /**
+       * <code>bytes key = 1;</code>
+       */
+      public Builder setKey(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        key_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bytes key = 1;</code>
+       */
+      public Builder clearKey() {
+        
+        key_ = getDefaultInstance().getKey();
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<com.google.protobuf.ByteString> values_ = java.util.Collections.emptyList();
+      private void ensureValuesIsMutable() {
+        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+          values_ = new java.util.ArrayList<com.google.protobuf.ByteString>(values_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+      /**
+       * <code>repeated bytes values = 2;</code>
+       */
+      public java.util.List<com.google.protobuf.ByteString>
+          getValuesList() {
+        return java.util.Collections.unmodifiableList(values_);
+      }
+      /**
+       * <code>repeated bytes values = 2;</code>
+       */
+      public int getValuesCount() {
+        return values_.size();
+      }
+      /**
+       * <code>repeated bytes values = 2;</code>
+       */
+      public com.google.protobuf.ByteString getValues(int index) {
+        return values_.get(index);
+      }
+      /**
+       * <code>repeated bytes values = 2;</code>
+       */
+      public Builder setValues(
+          int index, com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureValuesIsMutable();
+        values_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated bytes values = 2;</code>
+       */
+      public Builder addValues(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureValuesIsMutable();
+        values_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated bytes values = 2;</code>
+       */
+      public Builder addAllValues(
+          java.lang.Iterable<? extends com.google.protobuf.ByteString> values) {
+        ensureValuesIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, values_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated bytes values = 2;</code>
+       */
+      public Builder clearValues() {
+        values_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:process_rpc_proto.KvPair)
+    }
+
+    // @@protoc_insertion_point(class_scope:process_rpc_proto.KvPair)
+    private static final process_rpc_proto.ProcessRpcProto.KvPair DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new process_rpc_proto.ProcessRpcProto.KvPair();
+    }
+
+    public static process_rpc_proto.ProcessRpcProto.KvPair getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<KvPair>
+        PARSER = new com.google.protobuf.AbstractParser<KvPair>() {
+      @java.lang.Override
+      public KvPair parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new KvPair(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<KvPair> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<KvPair> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public process_rpc_proto.ProcessRpcProto.KvPair getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface KvRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:process_rpc_proto.KvRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>.process_rpc_proto.KvRequest.KvPutRequest set = 1;</code>
+     */
+    boolean hasSet();
+    /**
+     * <code>.process_rpc_proto.KvRequest.KvPutRequest set = 1;</code>
+     */
+    process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest getSet();
+    /**
+     * <code>.process_rpc_proto.KvRequest.KvPutRequest set = 1;</code>
+     */
+    process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequestOrBuilder getSetOrBuilder();
+
+    /**
+     * <code>.process_rpc_proto.KvRequest.KvGetRequest get = 2;</code>
+     */
+    boolean hasGet();
+    /**
+     * <code>.process_rpc_proto.KvRequest.KvGetRequest get = 2;</code>
+     */
+    process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest getGet();
+    /**
+     * <code>.process_rpc_proto.KvRequest.KvGetRequest get = 2;</code>
+     */
+    process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequestOrBuilder getGetOrBuilder();
+
+    /**
+     * <code>.process_rpc_proto.KvRequest.KvDeleteRequest delete = 3;</code>
+     */
+    boolean hasDelete();
+    /**
+     * <code>.process_rpc_proto.KvRequest.KvDeleteRequest delete = 3;</code>
+     */
+    process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest getDelete();
+    /**
+     * <code>.process_rpc_proto.KvRequest.KvDeleteRequest delete = 3;</code>
+     */
+    process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequestOrBuilder getDeleteOrBuilder();
+
+    public process_rpc_proto.ProcessRpcProto.KvRequest.OpCase getOpCase();
+  }
+  /**
+   * Protobuf type {@code process_rpc_proto.KvRequest}
+   */
+  public  static final class KvRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:process_rpc_proto.KvRequest)
+      KvRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use KvRequest.newBuilder() to construct.
+    private KvRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private KvRequest() {
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private KvRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest.Builder subBuilder = null;
+              if (opCase_ == 1) {
+                subBuilder = ((process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest) op_).toBuilder();
+              }
+              op_ =
+                  input.readMessage(process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest) op_);
+                op_ = subBuilder.buildPartial();
+              }
+              opCase_ = 1;
+              break;
+            }
+            case 18: {
+              process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest.Builder subBuilder = null;
+              if (opCase_ == 2) {
+                subBuilder = ((process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest) op_).toBuilder();
+              }
+              op_ =
+                  input.readMessage(process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest) op_);
+                op_ = subBuilder.buildPartial();
+              }
+              opCase_ = 2;
+              break;
+            }
+            case 26: {
+              process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest.Builder subBuilder = null;
+              if (opCase_ == 3) {
+                subBuilder = ((process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest) op_).toBuilder();
+              }
+              op_ =
+                  input.readMessage(process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest) op_);
+                op_ = subBuilder.buildPartial();
+              }
+              opCase_ = 3;
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              process_rpc_proto.ProcessRpcProto.KvRequest.class, process_rpc_proto.ProcessRpcProto.KvRequest.Builder.class);
+    }
+
+    public interface KvPutRequestOrBuilder extends
+        // @@protoc_insertion_point(interface_extends:process_rpc_proto.KvRequest.KvPutRequest)
+        com.google.protobuf.MessageOrBuilder {
+
+      /**
+       * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+       */
+      boolean hasSrcTaskId();
+      /**
+       * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+       */
+      process_rpc_proto.ProcessRpcProto.FnTaskId getSrcTaskId();
+      /**
+       * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+       */
+      process_rpc_proto.ProcessRpcProto.FnTaskIdOrBuilder getSrcTaskIdOrBuilder();
+
+      /**
+       * <code>string app_fn = 2;</code>
+       */
+      java.lang.String getAppFn();
+      /**
+       * <code>string app_fn = 2;</code>
+       */
+      com.google.protobuf.ByteString
+          getAppFnBytes();
+
+      /**
+       * <pre>
+       * required
+       * </pre>
+       *
+       * <code>.process_rpc_proto.KvPair kv = 3;</code>
+       */
+      boolean hasKv();
+      /**
+       * <pre>
+       * required
+       * </pre>
+       *
+       * <code>.process_rpc_proto.KvPair kv = 3;</code>
+       */
+      process_rpc_proto.ProcessRpcProto.KvPair getKv();
+      /**
+       * <pre>
+       * required
+       * </pre>
+       *
+       * <code>.process_rpc_proto.KvPair kv = 3;</code>
+       */
+      process_rpc_proto.ProcessRpcProto.KvPairOrBuilder getKvOrBuilder();
+    }
+    /**
+     * Protobuf type {@code process_rpc_proto.KvRequest.KvPutRequest}
+     */
+    public  static final class KvPutRequest extends
+        com.google.protobuf.GeneratedMessageV3 implements
+        // @@protoc_insertion_point(message_implements:process_rpc_proto.KvRequest.KvPutRequest)
+        KvPutRequestOrBuilder {
+    private static final long serialVersionUID = 0L;
+      // Use KvPutRequest.newBuilder() to construct.
+      private KvPutRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        super(builder);
+      }
+      private KvPutRequest() {
+        appFn_ = "";
+      }
+
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+      getUnknownFields() {
+        return this.unknownFields;
+      }
+      private KvPutRequest(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        this();
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        int mutable_bitField0_ = 0;
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                process_rpc_proto.ProcessRpcProto.FnTaskId.Builder subBuilder = null;
+                if (srcTaskId_ != null) {
+                  subBuilder = srcTaskId_.toBuilder();
+                }
+                srcTaskId_ = input.readMessage(process_rpc_proto.ProcessRpcProto.FnTaskId.parser(), extensionRegistry);
+                if (subBuilder != null) {
+                  subBuilder.mergeFrom(srcTaskId_);
+                  srcTaskId_ = subBuilder.buildPartial();
+                }
+
+                break;
+              }
+              case 18: {
+                java.lang.String s = input.readStringRequireUtf8();
+
+                appFn_ = s;
+                break;
+              }
+              case 26: {
+                process_rpc_proto.ProcessRpcProto.KvPair.Builder subBuilder = null;
+                if (kv_ != null) {
+                  subBuilder = kv_.toBuilder();
+                }
+                kv_ = input.readMessage(process_rpc_proto.ProcessRpcProto.KvPair.parser(), extensionRegistry);
+                if (subBuilder != null) {
+                  subBuilder.mergeFrom(kv_);
+                  kv_ = subBuilder.buildPartial();
+                }
+
+                break;
+              }
+              default: {
+                if (!parseUnknownFieldProto3(
+                    input, unknownFields, extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
+            }
+          }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e).setUnfinishedMessage(this);
+        } finally {
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
+        }
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvRequest_KvPutRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvRequest_KvPutRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest.class, process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest.Builder.class);
+      }
+
+      public static final int SRC_TASK_ID_FIELD_NUMBER = 1;
+      private process_rpc_proto.ProcessRpcProto.FnTaskId srcTaskId_;
+      /**
+       * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+       */
+      public boolean hasSrcTaskId() {
+        return srcTaskId_ != null;
+      }
+      /**
+       * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.FnTaskId getSrcTaskId() {
+        return srcTaskId_ == null ? process_rpc_proto.ProcessRpcProto.FnTaskId.getDefaultInstance() : srcTaskId_;
+      }
+      /**
+       * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.FnTaskIdOrBuilder getSrcTaskIdOrBuilder() {
+        return getSrcTaskId();
+      }
+
+      public static final int APP_FN_FIELD_NUMBER = 2;
+      private volatile java.lang.Object appFn_;
+      /**
+       * <code>string app_fn = 2;</code>
+       */
+      public java.lang.String getAppFn() {
+        java.lang.Object ref = appFn_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          appFn_ = s;
+          return s;
+        }
+      }
+      /**
+       * <code>string app_fn = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getAppFnBytes() {
+        java.lang.Object ref = appFn_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          appFn_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      public static final int KV_FIELD_NUMBER = 3;
+      private process_rpc_proto.ProcessRpcProto.KvPair kv_;
+      /**
+       * <pre>
+       * required
+       * </pre>
+       *
+       * <code>.process_rpc_proto.KvPair kv = 3;</code>
+       */
+      public boolean hasKv() {
+        return kv_ != null;
+      }
+      /**
+       * <pre>
+       * required
+       * </pre>
+       *
+       * <code>.process_rpc_proto.KvPair kv = 3;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.KvPair getKv() {
+        return kv_ == null ? process_rpc_proto.ProcessRpcProto.KvPair.getDefaultInstance() : kv_;
+      }
+      /**
+       * <pre>
+       * required
+       * </pre>
+       *
+       * <code>.process_rpc_proto.KvPair kv = 3;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.KvPairOrBuilder getKvOrBuilder() {
+        return getKv();
+      }
+
+      private byte memoizedIsInitialized = -1;
+      @java.lang.Override
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized == 1) return true;
+        if (isInitialized == 0) return false;
+
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      @java.lang.Override
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        if (srcTaskId_ != null) {
+          output.writeMessage(1, getSrcTaskId());
+        }
+        if (!getAppFnBytes().isEmpty()) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 2, appFn_);
+        }
+        if (kv_ != null) {
+          output.writeMessage(3, getKv());
+        }
+        unknownFields.writeTo(output);
+      }
+
+      @java.lang.Override
+      public int getSerializedSize() {
+        int size = memoizedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (srcTaskId_ != null) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(1, getSrcTaskId());
+        }
+        if (!getAppFnBytes().isEmpty()) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, appFn_);
+        }
+        if (kv_ != null) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(3, getKv());
+        }
+        size += unknownFields.getSerializedSize();
+        memoizedSize = size;
+        return size;
+      }
+
+      @java.lang.Override
+      public boolean equals(final java.lang.Object obj) {
+        if (obj == this) {
+         return true;
+        }
+        if (!(obj instanceof process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest)) {
+          return super.equals(obj);
+        }
+        process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest other = (process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest) obj;
+
+        boolean result = true;
+        result = result && (hasSrcTaskId() == other.hasSrcTaskId());
+        if (hasSrcTaskId()) {
+          result = result && getSrcTaskId()
+              .equals(other.getSrcTaskId());
+        }
+        result = result && getAppFn()
+            .equals(other.getAppFn());
+        result = result && (hasKv() == other.hasKv());
+        if (hasKv()) {
+          result = result && getKv()
+              .equals(other.getKv());
+        }
+        result = result && unknownFields.equals(other.unknownFields);
+        return result;
+      }
+
+      @java.lang.Override
+      public int hashCode() {
+        if (memoizedHashCode != 0) {
+          return memoizedHashCode;
+        }
+        int hash = 41;
+        hash = (19 * hash) + getDescriptor().hashCode();
+        if (hasSrcTaskId()) {
+          hash = (37 * hash) + SRC_TASK_ID_FIELD_NUMBER;
+          hash = (53 * hash) + getSrcTaskId().hashCode();
+        }
+        hash = (37 * hash) + APP_FN_FIELD_NUMBER;
+        hash = (53 * hash) + getAppFn().hashCode();
+        if (hasKv()) {
+          hash = (37 * hash) + KV_FIELD_NUMBER;
+          hash = (53 * hash) + getKv().hashCode();
+        }
+        hash = (29 * hash) + unknownFields.hashCode();
+        memoizedHashCode = hash;
+        return hash;
+      }
+
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest parseFrom(
+          java.nio.ByteBuffer data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest parseFrom(
+          java.nio.ByteBuffer data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+
+      @java.lang.Override
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder() {
+        return DEFAULT_INSTANCE.toBuilder();
+      }
+      public static Builder newBuilder(process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest prototype) {
+        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      }
+      @java.lang.Override
+      public Builder toBuilder() {
+        return this == DEFAULT_INSTANCE
+            ? new Builder() : new Builder().mergeFrom(this);
+      }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code process_rpc_proto.KvRequest.KvPutRequest}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+          // @@protoc_insertion_point(builder_implements:process_rpc_proto.KvRequest.KvPutRequest)
+          process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequestOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvRequest_KvPutRequest_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvRequest_KvPutRequest_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest.class, process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest.Builder.class);
+        }
+
+        // Construct using process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessageV3
+                  .alwaysUseFieldBuilders) {
+          }
+        }
+        @java.lang.Override
+        public Builder clear() {
+          super.clear();
+          if (srcTaskIdBuilder_ == null) {
+            srcTaskId_ = null;
+          } else {
+            srcTaskId_ = null;
+            srcTaskIdBuilder_ = null;
+          }
+          appFn_ = "";
+
+          if (kvBuilder_ == null) {
+            kv_ = null;
+          } else {
+            kv_ = null;
+            kvBuilder_ = null;
+          }
+          return this;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvRequest_KvPutRequest_descriptor;
+        }
+
+        @java.lang.Override
+        public process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest getDefaultInstanceForType() {
+          return process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest.getDefaultInstance();
+        }
+
+        @java.lang.Override
+        public process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest build() {
+          process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        @java.lang.Override
+        public process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest buildPartial() {
+          process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest result = new process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest(this);
+          if (srcTaskIdBuilder_ == null) {
+            result.srcTaskId_ = srcTaskId_;
+          } else {
+            result.srcTaskId_ = srcTaskIdBuilder_.build();
+          }
+          result.appFn_ = appFn_;
+          if (kvBuilder_ == null) {
+            result.kv_ = kv_;
+          } else {
+            result.kv_ = kvBuilder_.build();
+          }
+          onBuilt();
+          return result;
+        }
+
+        @java.lang.Override
+        public Builder clone() {
+          return (Builder) super.clone();
+        }
+        @java.lang.Override
+        public Builder setField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return (Builder) super.setField(field, value);
+        }
+        @java.lang.Override
+        public Builder clearField(
+            com.google.protobuf.Descriptors.FieldDescriptor field) {
+          return (Builder) super.clearField(field);
+        }
+        @java.lang.Override
+        public Builder clearOneof(
+            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          return (Builder) super.clearOneof(oneof);
+        }
+        @java.lang.Override
+        public Builder setRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            int index, java.lang.Object value) {
+          return (Builder) super.setRepeatedField(field, index, value);
+        }
+        @java.lang.Override
+        public Builder addRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return (Builder) super.addRepeatedField(field, value);
+        }
+        @java.lang.Override
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest) {
+            return mergeFrom((process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest other) {
+          if (other == process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest.getDefaultInstance()) return this;
+          if (other.hasSrcTaskId()) {
+            mergeSrcTaskId(other.getSrcTaskId());
+          }
+          if (!other.getAppFn().isEmpty()) {
+            appFn_ = other.appFn_;
+            onChanged();
+          }
+          if (other.hasKv()) {
+            mergeKv(other.getKv());
+          }
+          this.mergeUnknownFields(other.unknownFields);
+          onChanged();
+          return this;
+        }
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+          return true;
+        }
+
+        @java.lang.Override
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest) e.getUnfinishedMessage();
+            throw e.unwrapIOException();
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
+
+        private process_rpc_proto.ProcessRpcProto.FnTaskId srcTaskId_ = null;
+        private com.google.protobuf.SingleFieldBuilderV3<
+            process_rpc_proto.ProcessRpcProto.FnTaskId, process_rpc_proto.ProcessRpcProto.FnTaskId.Builder, process_rpc_proto.ProcessRpcProto.FnTaskIdOrBuilder> srcTaskIdBuilder_;
+        /**
+         * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+         */
+        public boolean hasSrcTaskId() {
+          return srcTaskIdBuilder_ != null || srcTaskId_ != null;
+        }
+        /**
+         * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+         */
+        public process_rpc_proto.ProcessRpcProto.FnTaskId getSrcTaskId() {
+          if (srcTaskIdBuilder_ == null) {
+            return srcTaskId_ == null ? process_rpc_proto.ProcessRpcProto.FnTaskId.getDefaultInstance() : srcTaskId_;
+          } else {
+            return srcTaskIdBuilder_.getMessage();
+          }
+        }
+        /**
+         * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+         */
+        public Builder setSrcTaskId(process_rpc_proto.ProcessRpcProto.FnTaskId value) {
+          if (srcTaskIdBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            srcTaskId_ = value;
+            onChanged();
+          } else {
+            srcTaskIdBuilder_.setMessage(value);
+          }
+
+          return this;
+        }
+        /**
+         * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+         */
+        public Builder setSrcTaskId(
+            process_rpc_proto.ProcessRpcProto.FnTaskId.Builder builderForValue) {
+          if (srcTaskIdBuilder_ == null) {
+            srcTaskId_ = builderForValue.build();
+            onChanged();
+          } else {
+            srcTaskIdBuilder_.setMessage(builderForValue.build());
+          }
+
+          return this;
+        }
+        /**
+         * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+         */
+        public Builder mergeSrcTaskId(process_rpc_proto.ProcessRpcProto.FnTaskId value) {
+          if (srcTaskIdBuilder_ == null) {
+            if (srcTaskId_ != null) {
+              srcTaskId_ =
+                process_rpc_proto.ProcessRpcProto.FnTaskId.newBuilder(srcTaskId_).mergeFrom(value).buildPartial();
+            } else {
+              srcTaskId_ = value;
+            }
+            onChanged();
+          } else {
+            srcTaskIdBuilder_.mergeFrom(value);
+          }
+
+          return this;
+        }
+        /**
+         * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+         */
+        public Builder clearSrcTaskId() {
+          if (srcTaskIdBuilder_ == null) {
+            srcTaskId_ = null;
+            onChanged();
+          } else {
+            srcTaskId_ = null;
+            srcTaskIdBuilder_ = null;
+          }
+
+          return this;
+        }
+        /**
+         * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+         */
+        public process_rpc_proto.ProcessRpcProto.FnTaskId.Builder getSrcTaskIdBuilder() {
+          
+          onChanged();
+          return getSrcTaskIdFieldBuilder().getBuilder();
+        }
+        /**
+         * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+         */
+        public process_rpc_proto.ProcessRpcProto.FnTaskIdOrBuilder getSrcTaskIdOrBuilder() {
+          if (srcTaskIdBuilder_ != null) {
+            return srcTaskIdBuilder_.getMessageOrBuilder();
+          } else {
+            return srcTaskId_ == null ?
+                process_rpc_proto.ProcessRpcProto.FnTaskId.getDefaultInstance() : srcTaskId_;
+          }
+        }
+        /**
+         * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+         */
+        private com.google.protobuf.SingleFieldBuilderV3<
+            process_rpc_proto.ProcessRpcProto.FnTaskId, process_rpc_proto.ProcessRpcProto.FnTaskId.Builder, process_rpc_proto.ProcessRpcProto.FnTaskIdOrBuilder> 
+            getSrcTaskIdFieldBuilder() {
+          if (srcTaskIdBuilder_ == null) {
+            srcTaskIdBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                process_rpc_proto.ProcessRpcProto.FnTaskId, process_rpc_proto.ProcessRpcProto.FnTaskId.Builder, process_rpc_proto.ProcessRpcProto.FnTaskIdOrBuilder>(
+                    getSrcTaskId(),
+                    getParentForChildren(),
+                    isClean());
+            srcTaskId_ = null;
+          }
+          return srcTaskIdBuilder_;
+        }
+
+        private java.lang.Object appFn_ = "";
+        /**
+         * <code>string app_fn = 2;</code>
+         */
+        public java.lang.String getAppFn() {
+          java.lang.Object ref = appFn_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            appFn_ = s;
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>string app_fn = 2;</code>
+         */
+        public com.google.protobuf.ByteString
+            getAppFnBytes() {
+          java.lang.Object ref = appFn_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            appFn_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>string app_fn = 2;</code>
+         */
+        public Builder setAppFn(
+            java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  
+          appFn_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string app_fn = 2;</code>
+         */
+        public Builder clearAppFn() {
+          
+          appFn_ = getDefaultInstance().getAppFn();
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string app_fn = 2;</code>
+         */
+        public Builder setAppFnBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+          
+          appFn_ = value;
+          onChanged();
+          return this;
+        }
+
+        private process_rpc_proto.ProcessRpcProto.KvPair kv_ = null;
+        private com.google.protobuf.SingleFieldBuilderV3<
+            process_rpc_proto.ProcessRpcProto.KvPair, process_rpc_proto.ProcessRpcProto.KvPair.Builder, process_rpc_proto.ProcessRpcProto.KvPairOrBuilder> kvBuilder_;
+        /**
+         * <pre>
+         * required
+         * </pre>
+         *
+         * <code>.process_rpc_proto.KvPair kv = 3;</code>
+         */
+        public boolean hasKv() {
+          return kvBuilder_ != null || kv_ != null;
+        }
+        /**
+         * <pre>
+         * required
+         * </pre>
+         *
+         * <code>.process_rpc_proto.KvPair kv = 3;</code>
+         */
+        public process_rpc_proto.ProcessRpcProto.KvPair getKv() {
+          if (kvBuilder_ == null) {
+            return kv_ == null ? process_rpc_proto.ProcessRpcProto.KvPair.getDefaultInstance() : kv_;
+          } else {
+            return kvBuilder_.getMessage();
+          }
+        }
+        /**
+         * <pre>
+         * required
+         * </pre>
+         *
+         * <code>.process_rpc_proto.KvPair kv = 3;</code>
+         */
+        public Builder setKv(process_rpc_proto.ProcessRpcProto.KvPair value) {
+          if (kvBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            kv_ = value;
+            onChanged();
+          } else {
+            kvBuilder_.setMessage(value);
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * required
+         * </pre>
+         *
+         * <code>.process_rpc_proto.KvPair kv = 3;</code>
+         */
+        public Builder setKv(
+            process_rpc_proto.ProcessRpcProto.KvPair.Builder builderForValue) {
+          if (kvBuilder_ == null) {
+            kv_ = builderForValue.build();
+            onChanged();
+          } else {
+            kvBuilder_.setMessage(builderForValue.build());
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * required
+         * </pre>
+         *
+         * <code>.process_rpc_proto.KvPair kv = 3;</code>
+         */
+        public Builder mergeKv(process_rpc_proto.ProcessRpcProto.KvPair value) {
+          if (kvBuilder_ == null) {
+            if (kv_ != null) {
+              kv_ =
+                process_rpc_proto.ProcessRpcProto.KvPair.newBuilder(kv_).mergeFrom(value).buildPartial();
+            } else {
+              kv_ = value;
+            }
+            onChanged();
+          } else {
+            kvBuilder_.mergeFrom(value);
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * required
+         * </pre>
+         *
+         * <code>.process_rpc_proto.KvPair kv = 3;</code>
+         */
+        public Builder clearKv() {
+          if (kvBuilder_ == null) {
+            kv_ = null;
+            onChanged();
+          } else {
+            kv_ = null;
+            kvBuilder_ = null;
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * required
+         * </pre>
+         *
+         * <code>.process_rpc_proto.KvPair kv = 3;</code>
+         */
+        public process_rpc_proto.ProcessRpcProto.KvPair.Builder getKvBuilder() {
+          
+          onChanged();
+          return getKvFieldBuilder().getBuilder();
+        }
+        /**
+         * <pre>
+         * required
+         * </pre>
+         *
+         * <code>.process_rpc_proto.KvPair kv = 3;</code>
+         */
+        public process_rpc_proto.ProcessRpcProto.KvPairOrBuilder getKvOrBuilder() {
+          if (kvBuilder_ != null) {
+            return kvBuilder_.getMessageOrBuilder();
+          } else {
+            return kv_ == null ?
+                process_rpc_proto.ProcessRpcProto.KvPair.getDefaultInstance() : kv_;
+          }
+        }
+        /**
+         * <pre>
+         * required
+         * </pre>
+         *
+         * <code>.process_rpc_proto.KvPair kv = 3;</code>
+         */
+        private com.google.protobuf.SingleFieldBuilderV3<
+            process_rpc_proto.ProcessRpcProto.KvPair, process_rpc_proto.ProcessRpcProto.KvPair.Builder, process_rpc_proto.ProcessRpcProto.KvPairOrBuilder> 
+            getKvFieldBuilder() {
+          if (kvBuilder_ == null) {
+            kvBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                process_rpc_proto.ProcessRpcProto.KvPair, process_rpc_proto.ProcessRpcProto.KvPair.Builder, process_rpc_proto.ProcessRpcProto.KvPairOrBuilder>(
+                    getKv(),
+                    getParentForChildren(),
+                    isClean());
+            kv_ = null;
+          }
+          return kvBuilder_;
+        }
+        @java.lang.Override
+        public final Builder setUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.setUnknownFieldsProto3(unknownFields);
+        }
+
+        @java.lang.Override
+        public final Builder mergeUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.mergeUnknownFields(unknownFields);
+        }
+
+
+        // @@protoc_insertion_point(builder_scope:process_rpc_proto.KvRequest.KvPutRequest)
+      }
+
+      // @@protoc_insertion_point(class_scope:process_rpc_proto.KvRequest.KvPutRequest)
+      private static final process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest DEFAULT_INSTANCE;
+      static {
+        DEFAULT_INSTANCE = new process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest();
+      }
+
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest getDefaultInstance() {
+        return DEFAULT_INSTANCE;
+      }
+
+      private static final com.google.protobuf.Parser<KvPutRequest>
+          PARSER = new com.google.protobuf.AbstractParser<KvPutRequest>() {
+        @java.lang.Override
+        public KvPutRequest parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new KvPutRequest(input, extensionRegistry);
+        }
+      };
+
+      public static com.google.protobuf.Parser<KvPutRequest> parser() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<KvPutRequest> getParserForType() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest getDefaultInstanceForType() {
+        return DEFAULT_INSTANCE;
+      }
+
+    }
+
+    public interface KvGetRequestOrBuilder extends
+        // @@protoc_insertion_point(interface_extends:process_rpc_proto.KvRequest.KvGetRequest)
+        com.google.protobuf.MessageOrBuilder {
+
+      /**
+       * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+       */
+      boolean hasSrcTaskId();
+      /**
+       * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+       */
+      process_rpc_proto.ProcessRpcProto.FnTaskId getSrcTaskId();
+      /**
+       * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+       */
+      process_rpc_proto.ProcessRpcProto.FnTaskIdOrBuilder getSrcTaskIdOrBuilder();
+
+      /**
+       * <code>string app_fn = 2;</code>
+       */
+      java.lang.String getAppFn();
+      /**
+       * <code>string app_fn = 2;</code>
+       */
+      com.google.protobuf.ByteString
+          getAppFnBytes();
+
+      /**
+       * <pre>
+       * required
+       * </pre>
+       *
+       * <code>.process_rpc_proto.KeyRange range = 3;</code>
+       */
+      boolean hasRange();
+      /**
+       * <pre>
+       * required
+       * </pre>
+       *
+       * <code>.process_rpc_proto.KeyRange range = 3;</code>
+       */
+      process_rpc_proto.ProcessRpcProto.KeyRange getRange();
+      /**
+       * <pre>
+       * required
+       * </pre>
+       *
+       * <code>.process_rpc_proto.KeyRange range = 3;</code>
+       */
+      process_rpc_proto.ProcessRpcProto.KeyRangeOrBuilder getRangeOrBuilder();
+
+      /**
+       * <pre>
+       * required
+       * </pre>
+       *
+       * <code>repeated uint32 idxs = 4;</code>
+       */
+      java.util.List<java.lang.Integer> getIdxsList();
+      /**
+       * <pre>
+       * required
+       * </pre>
+       *
+       * <code>repeated uint32 idxs = 4;</code>
+       */
+      int getIdxsCount();
+      /**
+       * <pre>
+       * required
+       * </pre>
+       *
+       * <code>repeated uint32 idxs = 4;</code>
+       */
+      int getIdxs(int index);
+    }
+    /**
+     * Protobuf type {@code process_rpc_proto.KvRequest.KvGetRequest}
+     */
+    public  static final class KvGetRequest extends
+        com.google.protobuf.GeneratedMessageV3 implements
+        // @@protoc_insertion_point(message_implements:process_rpc_proto.KvRequest.KvGetRequest)
+        KvGetRequestOrBuilder {
+    private static final long serialVersionUID = 0L;
+      // Use KvGetRequest.newBuilder() to construct.
+      private KvGetRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        super(builder);
+      }
+      private KvGetRequest() {
+        appFn_ = "";
+        idxs_ = java.util.Collections.emptyList();
+      }
+
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+      getUnknownFields() {
+        return this.unknownFields;
+      }
+      private KvGetRequest(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        this();
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        int mutable_bitField0_ = 0;
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                process_rpc_proto.ProcessRpcProto.FnTaskId.Builder subBuilder = null;
+                if (srcTaskId_ != null) {
+                  subBuilder = srcTaskId_.toBuilder();
+                }
+                srcTaskId_ = input.readMessage(process_rpc_proto.ProcessRpcProto.FnTaskId.parser(), extensionRegistry);
+                if (subBuilder != null) {
+                  subBuilder.mergeFrom(srcTaskId_);
+                  srcTaskId_ = subBuilder.buildPartial();
+                }
+
+                break;
+              }
+              case 18: {
+                java.lang.String s = input.readStringRequireUtf8();
+
+                appFn_ = s;
+                break;
+              }
+              case 26: {
+                process_rpc_proto.ProcessRpcProto.KeyRange.Builder subBuilder = null;
+                if (range_ != null) {
+                  subBuilder = range_.toBuilder();
+                }
+                range_ = input.readMessage(process_rpc_proto.ProcessRpcProto.KeyRange.parser(), extensionRegistry);
+                if (subBuilder != null) {
+                  subBuilder.mergeFrom(range_);
+                  range_ = subBuilder.buildPartial();
+                }
+
+                break;
+              }
+              case 32: {
+                if (!((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+                  idxs_ = new java.util.ArrayList<java.lang.Integer>();
+                  mutable_bitField0_ |= 0x00000008;
+                }
+                idxs_.add(input.readUInt32());
+                break;
+              }
+              case 34: {
+                int length = input.readRawVarint32();
+                int limit = input.pushLimit(length);
+                if (!((mutable_bitField0_ & 0x00000008) == 0x00000008) && input.getBytesUntilLimit() > 0) {
+                  idxs_ = new java.util.ArrayList<java.lang.Integer>();
+                  mutable_bitField0_ |= 0x00000008;
+                }
+                while (input.getBytesUntilLimit() > 0) {
+                  idxs_.add(input.readUInt32());
+                }
+                input.popLimit(limit);
+                break;
+              }
+              default: {
+                if (!parseUnknownFieldProto3(
+                    input, unknownFields, extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
+            }
+          }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e).setUnfinishedMessage(this);
+        } finally {
+          if (((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+            idxs_ = java.util.Collections.unmodifiableList(idxs_);
+          }
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
+        }
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvRequest_KvGetRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvRequest_KvGetRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest.class, process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest.Builder.class);
+      }
+
+      private int bitField0_;
+      public static final int SRC_TASK_ID_FIELD_NUMBER = 1;
+      private process_rpc_proto.ProcessRpcProto.FnTaskId srcTaskId_;
+      /**
+       * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+       */
+      public boolean hasSrcTaskId() {
+        return srcTaskId_ != null;
+      }
+      /**
+       * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.FnTaskId getSrcTaskId() {
+        return srcTaskId_ == null ? process_rpc_proto.ProcessRpcProto.FnTaskId.getDefaultInstance() : srcTaskId_;
+      }
+      /**
+       * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.FnTaskIdOrBuilder getSrcTaskIdOrBuilder() {
+        return getSrcTaskId();
+      }
+
+      public static final int APP_FN_FIELD_NUMBER = 2;
+      private volatile java.lang.Object appFn_;
+      /**
+       * <code>string app_fn = 2;</code>
+       */
+      public java.lang.String getAppFn() {
+        java.lang.Object ref = appFn_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          appFn_ = s;
+          return s;
+        }
+      }
+      /**
+       * <code>string app_fn = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getAppFnBytes() {
+        java.lang.Object ref = appFn_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          appFn_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      public static final int RANGE_FIELD_NUMBER = 3;
+      private process_rpc_proto.ProcessRpcProto.KeyRange range_;
+      /**
+       * <pre>
+       * required
+       * </pre>
+       *
+       * <code>.process_rpc_proto.KeyRange range = 3;</code>
+       */
+      public boolean hasRange() {
+        return range_ != null;
+      }
+      /**
+       * <pre>
+       * required
+       * </pre>
+       *
+       * <code>.process_rpc_proto.KeyRange range = 3;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.KeyRange getRange() {
+        return range_ == null ? process_rpc_proto.ProcessRpcProto.KeyRange.getDefaultInstance() : range_;
+      }
+      /**
+       * <pre>
+       * required
+       * </pre>
+       *
+       * <code>.process_rpc_proto.KeyRange range = 3;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.KeyRangeOrBuilder getRangeOrBuilder() {
+        return getRange();
+      }
+
+      public static final int IDXS_FIELD_NUMBER = 4;
+      private java.util.List<java.lang.Integer> idxs_;
+      /**
+       * <pre>
+       * required
+       * </pre>
+       *
+       * <code>repeated uint32 idxs = 4;</code>
+       */
+      public java.util.List<java.lang.Integer>
+          getIdxsList() {
+        return idxs_;
+      }
+      /**
+       * <pre>
+       * required
+       * </pre>
+       *
+       * <code>repeated uint32 idxs = 4;</code>
+       */
+      public int getIdxsCount() {
+        return idxs_.size();
+      }
+      /**
+       * <pre>
+       * required
+       * </pre>
+       *
+       * <code>repeated uint32 idxs = 4;</code>
+       */
+      public int getIdxs(int index) {
+        return idxs_.get(index);
+      }
+      private int idxsMemoizedSerializedSize = -1;
+
+      private byte memoizedIsInitialized = -1;
+      @java.lang.Override
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized == 1) return true;
+        if (isInitialized == 0) return false;
+
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      @java.lang.Override
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        getSerializedSize();
+        if (srcTaskId_ != null) {
+          output.writeMessage(1, getSrcTaskId());
+        }
+        if (!getAppFnBytes().isEmpty()) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 2, appFn_);
+        }
+        if (range_ != null) {
+          output.writeMessage(3, getRange());
+        }
+        if (getIdxsList().size() > 0) {
+          output.writeUInt32NoTag(34);
+          output.writeUInt32NoTag(idxsMemoizedSerializedSize);
+        }
+        for (int i = 0; i < idxs_.size(); i++) {
+          output.writeUInt32NoTag(idxs_.get(i));
+        }
+        unknownFields.writeTo(output);
+      }
+
+      @java.lang.Override
+      public int getSerializedSize() {
+        int size = memoizedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (srcTaskId_ != null) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(1, getSrcTaskId());
+        }
+        if (!getAppFnBytes().isEmpty()) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, appFn_);
+        }
+        if (range_ != null) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(3, getRange());
+        }
+        {
+          int dataSize = 0;
+          for (int i = 0; i < idxs_.size(); i++) {
+            dataSize += com.google.protobuf.CodedOutputStream
+              .computeUInt32SizeNoTag(idxs_.get(i));
+          }
+          size += dataSize;
+          if (!getIdxsList().isEmpty()) {
+            size += 1;
+            size += com.google.protobuf.CodedOutputStream
+                .computeInt32SizeNoTag(dataSize);
+          }
+          idxsMemoizedSerializedSize = dataSize;
+        }
+        size += unknownFields.getSerializedSize();
+        memoizedSize = size;
+        return size;
+      }
+
+      @java.lang.Override
+      public boolean equals(final java.lang.Object obj) {
+        if (obj == this) {
+         return true;
+        }
+        if (!(obj instanceof process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest)) {
+          return super.equals(obj);
+        }
+        process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest other = (process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest) obj;
+
+        boolean result = true;
+        result = result && (hasSrcTaskId() == other.hasSrcTaskId());
+        if (hasSrcTaskId()) {
+          result = result && getSrcTaskId()
+              .equals(other.getSrcTaskId());
+        }
+        result = result && getAppFn()
+            .equals(other.getAppFn());
+        result = result && (hasRange() == other.hasRange());
+        if (hasRange()) {
+          result = result && getRange()
+              .equals(other.getRange());
+        }
+        result = result && getIdxsList()
+            .equals(other.getIdxsList());
+        result = result && unknownFields.equals(other.unknownFields);
+        return result;
+      }
+
+      @java.lang.Override
+      public int hashCode() {
+        if (memoizedHashCode != 0) {
+          return memoizedHashCode;
+        }
+        int hash = 41;
+        hash = (19 * hash) + getDescriptor().hashCode();
+        if (hasSrcTaskId()) {
+          hash = (37 * hash) + SRC_TASK_ID_FIELD_NUMBER;
+          hash = (53 * hash) + getSrcTaskId().hashCode();
+        }
+        hash = (37 * hash) + APP_FN_FIELD_NUMBER;
+        hash = (53 * hash) + getAppFn().hashCode();
+        if (hasRange()) {
+          hash = (37 * hash) + RANGE_FIELD_NUMBER;
+          hash = (53 * hash) + getRange().hashCode();
+        }
+        if (getIdxsCount() > 0) {
+          hash = (37 * hash) + IDXS_FIELD_NUMBER;
+          hash = (53 * hash) + getIdxsList().hashCode();
+        }
+        hash = (29 * hash) + unknownFields.hashCode();
+        memoizedHashCode = hash;
+        return hash;
+      }
+
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest parseFrom(
+          java.nio.ByteBuffer data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest parseFrom(
+          java.nio.ByteBuffer data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+
+      @java.lang.Override
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder() {
+        return DEFAULT_INSTANCE.toBuilder();
+      }
+      public static Builder newBuilder(process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest prototype) {
+        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      }
+      @java.lang.Override
+      public Builder toBuilder() {
+        return this == DEFAULT_INSTANCE
+            ? new Builder() : new Builder().mergeFrom(this);
+      }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code process_rpc_proto.KvRequest.KvGetRequest}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+          // @@protoc_insertion_point(builder_implements:process_rpc_proto.KvRequest.KvGetRequest)
+          process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequestOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvRequest_KvGetRequest_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvRequest_KvGetRequest_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest.class, process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest.Builder.class);
+        }
+
+        // Construct using process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessageV3
+                  .alwaysUseFieldBuilders) {
+          }
+        }
+        @java.lang.Override
+        public Builder clear() {
+          super.clear();
+          if (srcTaskIdBuilder_ == null) {
+            srcTaskId_ = null;
+          } else {
+            srcTaskId_ = null;
+            srcTaskIdBuilder_ = null;
+          }
+          appFn_ = "";
+
+          if (rangeBuilder_ == null) {
+            range_ = null;
+          } else {
+            range_ = null;
+            rangeBuilder_ = null;
+          }
+          idxs_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000008);
+          return this;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvRequest_KvGetRequest_descriptor;
+        }
+
+        @java.lang.Override
+        public process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest getDefaultInstanceForType() {
+          return process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest.getDefaultInstance();
+        }
+
+        @java.lang.Override
+        public process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest build() {
+          process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        @java.lang.Override
+        public process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest buildPartial() {
+          process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest result = new process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest(this);
+          int from_bitField0_ = bitField0_;
+          int to_bitField0_ = 0;
+          if (srcTaskIdBuilder_ == null) {
+            result.srcTaskId_ = srcTaskId_;
+          } else {
+            result.srcTaskId_ = srcTaskIdBuilder_.build();
+          }
+          result.appFn_ = appFn_;
+          if (rangeBuilder_ == null) {
+            result.range_ = range_;
+          } else {
+            result.range_ = rangeBuilder_.build();
+          }
+          if (((bitField0_ & 0x00000008) == 0x00000008)) {
+            idxs_ = java.util.Collections.unmodifiableList(idxs_);
+            bitField0_ = (bitField0_ & ~0x00000008);
+          }
+          result.idxs_ = idxs_;
+          result.bitField0_ = to_bitField0_;
+          onBuilt();
+          return result;
+        }
+
+        @java.lang.Override
+        public Builder clone() {
+          return (Builder) super.clone();
+        }
+        @java.lang.Override
+        public Builder setField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return (Builder) super.setField(field, value);
+        }
+        @java.lang.Override
+        public Builder clearField(
+            com.google.protobuf.Descriptors.FieldDescriptor field) {
+          return (Builder) super.clearField(field);
+        }
+        @java.lang.Override
+        public Builder clearOneof(
+            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          return (Builder) super.clearOneof(oneof);
+        }
+        @java.lang.Override
+        public Builder setRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            int index, java.lang.Object value) {
+          return (Builder) super.setRepeatedField(field, index, value);
+        }
+        @java.lang.Override
+        public Builder addRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return (Builder) super.addRepeatedField(field, value);
+        }
+        @java.lang.Override
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest) {
+            return mergeFrom((process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest other) {
+          if (other == process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest.getDefaultInstance()) return this;
+          if (other.hasSrcTaskId()) {
+            mergeSrcTaskId(other.getSrcTaskId());
+          }
+          if (!other.getAppFn().isEmpty()) {
+            appFn_ = other.appFn_;
+            onChanged();
+          }
+          if (other.hasRange()) {
+            mergeRange(other.getRange());
+          }
+          if (!other.idxs_.isEmpty()) {
+            if (idxs_.isEmpty()) {
+              idxs_ = other.idxs_;
+              bitField0_ = (bitField0_ & ~0x00000008);
+            } else {
+              ensureIdxsIsMutable();
+              idxs_.addAll(other.idxs_);
+            }
+            onChanged();
+          }
+          this.mergeUnknownFields(other.unknownFields);
+          onChanged();
+          return this;
+        }
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+          return true;
+        }
+
+        @java.lang.Override
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest) e.getUnfinishedMessage();
+            throw e.unwrapIOException();
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
+        private int bitField0_;
+
+        private process_rpc_proto.ProcessRpcProto.FnTaskId srcTaskId_ = null;
+        private com.google.protobuf.SingleFieldBuilderV3<
+            process_rpc_proto.ProcessRpcProto.FnTaskId, process_rpc_proto.ProcessRpcProto.FnTaskId.Builder, process_rpc_proto.ProcessRpcProto.FnTaskIdOrBuilder> srcTaskIdBuilder_;
+        /**
+         * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+         */
+        public boolean hasSrcTaskId() {
+          return srcTaskIdBuilder_ != null || srcTaskId_ != null;
+        }
+        /**
+         * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+         */
+        public process_rpc_proto.ProcessRpcProto.FnTaskId getSrcTaskId() {
+          if (srcTaskIdBuilder_ == null) {
+            return srcTaskId_ == null ? process_rpc_proto.ProcessRpcProto.FnTaskId.getDefaultInstance() : srcTaskId_;
+          } else {
+            return srcTaskIdBuilder_.getMessage();
+          }
+        }
+        /**
+         * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+         */
+        public Builder setSrcTaskId(process_rpc_proto.ProcessRpcProto.FnTaskId value) {
+          if (srcTaskIdBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            srcTaskId_ = value;
+            onChanged();
+          } else {
+            srcTaskIdBuilder_.setMessage(value);
+          }
+
+          return this;
+        }
+        /**
+         * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+         */
+        public Builder setSrcTaskId(
+            process_rpc_proto.ProcessRpcProto.FnTaskId.Builder builderForValue) {
+          if (srcTaskIdBuilder_ == null) {
+            srcTaskId_ = builderForValue.build();
+            onChanged();
+          } else {
+            srcTaskIdBuilder_.setMessage(builderForValue.build());
+          }
+
+          return this;
+        }
+        /**
+         * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+         */
+        public Builder mergeSrcTaskId(process_rpc_proto.ProcessRpcProto.FnTaskId value) {
+          if (srcTaskIdBuilder_ == null) {
+            if (srcTaskId_ != null) {
+              srcTaskId_ =
+                process_rpc_proto.ProcessRpcProto.FnTaskId.newBuilder(srcTaskId_).mergeFrom(value).buildPartial();
+            } else {
+              srcTaskId_ = value;
+            }
+            onChanged();
+          } else {
+            srcTaskIdBuilder_.mergeFrom(value);
+          }
+
+          return this;
+        }
+        /**
+         * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+         */
+        public Builder clearSrcTaskId() {
+          if (srcTaskIdBuilder_ == null) {
+            srcTaskId_ = null;
+            onChanged();
+          } else {
+            srcTaskId_ = null;
+            srcTaskIdBuilder_ = null;
+          }
+
+          return this;
+        }
+        /**
+         * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+         */
+        public process_rpc_proto.ProcessRpcProto.FnTaskId.Builder getSrcTaskIdBuilder() {
+          
+          onChanged();
+          return getSrcTaskIdFieldBuilder().getBuilder();
+        }
+        /**
+         * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+         */
+        public process_rpc_proto.ProcessRpcProto.FnTaskIdOrBuilder getSrcTaskIdOrBuilder() {
+          if (srcTaskIdBuilder_ != null) {
+            return srcTaskIdBuilder_.getMessageOrBuilder();
+          } else {
+            return srcTaskId_ == null ?
+                process_rpc_proto.ProcessRpcProto.FnTaskId.getDefaultInstance() : srcTaskId_;
+          }
+        }
+        /**
+         * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+         */
+        private com.google.protobuf.SingleFieldBuilderV3<
+            process_rpc_proto.ProcessRpcProto.FnTaskId, process_rpc_proto.ProcessRpcProto.FnTaskId.Builder, process_rpc_proto.ProcessRpcProto.FnTaskIdOrBuilder> 
+            getSrcTaskIdFieldBuilder() {
+          if (srcTaskIdBuilder_ == null) {
+            srcTaskIdBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                process_rpc_proto.ProcessRpcProto.FnTaskId, process_rpc_proto.ProcessRpcProto.FnTaskId.Builder, process_rpc_proto.ProcessRpcProto.FnTaskIdOrBuilder>(
+                    getSrcTaskId(),
+                    getParentForChildren(),
+                    isClean());
+            srcTaskId_ = null;
+          }
+          return srcTaskIdBuilder_;
+        }
+
+        private java.lang.Object appFn_ = "";
+        /**
+         * <code>string app_fn = 2;</code>
+         */
+        public java.lang.String getAppFn() {
+          java.lang.Object ref = appFn_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            appFn_ = s;
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>string app_fn = 2;</code>
+         */
+        public com.google.protobuf.ByteString
+            getAppFnBytes() {
+          java.lang.Object ref = appFn_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            appFn_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>string app_fn = 2;</code>
+         */
+        public Builder setAppFn(
+            java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  
+          appFn_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string app_fn = 2;</code>
+         */
+        public Builder clearAppFn() {
+          
+          appFn_ = getDefaultInstance().getAppFn();
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string app_fn = 2;</code>
+         */
+        public Builder setAppFnBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+          
+          appFn_ = value;
+          onChanged();
+          return this;
+        }
+
+        private process_rpc_proto.ProcessRpcProto.KeyRange range_ = null;
+        private com.google.protobuf.SingleFieldBuilderV3<
+            process_rpc_proto.ProcessRpcProto.KeyRange, process_rpc_proto.ProcessRpcProto.KeyRange.Builder, process_rpc_proto.ProcessRpcProto.KeyRangeOrBuilder> rangeBuilder_;
+        /**
+         * <pre>
+         * required
+         * </pre>
+         *
+         * <code>.process_rpc_proto.KeyRange range = 3;</code>
+         */
+        public boolean hasRange() {
+          return rangeBuilder_ != null || range_ != null;
+        }
+        /**
+         * <pre>
+         * required
+         * </pre>
+         *
+         * <code>.process_rpc_proto.KeyRange range = 3;</code>
+         */
+        public process_rpc_proto.ProcessRpcProto.KeyRange getRange() {
+          if (rangeBuilder_ == null) {
+            return range_ == null ? process_rpc_proto.ProcessRpcProto.KeyRange.getDefaultInstance() : range_;
+          } else {
+            return rangeBuilder_.getMessage();
+          }
+        }
+        /**
+         * <pre>
+         * required
+         * </pre>
+         *
+         * <code>.process_rpc_proto.KeyRange range = 3;</code>
+         */
+        public Builder setRange(process_rpc_proto.ProcessRpcProto.KeyRange value) {
+          if (rangeBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            range_ = value;
+            onChanged();
+          } else {
+            rangeBuilder_.setMessage(value);
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * required
+         * </pre>
+         *
+         * <code>.process_rpc_proto.KeyRange range = 3;</code>
+         */
+        public Builder setRange(
+            process_rpc_proto.ProcessRpcProto.KeyRange.Builder builderForValue) {
+          if (rangeBuilder_ == null) {
+            range_ = builderForValue.build();
+            onChanged();
+          } else {
+            rangeBuilder_.setMessage(builderForValue.build());
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * required
+         * </pre>
+         *
+         * <code>.process_rpc_proto.KeyRange range = 3;</code>
+         */
+        public Builder mergeRange(process_rpc_proto.ProcessRpcProto.KeyRange value) {
+          if (rangeBuilder_ == null) {
+            if (range_ != null) {
+              range_ =
+                process_rpc_proto.ProcessRpcProto.KeyRange.newBuilder(range_).mergeFrom(value).buildPartial();
+            } else {
+              range_ = value;
+            }
+            onChanged();
+          } else {
+            rangeBuilder_.mergeFrom(value);
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * required
+         * </pre>
+         *
+         * <code>.process_rpc_proto.KeyRange range = 3;</code>
+         */
+        public Builder clearRange() {
+          if (rangeBuilder_ == null) {
+            range_ = null;
+            onChanged();
+          } else {
+            range_ = null;
+            rangeBuilder_ = null;
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * required
+         * </pre>
+         *
+         * <code>.process_rpc_proto.KeyRange range = 3;</code>
+         */
+        public process_rpc_proto.ProcessRpcProto.KeyRange.Builder getRangeBuilder() {
+          
+          onChanged();
+          return getRangeFieldBuilder().getBuilder();
+        }
+        /**
+         * <pre>
+         * required
+         * </pre>
+         *
+         * <code>.process_rpc_proto.KeyRange range = 3;</code>
+         */
+        public process_rpc_proto.ProcessRpcProto.KeyRangeOrBuilder getRangeOrBuilder() {
+          if (rangeBuilder_ != null) {
+            return rangeBuilder_.getMessageOrBuilder();
+          } else {
+            return range_ == null ?
+                process_rpc_proto.ProcessRpcProto.KeyRange.getDefaultInstance() : range_;
+          }
+        }
+        /**
+         * <pre>
+         * required
+         * </pre>
+         *
+         * <code>.process_rpc_proto.KeyRange range = 3;</code>
+         */
+        private com.google.protobuf.SingleFieldBuilderV3<
+            process_rpc_proto.ProcessRpcProto.KeyRange, process_rpc_proto.ProcessRpcProto.KeyRange.Builder, process_rpc_proto.ProcessRpcProto.KeyRangeOrBuilder> 
+            getRangeFieldBuilder() {
+          if (rangeBuilder_ == null) {
+            rangeBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                process_rpc_proto.ProcessRpcProto.KeyRange, process_rpc_proto.ProcessRpcProto.KeyRange.Builder, process_rpc_proto.ProcessRpcProto.KeyRangeOrBuilder>(
+                    getRange(),
+                    getParentForChildren(),
+                    isClean());
+            range_ = null;
+          }
+          return rangeBuilder_;
+        }
+
+        private java.util.List<java.lang.Integer> idxs_ = java.util.Collections.emptyList();
+        private void ensureIdxsIsMutable() {
+          if (!((bitField0_ & 0x00000008) == 0x00000008)) {
+            idxs_ = new java.util.ArrayList<java.lang.Integer>(idxs_);
+            bitField0_ |= 0x00000008;
+           }
+        }
+        /**
+         * <pre>
+         * required
+         * </pre>
+         *
+         * <code>repeated uint32 idxs = 4;</code>
+         */
+        public java.util.List<java.lang.Integer>
+            getIdxsList() {
+          return java.util.Collections.unmodifiableList(idxs_);
+        }
+        /**
+         * <pre>
+         * required
+         * </pre>
+         *
+         * <code>repeated uint32 idxs = 4;</code>
+         */
+        public int getIdxsCount() {
+          return idxs_.size();
+        }
+        /**
+         * <pre>
+         * required
+         * </pre>
+         *
+         * <code>repeated uint32 idxs = 4;</code>
+         */
+        public int getIdxs(int index) {
+          return idxs_.get(index);
+        }
+        /**
+         * <pre>
+         * required
+         * </pre>
+         *
+         * <code>repeated uint32 idxs = 4;</code>
+         */
+        public Builder setIdxs(
+            int index, int value) {
+          ensureIdxsIsMutable();
+          idxs_.set(index, value);
+          onChanged();
+          return this;
+        }
+        /**
+         * <pre>
+         * required
+         * </pre>
+         *
+         * <code>repeated uint32 idxs = 4;</code>
+         */
+        public Builder addIdxs(int value) {
+          ensureIdxsIsMutable();
+          idxs_.add(value);
+          onChanged();
+          return this;
+        }
+        /**
+         * <pre>
+         * required
+         * </pre>
+         *
+         * <code>repeated uint32 idxs = 4;</code>
+         */
+        public Builder addAllIdxs(
+            java.lang.Iterable<? extends java.lang.Integer> values) {
+          ensureIdxsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, idxs_);
+          onChanged();
+          return this;
+        }
+        /**
+         * <pre>
+         * required
+         * </pre>
+         *
+         * <code>repeated uint32 idxs = 4;</code>
+         */
+        public Builder clearIdxs() {
+          idxs_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000008);
+          onChanged();
+          return this;
+        }
+        @java.lang.Override
+        public final Builder setUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.setUnknownFieldsProto3(unknownFields);
+        }
+
+        @java.lang.Override
+        public final Builder mergeUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.mergeUnknownFields(unknownFields);
+        }
+
+
+        // @@protoc_insertion_point(builder_scope:process_rpc_proto.KvRequest.KvGetRequest)
+      }
+
+      // @@protoc_insertion_point(class_scope:process_rpc_proto.KvRequest.KvGetRequest)
+      private static final process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest DEFAULT_INSTANCE;
+      static {
+        DEFAULT_INSTANCE = new process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest();
+      }
+
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest getDefaultInstance() {
+        return DEFAULT_INSTANCE;
+      }
+
+      private static final com.google.protobuf.Parser<KvGetRequest>
+          PARSER = new com.google.protobuf.AbstractParser<KvGetRequest>() {
+        @java.lang.Override
+        public KvGetRequest parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new KvGetRequest(input, extensionRegistry);
+        }
+      };
+
+      public static com.google.protobuf.Parser<KvGetRequest> parser() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<KvGetRequest> getParserForType() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest getDefaultInstanceForType() {
+        return DEFAULT_INSTANCE;
+      }
+
+    }
+
+    public interface KvDeleteRequestOrBuilder extends
+        // @@protoc_insertion_point(interface_extends:process_rpc_proto.KvRequest.KvDeleteRequest)
+        com.google.protobuf.MessageOrBuilder {
+
+      /**
+       * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+       */
+      boolean hasSrcTaskId();
+      /**
+       * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+       */
+      process_rpc_proto.ProcessRpcProto.FnTaskId getSrcTaskId();
+      /**
+       * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+       */
+      process_rpc_proto.ProcessRpcProto.FnTaskIdOrBuilder getSrcTaskIdOrBuilder();
+
+      /**
+       * <code>string app_fn = 2;</code>
+       */
+      java.lang.String getAppFn();
+      /**
+       * <code>string app_fn = 2;</code>
+       */
+      com.google.protobuf.ByteString
+          getAppFnBytes();
+
+      /**
+       * <pre>
+       * required
+       * </pre>
+       *
+       * <code>.process_rpc_proto.KeyRange range = 3;</code>
+       */
+      boolean hasRange();
+      /**
+       * <pre>
+       * required
+       * </pre>
+       *
+       * <code>.process_rpc_proto.KeyRange range = 3;</code>
+       */
+      process_rpc_proto.ProcessRpcProto.KeyRange getRange();
+      /**
+       * <pre>
+       * required
+       * </pre>
+       *
+       * <code>.process_rpc_proto.KeyRange range = 3;</code>
+       */
+      process_rpc_proto.ProcessRpcProto.KeyRangeOrBuilder getRangeOrBuilder();
+    }
+    /**
+     * Protobuf type {@code process_rpc_proto.KvRequest.KvDeleteRequest}
+     */
+    public  static final class KvDeleteRequest extends
+        com.google.protobuf.GeneratedMessageV3 implements
+        // @@protoc_insertion_point(message_implements:process_rpc_proto.KvRequest.KvDeleteRequest)
+        KvDeleteRequestOrBuilder {
+    private static final long serialVersionUID = 0L;
+      // Use KvDeleteRequest.newBuilder() to construct.
+      private KvDeleteRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        super(builder);
+      }
+      private KvDeleteRequest() {
+        appFn_ = "";
+      }
+
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+      getUnknownFields() {
+        return this.unknownFields;
+      }
+      private KvDeleteRequest(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        this();
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        int mutable_bitField0_ = 0;
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                process_rpc_proto.ProcessRpcProto.FnTaskId.Builder subBuilder = null;
+                if (srcTaskId_ != null) {
+                  subBuilder = srcTaskId_.toBuilder();
+                }
+                srcTaskId_ = input.readMessage(process_rpc_proto.ProcessRpcProto.FnTaskId.parser(), extensionRegistry);
+                if (subBuilder != null) {
+                  subBuilder.mergeFrom(srcTaskId_);
+                  srcTaskId_ = subBuilder.buildPartial();
+                }
+
+                break;
+              }
+              case 18: {
+                java.lang.String s = input.readStringRequireUtf8();
+
+                appFn_ = s;
+                break;
+              }
+              case 26: {
+                process_rpc_proto.ProcessRpcProto.KeyRange.Builder subBuilder = null;
+                if (range_ != null) {
+                  subBuilder = range_.toBuilder();
+                }
+                range_ = input.readMessage(process_rpc_proto.ProcessRpcProto.KeyRange.parser(), extensionRegistry);
+                if (subBuilder != null) {
+                  subBuilder.mergeFrom(range_);
+                  range_ = subBuilder.buildPartial();
+                }
+
+                break;
+              }
+              default: {
+                if (!parseUnknownFieldProto3(
+                    input, unknownFields, extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
+            }
+          }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e).setUnfinishedMessage(this);
+        } finally {
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
+        }
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvRequest_KvDeleteRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvRequest_KvDeleteRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest.class, process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest.Builder.class);
+      }
+
+      public static final int SRC_TASK_ID_FIELD_NUMBER = 1;
+      private process_rpc_proto.ProcessRpcProto.FnTaskId srcTaskId_;
+      /**
+       * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+       */
+      public boolean hasSrcTaskId() {
+        return srcTaskId_ != null;
+      }
+      /**
+       * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.FnTaskId getSrcTaskId() {
+        return srcTaskId_ == null ? process_rpc_proto.ProcessRpcProto.FnTaskId.getDefaultInstance() : srcTaskId_;
+      }
+      /**
+       * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.FnTaskIdOrBuilder getSrcTaskIdOrBuilder() {
+        return getSrcTaskId();
+      }
+
+      public static final int APP_FN_FIELD_NUMBER = 2;
+      private volatile java.lang.Object appFn_;
+      /**
+       * <code>string app_fn = 2;</code>
+       */
+      public java.lang.String getAppFn() {
+        java.lang.Object ref = appFn_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          appFn_ = s;
+          return s;
+        }
+      }
+      /**
+       * <code>string app_fn = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getAppFnBytes() {
+        java.lang.Object ref = appFn_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          appFn_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      public static final int RANGE_FIELD_NUMBER = 3;
+      private process_rpc_proto.ProcessRpcProto.KeyRange range_;
+      /**
+       * <pre>
+       * required
+       * </pre>
+       *
+       * <code>.process_rpc_proto.KeyRange range = 3;</code>
+       */
+      public boolean hasRange() {
+        return range_ != null;
+      }
+      /**
+       * <pre>
+       * required
+       * </pre>
+       *
+       * <code>.process_rpc_proto.KeyRange range = 3;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.KeyRange getRange() {
+        return range_ == null ? process_rpc_proto.ProcessRpcProto.KeyRange.getDefaultInstance() : range_;
+      }
+      /**
+       * <pre>
+       * required
+       * </pre>
+       *
+       * <code>.process_rpc_proto.KeyRange range = 3;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.KeyRangeOrBuilder getRangeOrBuilder() {
+        return getRange();
+      }
+
+      private byte memoizedIsInitialized = -1;
+      @java.lang.Override
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized == 1) return true;
+        if (isInitialized == 0) return false;
+
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      @java.lang.Override
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        if (srcTaskId_ != null) {
+          output.writeMessage(1, getSrcTaskId());
+        }
+        if (!getAppFnBytes().isEmpty()) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 2, appFn_);
+        }
+        if (range_ != null) {
+          output.writeMessage(3, getRange());
+        }
+        unknownFields.writeTo(output);
+      }
+
+      @java.lang.Override
+      public int getSerializedSize() {
+        int size = memoizedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (srcTaskId_ != null) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(1, getSrcTaskId());
+        }
+        if (!getAppFnBytes().isEmpty()) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, appFn_);
+        }
+        if (range_ != null) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(3, getRange());
+        }
+        size += unknownFields.getSerializedSize();
+        memoizedSize = size;
+        return size;
+      }
+
+      @java.lang.Override
+      public boolean equals(final java.lang.Object obj) {
+        if (obj == this) {
+         return true;
+        }
+        if (!(obj instanceof process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest)) {
+          return super.equals(obj);
+        }
+        process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest other = (process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest) obj;
+
+        boolean result = true;
+        result = result && (hasSrcTaskId() == other.hasSrcTaskId());
+        if (hasSrcTaskId()) {
+          result = result && getSrcTaskId()
+              .equals(other.getSrcTaskId());
+        }
+        result = result && getAppFn()
+            .equals(other.getAppFn());
+        result = result && (hasRange() == other.hasRange());
+        if (hasRange()) {
+          result = result && getRange()
+              .equals(other.getRange());
+        }
+        result = result && unknownFields.equals(other.unknownFields);
+        return result;
+      }
+
+      @java.lang.Override
+      public int hashCode() {
+        if (memoizedHashCode != 0) {
+          return memoizedHashCode;
+        }
+        int hash = 41;
+        hash = (19 * hash) + getDescriptor().hashCode();
+        if (hasSrcTaskId()) {
+          hash = (37 * hash) + SRC_TASK_ID_FIELD_NUMBER;
+          hash = (53 * hash) + getSrcTaskId().hashCode();
+        }
+        hash = (37 * hash) + APP_FN_FIELD_NUMBER;
+        hash = (53 * hash) + getAppFn().hashCode();
+        if (hasRange()) {
+          hash = (37 * hash) + RANGE_FIELD_NUMBER;
+          hash = (53 * hash) + getRange().hashCode();
+        }
+        hash = (29 * hash) + unknownFields.hashCode();
+        memoizedHashCode = hash;
+        return hash;
+      }
+
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest parseFrom(
+          java.nio.ByteBuffer data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest parseFrom(
+          java.nio.ByteBuffer data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+
+      @java.lang.Override
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder() {
+        return DEFAULT_INSTANCE.toBuilder();
+      }
+      public static Builder newBuilder(process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest prototype) {
+        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      }
+      @java.lang.Override
+      public Builder toBuilder() {
+        return this == DEFAULT_INSTANCE
+            ? new Builder() : new Builder().mergeFrom(this);
+      }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code process_rpc_proto.KvRequest.KvDeleteRequest}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+          // @@protoc_insertion_point(builder_implements:process_rpc_proto.KvRequest.KvDeleteRequest)
+          process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequestOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvRequest_KvDeleteRequest_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvRequest_KvDeleteRequest_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest.class, process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest.Builder.class);
+        }
+
+        // Construct using process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessageV3
+                  .alwaysUseFieldBuilders) {
+          }
+        }
+        @java.lang.Override
+        public Builder clear() {
+          super.clear();
+          if (srcTaskIdBuilder_ == null) {
+            srcTaskId_ = null;
+          } else {
+            srcTaskId_ = null;
+            srcTaskIdBuilder_ = null;
+          }
+          appFn_ = "";
+
+          if (rangeBuilder_ == null) {
+            range_ = null;
+          } else {
+            range_ = null;
+            rangeBuilder_ = null;
+          }
+          return this;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvRequest_KvDeleteRequest_descriptor;
+        }
+
+        @java.lang.Override
+        public process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest getDefaultInstanceForType() {
+          return process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest.getDefaultInstance();
+        }
+
+        @java.lang.Override
+        public process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest build() {
+          process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        @java.lang.Override
+        public process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest buildPartial() {
+          process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest result = new process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest(this);
+          if (srcTaskIdBuilder_ == null) {
+            result.srcTaskId_ = srcTaskId_;
+          } else {
+            result.srcTaskId_ = srcTaskIdBuilder_.build();
+          }
+          result.appFn_ = appFn_;
+          if (rangeBuilder_ == null) {
+            result.range_ = range_;
+          } else {
+            result.range_ = rangeBuilder_.build();
+          }
+          onBuilt();
+          return result;
+        }
+
+        @java.lang.Override
+        public Builder clone() {
+          return (Builder) super.clone();
+        }
+        @java.lang.Override
+        public Builder setField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return (Builder) super.setField(field, value);
+        }
+        @java.lang.Override
+        public Builder clearField(
+            com.google.protobuf.Descriptors.FieldDescriptor field) {
+          return (Builder) super.clearField(field);
+        }
+        @java.lang.Override
+        public Builder clearOneof(
+            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          return (Builder) super.clearOneof(oneof);
+        }
+        @java.lang.Override
+        public Builder setRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            int index, java.lang.Object value) {
+          return (Builder) super.setRepeatedField(field, index, value);
+        }
+        @java.lang.Override
+        public Builder addRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return (Builder) super.addRepeatedField(field, value);
+        }
+        @java.lang.Override
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest) {
+            return mergeFrom((process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest other) {
+          if (other == process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest.getDefaultInstance()) return this;
+          if (other.hasSrcTaskId()) {
+            mergeSrcTaskId(other.getSrcTaskId());
+          }
+          if (!other.getAppFn().isEmpty()) {
+            appFn_ = other.appFn_;
+            onChanged();
+          }
+          if (other.hasRange()) {
+            mergeRange(other.getRange());
+          }
+          this.mergeUnknownFields(other.unknownFields);
+          onChanged();
+          return this;
+        }
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+          return true;
+        }
+
+        @java.lang.Override
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest) e.getUnfinishedMessage();
+            throw e.unwrapIOException();
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
+
+        private process_rpc_proto.ProcessRpcProto.FnTaskId srcTaskId_ = null;
+        private com.google.protobuf.SingleFieldBuilderV3<
+            process_rpc_proto.ProcessRpcProto.FnTaskId, process_rpc_proto.ProcessRpcProto.FnTaskId.Builder, process_rpc_proto.ProcessRpcProto.FnTaskIdOrBuilder> srcTaskIdBuilder_;
+        /**
+         * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+         */
+        public boolean hasSrcTaskId() {
+          return srcTaskIdBuilder_ != null || srcTaskId_ != null;
+        }
+        /**
+         * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+         */
+        public process_rpc_proto.ProcessRpcProto.FnTaskId getSrcTaskId() {
+          if (srcTaskIdBuilder_ == null) {
+            return srcTaskId_ == null ? process_rpc_proto.ProcessRpcProto.FnTaskId.getDefaultInstance() : srcTaskId_;
+          } else {
+            return srcTaskIdBuilder_.getMessage();
+          }
+        }
+        /**
+         * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+         */
+        public Builder setSrcTaskId(process_rpc_proto.ProcessRpcProto.FnTaskId value) {
+          if (srcTaskIdBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            srcTaskId_ = value;
+            onChanged();
+          } else {
+            srcTaskIdBuilder_.setMessage(value);
+          }
+
+          return this;
+        }
+        /**
+         * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+         */
+        public Builder setSrcTaskId(
+            process_rpc_proto.ProcessRpcProto.FnTaskId.Builder builderForValue) {
+          if (srcTaskIdBuilder_ == null) {
+            srcTaskId_ = builderForValue.build();
+            onChanged();
+          } else {
+            srcTaskIdBuilder_.setMessage(builderForValue.build());
+          }
+
+          return this;
+        }
+        /**
+         * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+         */
+        public Builder mergeSrcTaskId(process_rpc_proto.ProcessRpcProto.FnTaskId value) {
+          if (srcTaskIdBuilder_ == null) {
+            if (srcTaskId_ != null) {
+              srcTaskId_ =
+                process_rpc_proto.ProcessRpcProto.FnTaskId.newBuilder(srcTaskId_).mergeFrom(value).buildPartial();
+            } else {
+              srcTaskId_ = value;
+            }
+            onChanged();
+          } else {
+            srcTaskIdBuilder_.mergeFrom(value);
+          }
+
+          return this;
+        }
+        /**
+         * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+         */
+        public Builder clearSrcTaskId() {
+          if (srcTaskIdBuilder_ == null) {
+            srcTaskId_ = null;
+            onChanged();
+          } else {
+            srcTaskId_ = null;
+            srcTaskIdBuilder_ = null;
+          }
+
+          return this;
+        }
+        /**
+         * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+         */
+        public process_rpc_proto.ProcessRpcProto.FnTaskId.Builder getSrcTaskIdBuilder() {
+          
+          onChanged();
+          return getSrcTaskIdFieldBuilder().getBuilder();
+        }
+        /**
+         * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+         */
+        public process_rpc_proto.ProcessRpcProto.FnTaskIdOrBuilder getSrcTaskIdOrBuilder() {
+          if (srcTaskIdBuilder_ != null) {
+            return srcTaskIdBuilder_.getMessageOrBuilder();
+          } else {
+            return srcTaskId_ == null ?
+                process_rpc_proto.ProcessRpcProto.FnTaskId.getDefaultInstance() : srcTaskId_;
+          }
+        }
+        /**
+         * <code>.process_rpc_proto.FnTaskId src_task_id = 1;</code>
+         */
+        private com.google.protobuf.SingleFieldBuilderV3<
+            process_rpc_proto.ProcessRpcProto.FnTaskId, process_rpc_proto.ProcessRpcProto.FnTaskId.Builder, process_rpc_proto.ProcessRpcProto.FnTaskIdOrBuilder> 
+            getSrcTaskIdFieldBuilder() {
+          if (srcTaskIdBuilder_ == null) {
+            srcTaskIdBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                process_rpc_proto.ProcessRpcProto.FnTaskId, process_rpc_proto.ProcessRpcProto.FnTaskId.Builder, process_rpc_proto.ProcessRpcProto.FnTaskIdOrBuilder>(
+                    getSrcTaskId(),
+                    getParentForChildren(),
+                    isClean());
+            srcTaskId_ = null;
+          }
+          return srcTaskIdBuilder_;
+        }
+
+        private java.lang.Object appFn_ = "";
+        /**
+         * <code>string app_fn = 2;</code>
+         */
+        public java.lang.String getAppFn() {
+          java.lang.Object ref = appFn_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            appFn_ = s;
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>string app_fn = 2;</code>
+         */
+        public com.google.protobuf.ByteString
+            getAppFnBytes() {
+          java.lang.Object ref = appFn_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            appFn_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>string app_fn = 2;</code>
+         */
+        public Builder setAppFn(
+            java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  
+          appFn_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string app_fn = 2;</code>
+         */
+        public Builder clearAppFn() {
+          
+          appFn_ = getDefaultInstance().getAppFn();
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string app_fn = 2;</code>
+         */
+        public Builder setAppFnBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+          
+          appFn_ = value;
+          onChanged();
+          return this;
+        }
+
+        private process_rpc_proto.ProcessRpcProto.KeyRange range_ = null;
+        private com.google.protobuf.SingleFieldBuilderV3<
+            process_rpc_proto.ProcessRpcProto.KeyRange, process_rpc_proto.ProcessRpcProto.KeyRange.Builder, process_rpc_proto.ProcessRpcProto.KeyRangeOrBuilder> rangeBuilder_;
+        /**
+         * <pre>
+         * required
+         * </pre>
+         *
+         * <code>.process_rpc_proto.KeyRange range = 3;</code>
+         */
+        public boolean hasRange() {
+          return rangeBuilder_ != null || range_ != null;
+        }
+        /**
+         * <pre>
+         * required
+         * </pre>
+         *
+         * <code>.process_rpc_proto.KeyRange range = 3;</code>
+         */
+        public process_rpc_proto.ProcessRpcProto.KeyRange getRange() {
+          if (rangeBuilder_ == null) {
+            return range_ == null ? process_rpc_proto.ProcessRpcProto.KeyRange.getDefaultInstance() : range_;
+          } else {
+            return rangeBuilder_.getMessage();
+          }
+        }
+        /**
+         * <pre>
+         * required
+         * </pre>
+         *
+         * <code>.process_rpc_proto.KeyRange range = 3;</code>
+         */
+        public Builder setRange(process_rpc_proto.ProcessRpcProto.KeyRange value) {
+          if (rangeBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            range_ = value;
+            onChanged();
+          } else {
+            rangeBuilder_.setMessage(value);
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * required
+         * </pre>
+         *
+         * <code>.process_rpc_proto.KeyRange range = 3;</code>
+         */
+        public Builder setRange(
+            process_rpc_proto.ProcessRpcProto.KeyRange.Builder builderForValue) {
+          if (rangeBuilder_ == null) {
+            range_ = builderForValue.build();
+            onChanged();
+          } else {
+            rangeBuilder_.setMessage(builderForValue.build());
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * required
+         * </pre>
+         *
+         * <code>.process_rpc_proto.KeyRange range = 3;</code>
+         */
+        public Builder mergeRange(process_rpc_proto.ProcessRpcProto.KeyRange value) {
+          if (rangeBuilder_ == null) {
+            if (range_ != null) {
+              range_ =
+                process_rpc_proto.ProcessRpcProto.KeyRange.newBuilder(range_).mergeFrom(value).buildPartial();
+            } else {
+              range_ = value;
+            }
+            onChanged();
+          } else {
+            rangeBuilder_.mergeFrom(value);
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * required
+         * </pre>
+         *
+         * <code>.process_rpc_proto.KeyRange range = 3;</code>
+         */
+        public Builder clearRange() {
+          if (rangeBuilder_ == null) {
+            range_ = null;
+            onChanged();
+          } else {
+            range_ = null;
+            rangeBuilder_ = null;
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * required
+         * </pre>
+         *
+         * <code>.process_rpc_proto.KeyRange range = 3;</code>
+         */
+        public process_rpc_proto.ProcessRpcProto.KeyRange.Builder getRangeBuilder() {
+          
+          onChanged();
+          return getRangeFieldBuilder().getBuilder();
+        }
+        /**
+         * <pre>
+         * required
+         * </pre>
+         *
+         * <code>.process_rpc_proto.KeyRange range = 3;</code>
+         */
+        public process_rpc_proto.ProcessRpcProto.KeyRangeOrBuilder getRangeOrBuilder() {
+          if (rangeBuilder_ != null) {
+            return rangeBuilder_.getMessageOrBuilder();
+          } else {
+            return range_ == null ?
+                process_rpc_proto.ProcessRpcProto.KeyRange.getDefaultInstance() : range_;
+          }
+        }
+        /**
+         * <pre>
+         * required
+         * </pre>
+         *
+         * <code>.process_rpc_proto.KeyRange range = 3;</code>
+         */
+        private com.google.protobuf.SingleFieldBuilderV3<
+            process_rpc_proto.ProcessRpcProto.KeyRange, process_rpc_proto.ProcessRpcProto.KeyRange.Builder, process_rpc_proto.ProcessRpcProto.KeyRangeOrBuilder> 
+            getRangeFieldBuilder() {
+          if (rangeBuilder_ == null) {
+            rangeBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                process_rpc_proto.ProcessRpcProto.KeyRange, process_rpc_proto.ProcessRpcProto.KeyRange.Builder, process_rpc_proto.ProcessRpcProto.KeyRangeOrBuilder>(
+                    getRange(),
+                    getParentForChildren(),
+                    isClean());
+            range_ = null;
+          }
+          return rangeBuilder_;
+        }
+        @java.lang.Override
+        public final Builder setUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.setUnknownFieldsProto3(unknownFields);
+        }
+
+        @java.lang.Override
+        public final Builder mergeUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.mergeUnknownFields(unknownFields);
+        }
+
+
+        // @@protoc_insertion_point(builder_scope:process_rpc_proto.KvRequest.KvDeleteRequest)
+      }
+
+      // @@protoc_insertion_point(class_scope:process_rpc_proto.KvRequest.KvDeleteRequest)
+      private static final process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest DEFAULT_INSTANCE;
+      static {
+        DEFAULT_INSTANCE = new process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest();
+      }
+
+      public static process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest getDefaultInstance() {
+        return DEFAULT_INSTANCE;
+      }
+
+      private static final com.google.protobuf.Parser<KvDeleteRequest>
+          PARSER = new com.google.protobuf.AbstractParser<KvDeleteRequest>() {
+        @java.lang.Override
+        public KvDeleteRequest parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new KvDeleteRequest(input, extensionRegistry);
+        }
+      };
+
+      public static com.google.protobuf.Parser<KvDeleteRequest> parser() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<KvDeleteRequest> getParserForType() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest getDefaultInstanceForType() {
+        return DEFAULT_INSTANCE;
+      }
+
+    }
+
+    private int opCase_ = 0;
+    private java.lang.Object op_;
+    public enum OpCase
+        implements com.google.protobuf.Internal.EnumLite {
+      SET(1),
+      GET(2),
+      DELETE(3),
+      OP_NOT_SET(0);
+      private final int value;
+      private OpCase(int value) {
+        this.value = value;
+      }
+      /**
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static OpCase valueOf(int value) {
+        return forNumber(value);
+      }
+
+      public static OpCase forNumber(int value) {
+        switch (value) {
+          case 1: return SET;
+          case 2: return GET;
+          case 3: return DELETE;
+          case 0: return OP_NOT_SET;
+          default: return null;
+        }
+      }
+      public int getNumber() {
+        return this.value;
+      }
+    };
+
+    public OpCase
+    getOpCase() {
+      return OpCase.forNumber(
+          opCase_);
+    }
+
+    public static final int SET_FIELD_NUMBER = 1;
+    /**
+     * <code>.process_rpc_proto.KvRequest.KvPutRequest set = 1;</code>
+     */
+    public boolean hasSet() {
+      return opCase_ == 1;
+    }
+    /**
+     * <code>.process_rpc_proto.KvRequest.KvPutRequest set = 1;</code>
+     */
+    public process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest getSet() {
+      if (opCase_ == 1) {
+         return (process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest) op_;
+      }
+      return process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest.getDefaultInstance();
+    }
+    /**
+     * <code>.process_rpc_proto.KvRequest.KvPutRequest set = 1;</code>
+     */
+    public process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequestOrBuilder getSetOrBuilder() {
+      if (opCase_ == 1) {
+         return (process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest) op_;
+      }
+      return process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest.getDefaultInstance();
+    }
+
+    public static final int GET_FIELD_NUMBER = 2;
+    /**
+     * <code>.process_rpc_proto.KvRequest.KvGetRequest get = 2;</code>
+     */
+    public boolean hasGet() {
+      return opCase_ == 2;
+    }
+    /**
+     * <code>.process_rpc_proto.KvRequest.KvGetRequest get = 2;</code>
+     */
+    public process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest getGet() {
+      if (opCase_ == 2) {
+         return (process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest) op_;
+      }
+      return process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest.getDefaultInstance();
+    }
+    /**
+     * <code>.process_rpc_proto.KvRequest.KvGetRequest get = 2;</code>
+     */
+    public process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequestOrBuilder getGetOrBuilder() {
+      if (opCase_ == 2) {
+         return (process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest) op_;
+      }
+      return process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest.getDefaultInstance();
+    }
+
+    public static final int DELETE_FIELD_NUMBER = 3;
+    /**
+     * <code>.process_rpc_proto.KvRequest.KvDeleteRequest delete = 3;</code>
+     */
+    public boolean hasDelete() {
+      return opCase_ == 3;
+    }
+    /**
+     * <code>.process_rpc_proto.KvRequest.KvDeleteRequest delete = 3;</code>
+     */
+    public process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest getDelete() {
+      if (opCase_ == 3) {
+         return (process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest) op_;
+      }
+      return process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest.getDefaultInstance();
+    }
+    /**
+     * <code>.process_rpc_proto.KvRequest.KvDeleteRequest delete = 3;</code>
+     */
+    public process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequestOrBuilder getDeleteOrBuilder() {
+      if (opCase_ == 3) {
+         return (process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest) op_;
+      }
+      return process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest.getDefaultInstance();
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (opCase_ == 1) {
+        output.writeMessage(1, (process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest) op_);
+      }
+      if (opCase_ == 2) {
+        output.writeMessage(2, (process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest) op_);
+      }
+      if (opCase_ == 3) {
+        output.writeMessage(3, (process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest) op_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (opCase_ == 1) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, (process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest) op_);
+      }
+      if (opCase_ == 2) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, (process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest) op_);
+      }
+      if (opCase_ == 3) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, (process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest) op_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof process_rpc_proto.ProcessRpcProto.KvRequest)) {
+        return super.equals(obj);
+      }
+      process_rpc_proto.ProcessRpcProto.KvRequest other = (process_rpc_proto.ProcessRpcProto.KvRequest) obj;
+
+      boolean result = true;
+      result = result && getOpCase().equals(
+          other.getOpCase());
+      if (!result) return false;
+      switch (opCase_) {
+        case 1:
+          result = result && getSet()
+              .equals(other.getSet());
+          break;
+        case 2:
+          result = result && getGet()
+              .equals(other.getGet());
+          break;
+        case 3:
+          result = result && getDelete()
+              .equals(other.getDelete());
+          break;
+        case 0:
+        default:
+      }
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      switch (opCase_) {
+        case 1:
+          hash = (37 * hash) + SET_FIELD_NUMBER;
+          hash = (53 * hash) + getSet().hashCode();
+          break;
+        case 2:
+          hash = (37 * hash) + GET_FIELD_NUMBER;
+          hash = (53 * hash) + getGet().hashCode();
+          break;
+        case 3:
+          hash = (37 * hash) + DELETE_FIELD_NUMBER;
+          hash = (53 * hash) + getDelete().hashCode();
+          break;
+        case 0:
+        default:
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static process_rpc_proto.ProcessRpcProto.KvRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(process_rpc_proto.ProcessRpcProto.KvRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code process_rpc_proto.KvRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:process_rpc_proto.KvRequest)
+        process_rpc_proto.ProcessRpcProto.KvRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                process_rpc_proto.ProcessRpcProto.KvRequest.class, process_rpc_proto.ProcessRpcProto.KvRequest.Builder.class);
+      }
+
+      // Construct using process_rpc_proto.ProcessRpcProto.KvRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        opCase_ = 0;
+        op_ = null;
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public process_rpc_proto.ProcessRpcProto.KvRequest getDefaultInstanceForType() {
+        return process_rpc_proto.ProcessRpcProto.KvRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public process_rpc_proto.ProcessRpcProto.KvRequest build() {
+        process_rpc_proto.ProcessRpcProto.KvRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public process_rpc_proto.ProcessRpcProto.KvRequest buildPartial() {
+        process_rpc_proto.ProcessRpcProto.KvRequest result = new process_rpc_proto.ProcessRpcProto.KvRequest(this);
+        if (opCase_ == 1) {
+          if (setBuilder_ == null) {
+            result.op_ = op_;
+          } else {
+            result.op_ = setBuilder_.build();
+          }
+        }
+        if (opCase_ == 2) {
+          if (getBuilder_ == null) {
+            result.op_ = op_;
+          } else {
+            result.op_ = getBuilder_.build();
+          }
+        }
+        if (opCase_ == 3) {
+          if (deleteBuilder_ == null) {
+            result.op_ = op_;
+          } else {
+            result.op_ = deleteBuilder_.build();
+          }
+        }
+        result.opCase_ = opCase_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof process_rpc_proto.ProcessRpcProto.KvRequest) {
+          return mergeFrom((process_rpc_proto.ProcessRpcProto.KvRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(process_rpc_proto.ProcessRpcProto.KvRequest other) {
+        if (other == process_rpc_proto.ProcessRpcProto.KvRequest.getDefaultInstance()) return this;
+        switch (other.getOpCase()) {
+          case SET: {
+            mergeSet(other.getSet());
+            break;
+          }
+          case GET: {
+            mergeGet(other.getGet());
+            break;
+          }
+          case DELETE: {
+            mergeDelete(other.getDelete());
+            break;
+          }
+          case OP_NOT_SET: {
+            break;
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        process_rpc_proto.ProcessRpcProto.KvRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (process_rpc_proto.ProcessRpcProto.KvRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int opCase_ = 0;
+      private java.lang.Object op_;
+      public OpCase
+          getOpCase() {
+        return OpCase.forNumber(
+            opCase_);
+      }
+
+      public Builder clearOp() {
+        opCase_ = 0;
+        op_ = null;
+        onChanged();
+        return this;
+      }
+
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest, process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest.Builder, process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequestOrBuilder> setBuilder_;
+      /**
+       * <code>.process_rpc_proto.KvRequest.KvPutRequest set = 1;</code>
+       */
+      public boolean hasSet() {
+        return opCase_ == 1;
+      }
+      /**
+       * <code>.process_rpc_proto.KvRequest.KvPutRequest set = 1;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest getSet() {
+        if (setBuilder_ == null) {
+          if (opCase_ == 1) {
+            return (process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest) op_;
+          }
+          return process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest.getDefaultInstance();
+        } else {
+          if (opCase_ == 1) {
+            return setBuilder_.getMessage();
+          }
+          return process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.process_rpc_proto.KvRequest.KvPutRequest set = 1;</code>
+       */
+      public Builder setSet(process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest value) {
+        if (setBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          op_ = value;
+          onChanged();
+        } else {
+          setBuilder_.setMessage(value);
+        }
+        opCase_ = 1;
+        return this;
+      }
+      /**
+       * <code>.process_rpc_proto.KvRequest.KvPutRequest set = 1;</code>
+       */
+      public Builder setSet(
+          process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest.Builder builderForValue) {
+        if (setBuilder_ == null) {
+          op_ = builderForValue.build();
+          onChanged();
+        } else {
+          setBuilder_.setMessage(builderForValue.build());
+        }
+        opCase_ = 1;
+        return this;
+      }
+      /**
+       * <code>.process_rpc_proto.KvRequest.KvPutRequest set = 1;</code>
+       */
+      public Builder mergeSet(process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest value) {
+        if (setBuilder_ == null) {
+          if (opCase_ == 1 &&
+              op_ != process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest.getDefaultInstance()) {
+            op_ = process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest.newBuilder((process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest) op_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            op_ = value;
+          }
+          onChanged();
+        } else {
+          if (opCase_ == 1) {
+            setBuilder_.mergeFrom(value);
+          }
+          setBuilder_.setMessage(value);
+        }
+        opCase_ = 1;
+        return this;
+      }
+      /**
+       * <code>.process_rpc_proto.KvRequest.KvPutRequest set = 1;</code>
+       */
+      public Builder clearSet() {
+        if (setBuilder_ == null) {
+          if (opCase_ == 1) {
+            opCase_ = 0;
+            op_ = null;
+            onChanged();
+          }
+        } else {
+          if (opCase_ == 1) {
+            opCase_ = 0;
+            op_ = null;
+          }
+          setBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>.process_rpc_proto.KvRequest.KvPutRequest set = 1;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest.Builder getSetBuilder() {
+        return getSetFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.process_rpc_proto.KvRequest.KvPutRequest set = 1;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequestOrBuilder getSetOrBuilder() {
+        if ((opCase_ == 1) && (setBuilder_ != null)) {
+          return setBuilder_.getMessageOrBuilder();
+        } else {
+          if (opCase_ == 1) {
+            return (process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest) op_;
+          }
+          return process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.process_rpc_proto.KvRequest.KvPutRequest set = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest, process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest.Builder, process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequestOrBuilder> 
+          getSetFieldBuilder() {
+        if (setBuilder_ == null) {
+          if (!(opCase_ == 1)) {
+            op_ = process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest.getDefaultInstance();
+          }
+          setBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest, process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest.Builder, process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequestOrBuilder>(
+                  (process_rpc_proto.ProcessRpcProto.KvRequest.KvPutRequest) op_,
+                  getParentForChildren(),
+                  isClean());
+          op_ = null;
+        }
+        opCase_ = 1;
+        onChanged();;
+        return setBuilder_;
+      }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest, process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest.Builder, process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequestOrBuilder> getBuilder_;
+      /**
+       * <code>.process_rpc_proto.KvRequest.KvGetRequest get = 2;</code>
+       */
+      public boolean hasGet() {
+        return opCase_ == 2;
+      }
+      /**
+       * <code>.process_rpc_proto.KvRequest.KvGetRequest get = 2;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest getGet() {
+        if (getBuilder_ == null) {
+          if (opCase_ == 2) {
+            return (process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest) op_;
+          }
+          return process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest.getDefaultInstance();
+        } else {
+          if (opCase_ == 2) {
+            return getBuilder_.getMessage();
+          }
+          return process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.process_rpc_proto.KvRequest.KvGetRequest get = 2;</code>
+       */
+      public Builder setGet(process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest value) {
+        if (getBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          op_ = value;
+          onChanged();
+        } else {
+          getBuilder_.setMessage(value);
+        }
+        opCase_ = 2;
+        return this;
+      }
+      /**
+       * <code>.process_rpc_proto.KvRequest.KvGetRequest get = 2;</code>
+       */
+      public Builder setGet(
+          process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest.Builder builderForValue) {
+        if (getBuilder_ == null) {
+          op_ = builderForValue.build();
+          onChanged();
+        } else {
+          getBuilder_.setMessage(builderForValue.build());
+        }
+        opCase_ = 2;
+        return this;
+      }
+      /**
+       * <code>.process_rpc_proto.KvRequest.KvGetRequest get = 2;</code>
+       */
+      public Builder mergeGet(process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest value) {
+        if (getBuilder_ == null) {
+          if (opCase_ == 2 &&
+              op_ != process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest.getDefaultInstance()) {
+            op_ = process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest.newBuilder((process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest) op_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            op_ = value;
+          }
+          onChanged();
+        } else {
+          if (opCase_ == 2) {
+            getBuilder_.mergeFrom(value);
+          }
+          getBuilder_.setMessage(value);
+        }
+        opCase_ = 2;
+        return this;
+      }
+      /**
+       * <code>.process_rpc_proto.KvRequest.KvGetRequest get = 2;</code>
+       */
+      public Builder clearGet() {
+        if (getBuilder_ == null) {
+          if (opCase_ == 2) {
+            opCase_ = 0;
+            op_ = null;
+            onChanged();
+          }
+        } else {
+          if (opCase_ == 2) {
+            opCase_ = 0;
+            op_ = null;
+          }
+          getBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>.process_rpc_proto.KvRequest.KvGetRequest get = 2;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest.Builder getGetBuilder() {
+        return getGetFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.process_rpc_proto.KvRequest.KvGetRequest get = 2;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequestOrBuilder getGetOrBuilder() {
+        if ((opCase_ == 2) && (getBuilder_ != null)) {
+          return getBuilder_.getMessageOrBuilder();
+        } else {
+          if (opCase_ == 2) {
+            return (process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest) op_;
+          }
+          return process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.process_rpc_proto.KvRequest.KvGetRequest get = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest, process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest.Builder, process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequestOrBuilder> 
+          getGetFieldBuilder() {
+        if (getBuilder_ == null) {
+          if (!(opCase_ == 2)) {
+            op_ = process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest.getDefaultInstance();
+          }
+          getBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest, process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest.Builder, process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequestOrBuilder>(
+                  (process_rpc_proto.ProcessRpcProto.KvRequest.KvGetRequest) op_,
+                  getParentForChildren(),
+                  isClean());
+          op_ = null;
+        }
+        opCase_ = 2;
+        onChanged();;
+        return getBuilder_;
+      }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest, process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest.Builder, process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequestOrBuilder> deleteBuilder_;
+      /**
+       * <code>.process_rpc_proto.KvRequest.KvDeleteRequest delete = 3;</code>
+       */
+      public boolean hasDelete() {
+        return opCase_ == 3;
+      }
+      /**
+       * <code>.process_rpc_proto.KvRequest.KvDeleteRequest delete = 3;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest getDelete() {
+        if (deleteBuilder_ == null) {
+          if (opCase_ == 3) {
+            return (process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest) op_;
+          }
+          return process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest.getDefaultInstance();
+        } else {
+          if (opCase_ == 3) {
+            return deleteBuilder_.getMessage();
+          }
+          return process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.process_rpc_proto.KvRequest.KvDeleteRequest delete = 3;</code>
+       */
+      public Builder setDelete(process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest value) {
+        if (deleteBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          op_ = value;
+          onChanged();
+        } else {
+          deleteBuilder_.setMessage(value);
+        }
+        opCase_ = 3;
+        return this;
+      }
+      /**
+       * <code>.process_rpc_proto.KvRequest.KvDeleteRequest delete = 3;</code>
+       */
+      public Builder setDelete(
+          process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest.Builder builderForValue) {
+        if (deleteBuilder_ == null) {
+          op_ = builderForValue.build();
+          onChanged();
+        } else {
+          deleteBuilder_.setMessage(builderForValue.build());
+        }
+        opCase_ = 3;
+        return this;
+      }
+      /**
+       * <code>.process_rpc_proto.KvRequest.KvDeleteRequest delete = 3;</code>
+       */
+      public Builder mergeDelete(process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest value) {
+        if (deleteBuilder_ == null) {
+          if (opCase_ == 3 &&
+              op_ != process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest.getDefaultInstance()) {
+            op_ = process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest.newBuilder((process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest) op_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            op_ = value;
+          }
+          onChanged();
+        } else {
+          if (opCase_ == 3) {
+            deleteBuilder_.mergeFrom(value);
+          }
+          deleteBuilder_.setMessage(value);
+        }
+        opCase_ = 3;
+        return this;
+      }
+      /**
+       * <code>.process_rpc_proto.KvRequest.KvDeleteRequest delete = 3;</code>
+       */
+      public Builder clearDelete() {
+        if (deleteBuilder_ == null) {
+          if (opCase_ == 3) {
+            opCase_ = 0;
+            op_ = null;
+            onChanged();
+          }
+        } else {
+          if (opCase_ == 3) {
+            opCase_ = 0;
+            op_ = null;
+          }
+          deleteBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>.process_rpc_proto.KvRequest.KvDeleteRequest delete = 3;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest.Builder getDeleteBuilder() {
+        return getDeleteFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.process_rpc_proto.KvRequest.KvDeleteRequest delete = 3;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequestOrBuilder getDeleteOrBuilder() {
+        if ((opCase_ == 3) && (deleteBuilder_ != null)) {
+          return deleteBuilder_.getMessageOrBuilder();
+        } else {
+          if (opCase_ == 3) {
+            return (process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest) op_;
+          }
+          return process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.process_rpc_proto.KvRequest.KvDeleteRequest delete = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest, process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest.Builder, process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequestOrBuilder> 
+          getDeleteFieldBuilder() {
+        if (deleteBuilder_ == null) {
+          if (!(opCase_ == 3)) {
+            op_ = process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest.getDefaultInstance();
+          }
+          deleteBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest, process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest.Builder, process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequestOrBuilder>(
+                  (process_rpc_proto.ProcessRpcProto.KvRequest.KvDeleteRequest) op_,
+                  getParentForChildren(),
+                  isClean());
+          op_ = null;
+        }
+        opCase_ = 3;
+        onChanged();;
+        return deleteBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:process_rpc_proto.KvRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:process_rpc_proto.KvRequest)
+    private static final process_rpc_proto.ProcessRpcProto.KvRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new process_rpc_proto.ProcessRpcProto.KvRequest();
+    }
+
+    public static process_rpc_proto.ProcessRpcProto.KvRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<KvRequest>
+        PARSER = new com.google.protobuf.AbstractParser<KvRequest>() {
+      @java.lang.Override
+      public KvRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new KvRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<KvRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<KvRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public process_rpc_proto.ProcessRpcProto.KvRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface KvPairsOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:process_rpc_proto.KvPairs)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .process_rpc_proto.KvPair kvs = 1;</code>
+     */
+    java.util.List<process_rpc_proto.ProcessRpcProto.KvPair> 
+        getKvsList();
+    /**
+     * <code>repeated .process_rpc_proto.KvPair kvs = 1;</code>
+     */
+    process_rpc_proto.ProcessRpcProto.KvPair getKvs(int index);
+    /**
+     * <code>repeated .process_rpc_proto.KvPair kvs = 1;</code>
+     */
+    int getKvsCount();
+    /**
+     * <code>repeated .process_rpc_proto.KvPair kvs = 1;</code>
+     */
+    java.util.List<? extends process_rpc_proto.ProcessRpcProto.KvPairOrBuilder> 
+        getKvsOrBuilderList();
+    /**
+     * <code>repeated .process_rpc_proto.KvPair kvs = 1;</code>
+     */
+    process_rpc_proto.ProcessRpcProto.KvPairOrBuilder getKvsOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code process_rpc_proto.KvPairs}
+   */
+  public  static final class KvPairs extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:process_rpc_proto.KvPairs)
+      KvPairsOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use KvPairs.newBuilder() to construct.
+    private KvPairs(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private KvPairs() {
+      kvs_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private KvPairs(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                kvs_ = new java.util.ArrayList<process_rpc_proto.ProcessRpcProto.KvPair>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              kvs_.add(
+                  input.readMessage(process_rpc_proto.ProcessRpcProto.KvPair.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          kvs_ = java.util.Collections.unmodifiableList(kvs_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvPairs_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvPairs_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              process_rpc_proto.ProcessRpcProto.KvPairs.class, process_rpc_proto.ProcessRpcProto.KvPairs.Builder.class);
+    }
+
+    public static final int KVS_FIELD_NUMBER = 1;
+    private java.util.List<process_rpc_proto.ProcessRpcProto.KvPair> kvs_;
+    /**
+     * <code>repeated .process_rpc_proto.KvPair kvs = 1;</code>
+     */
+    public java.util.List<process_rpc_proto.ProcessRpcProto.KvPair> getKvsList() {
+      return kvs_;
+    }
+    /**
+     * <code>repeated .process_rpc_proto.KvPair kvs = 1;</code>
+     */
+    public java.util.List<? extends process_rpc_proto.ProcessRpcProto.KvPairOrBuilder> 
+        getKvsOrBuilderList() {
+      return kvs_;
+    }
+    /**
+     * <code>repeated .process_rpc_proto.KvPair kvs = 1;</code>
+     */
+    public int getKvsCount() {
+      return kvs_.size();
+    }
+    /**
+     * <code>repeated .process_rpc_proto.KvPair kvs = 1;</code>
+     */
+    public process_rpc_proto.ProcessRpcProto.KvPair getKvs(int index) {
+      return kvs_.get(index);
+    }
+    /**
+     * <code>repeated .process_rpc_proto.KvPair kvs = 1;</code>
+     */
+    public process_rpc_proto.ProcessRpcProto.KvPairOrBuilder getKvsOrBuilder(
+        int index) {
+      return kvs_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < kvs_.size(); i++) {
+        output.writeMessage(1, kvs_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < kvs_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, kvs_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof process_rpc_proto.ProcessRpcProto.KvPairs)) {
+        return super.equals(obj);
+      }
+      process_rpc_proto.ProcessRpcProto.KvPairs other = (process_rpc_proto.ProcessRpcProto.KvPairs) obj;
+
+      boolean result = true;
+      result = result && getKvsList()
+          .equals(other.getKvsList());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getKvsCount() > 0) {
+        hash = (37 * hash) + KVS_FIELD_NUMBER;
+        hash = (53 * hash) + getKvsList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static process_rpc_proto.ProcessRpcProto.KvPairs parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvPairs parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvPairs parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvPairs parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvPairs parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvPairs parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvPairs parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvPairs parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvPairs parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvPairs parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvPairs parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvPairs parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(process_rpc_proto.ProcessRpcProto.KvPairs prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code process_rpc_proto.KvPairs}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:process_rpc_proto.KvPairs)
+        process_rpc_proto.ProcessRpcProto.KvPairsOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvPairs_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvPairs_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                process_rpc_proto.ProcessRpcProto.KvPairs.class, process_rpc_proto.ProcessRpcProto.KvPairs.Builder.class);
+      }
+
+      // Construct using process_rpc_proto.ProcessRpcProto.KvPairs.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getKvsFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (kvsBuilder_ == null) {
+          kvs_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          kvsBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvPairs_descriptor;
+      }
+
+      @java.lang.Override
+      public process_rpc_proto.ProcessRpcProto.KvPairs getDefaultInstanceForType() {
+        return process_rpc_proto.ProcessRpcProto.KvPairs.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public process_rpc_proto.ProcessRpcProto.KvPairs build() {
+        process_rpc_proto.ProcessRpcProto.KvPairs result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public process_rpc_proto.ProcessRpcProto.KvPairs buildPartial() {
+        process_rpc_proto.ProcessRpcProto.KvPairs result = new process_rpc_proto.ProcessRpcProto.KvPairs(this);
+        int from_bitField0_ = bitField0_;
+        if (kvsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+            kvs_ = java.util.Collections.unmodifiableList(kvs_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.kvs_ = kvs_;
+        } else {
+          result.kvs_ = kvsBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof process_rpc_proto.ProcessRpcProto.KvPairs) {
+          return mergeFrom((process_rpc_proto.ProcessRpcProto.KvPairs)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(process_rpc_proto.ProcessRpcProto.KvPairs other) {
+        if (other == process_rpc_proto.ProcessRpcProto.KvPairs.getDefaultInstance()) return this;
+        if (kvsBuilder_ == null) {
+          if (!other.kvs_.isEmpty()) {
+            if (kvs_.isEmpty()) {
+              kvs_ = other.kvs_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureKvsIsMutable();
+              kvs_.addAll(other.kvs_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.kvs_.isEmpty()) {
+            if (kvsBuilder_.isEmpty()) {
+              kvsBuilder_.dispose();
+              kvsBuilder_ = null;
+              kvs_ = other.kvs_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              kvsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getKvsFieldBuilder() : null;
+            } else {
+              kvsBuilder_.addAllMessages(other.kvs_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        process_rpc_proto.ProcessRpcProto.KvPairs parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (process_rpc_proto.ProcessRpcProto.KvPairs) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<process_rpc_proto.ProcessRpcProto.KvPair> kvs_ =
+        java.util.Collections.emptyList();
+      private void ensureKvsIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          kvs_ = new java.util.ArrayList<process_rpc_proto.ProcessRpcProto.KvPair>(kvs_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          process_rpc_proto.ProcessRpcProto.KvPair, process_rpc_proto.ProcessRpcProto.KvPair.Builder, process_rpc_proto.ProcessRpcProto.KvPairOrBuilder> kvsBuilder_;
+
+      /**
+       * <code>repeated .process_rpc_proto.KvPair kvs = 1;</code>
+       */
+      public java.util.List<process_rpc_proto.ProcessRpcProto.KvPair> getKvsList() {
+        if (kvsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(kvs_);
+        } else {
+          return kvsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .process_rpc_proto.KvPair kvs = 1;</code>
+       */
+      public int getKvsCount() {
+        if (kvsBuilder_ == null) {
+          return kvs_.size();
+        } else {
+          return kvsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .process_rpc_proto.KvPair kvs = 1;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.KvPair getKvs(int index) {
+        if (kvsBuilder_ == null) {
+          return kvs_.get(index);
+        } else {
+          return kvsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .process_rpc_proto.KvPair kvs = 1;</code>
+       */
+      public Builder setKvs(
+          int index, process_rpc_proto.ProcessRpcProto.KvPair value) {
+        if (kvsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureKvsIsMutable();
+          kvs_.set(index, value);
+          onChanged();
+        } else {
+          kvsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .process_rpc_proto.KvPair kvs = 1;</code>
+       */
+      public Builder setKvs(
+          int index, process_rpc_proto.ProcessRpcProto.KvPair.Builder builderForValue) {
+        if (kvsBuilder_ == null) {
+          ensureKvsIsMutable();
+          kvs_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          kvsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .process_rpc_proto.KvPair kvs = 1;</code>
+       */
+      public Builder addKvs(process_rpc_proto.ProcessRpcProto.KvPair value) {
+        if (kvsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureKvsIsMutable();
+          kvs_.add(value);
+          onChanged();
+        } else {
+          kvsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .process_rpc_proto.KvPair kvs = 1;</code>
+       */
+      public Builder addKvs(
+          int index, process_rpc_proto.ProcessRpcProto.KvPair value) {
+        if (kvsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureKvsIsMutable();
+          kvs_.add(index, value);
+          onChanged();
+        } else {
+          kvsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .process_rpc_proto.KvPair kvs = 1;</code>
+       */
+      public Builder addKvs(
+          process_rpc_proto.ProcessRpcProto.KvPair.Builder builderForValue) {
+        if (kvsBuilder_ == null) {
+          ensureKvsIsMutable();
+          kvs_.add(builderForValue.build());
+          onChanged();
+        } else {
+          kvsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .process_rpc_proto.KvPair kvs = 1;</code>
+       */
+      public Builder addKvs(
+          int index, process_rpc_proto.ProcessRpcProto.KvPair.Builder builderForValue) {
+        if (kvsBuilder_ == null) {
+          ensureKvsIsMutable();
+          kvs_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          kvsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .process_rpc_proto.KvPair kvs = 1;</code>
+       */
+      public Builder addAllKvs(
+          java.lang.Iterable<? extends process_rpc_proto.ProcessRpcProto.KvPair> values) {
+        if (kvsBuilder_ == null) {
+          ensureKvsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, kvs_);
+          onChanged();
+        } else {
+          kvsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .process_rpc_proto.KvPair kvs = 1;</code>
+       */
+      public Builder clearKvs() {
+        if (kvsBuilder_ == null) {
+          kvs_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          kvsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .process_rpc_proto.KvPair kvs = 1;</code>
+       */
+      public Builder removeKvs(int index) {
+        if (kvsBuilder_ == null) {
+          ensureKvsIsMutable();
+          kvs_.remove(index);
+          onChanged();
+        } else {
+          kvsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .process_rpc_proto.KvPair kvs = 1;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.KvPair.Builder getKvsBuilder(
+          int index) {
+        return getKvsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .process_rpc_proto.KvPair kvs = 1;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.KvPairOrBuilder getKvsOrBuilder(
+          int index) {
+        if (kvsBuilder_ == null) {
+          return kvs_.get(index);  } else {
+          return kvsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .process_rpc_proto.KvPair kvs = 1;</code>
+       */
+      public java.util.List<? extends process_rpc_proto.ProcessRpcProto.KvPairOrBuilder> 
+           getKvsOrBuilderList() {
+        if (kvsBuilder_ != null) {
+          return kvsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(kvs_);
+        }
+      }
+      /**
+       * <code>repeated .process_rpc_proto.KvPair kvs = 1;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.KvPair.Builder addKvsBuilder() {
+        return getKvsFieldBuilder().addBuilder(
+            process_rpc_proto.ProcessRpcProto.KvPair.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .process_rpc_proto.KvPair kvs = 1;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.KvPair.Builder addKvsBuilder(
+          int index) {
+        return getKvsFieldBuilder().addBuilder(
+            index, process_rpc_proto.ProcessRpcProto.KvPair.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .process_rpc_proto.KvPair kvs = 1;</code>
+       */
+      public java.util.List<process_rpc_proto.ProcessRpcProto.KvPair.Builder> 
+           getKvsBuilderList() {
+        return getKvsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          process_rpc_proto.ProcessRpcProto.KvPair, process_rpc_proto.ProcessRpcProto.KvPair.Builder, process_rpc_proto.ProcessRpcProto.KvPairOrBuilder> 
+          getKvsFieldBuilder() {
+        if (kvsBuilder_ == null) {
+          kvsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              process_rpc_proto.ProcessRpcProto.KvPair, process_rpc_proto.ProcessRpcProto.KvPair.Builder, process_rpc_proto.ProcessRpcProto.KvPairOrBuilder>(
+                  kvs_,
+                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  getParentForChildren(),
+                  isClean());
+          kvs_ = null;
+        }
+        return kvsBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:process_rpc_proto.KvPairs)
+    }
+
+    // @@protoc_insertion_point(class_scope:process_rpc_proto.KvPairs)
+    private static final process_rpc_proto.ProcessRpcProto.KvPairs DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new process_rpc_proto.ProcessRpcProto.KvPairs();
+    }
+
+    public static process_rpc_proto.ProcessRpcProto.KvPairs getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<KvPairs>
+        PARSER = new com.google.protobuf.AbstractParser<KvPairs>() {
+      @java.lang.Override
+      public KvPairs parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new KvPairs(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<KvPairs> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<KvPairs> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public process_rpc_proto.ProcessRpcProto.KvPairs getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface KvResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:process_rpc_proto.KvResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>.process_rpc_proto.KvResponse.KvGetResponse get = 1;</code>
+     */
+    boolean hasGet();
+    /**
+     * <code>.process_rpc_proto.KvResponse.KvGetResponse get = 1;</code>
+     */
+    process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse getGet();
+    /**
+     * <code>.process_rpc_proto.KvResponse.KvGetResponse get = 1;</code>
+     */
+    process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponseOrBuilder getGetOrBuilder();
+
+    /**
+     * <code>.process_rpc_proto.KvResponse.KvPutOrDelResponse put_or_del = 2;</code>
+     */
+    boolean hasPutOrDel();
+    /**
+     * <code>.process_rpc_proto.KvResponse.KvPutOrDelResponse put_or_del = 2;</code>
+     */
+    process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse getPutOrDel();
+    /**
+     * <code>.process_rpc_proto.KvResponse.KvPutOrDelResponse put_or_del = 2;</code>
+     */
+    process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponseOrBuilder getPutOrDelOrBuilder();
+
+    /**
+     * <pre>
+     * 0 is invalid lock id
+     * </pre>
+     *
+     * <code>uint32 lock_id = 3;</code>
+     */
+    int getLockId();
+
+    public process_rpc_proto.ProcessRpcProto.KvResponse.RespCase getRespCase();
+  }
+  /**
+   * Protobuf type {@code process_rpc_proto.KvResponse}
+   */
+  public  static final class KvResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:process_rpc_proto.KvResponse)
+      KvResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use KvResponse.newBuilder() to construct.
+    private KvResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private KvResponse() {
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private KvResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse.Builder subBuilder = null;
+              if (respCase_ == 1) {
+                subBuilder = ((process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse) resp_).toBuilder();
+              }
+              resp_ =
+                  input.readMessage(process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse) resp_);
+                resp_ = subBuilder.buildPartial();
+              }
+              respCase_ = 1;
+              break;
+            }
+            case 18: {
+              process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse.Builder subBuilder = null;
+              if (respCase_ == 2) {
+                subBuilder = ((process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse) resp_).toBuilder();
+              }
+              resp_ =
+                  input.readMessage(process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse) resp_);
+                resp_ = subBuilder.buildPartial();
+              }
+              respCase_ = 2;
+              break;
+            }
+            case 24: {
+              respCase_ = 3;
+              resp_ = input.readUInt32();
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              process_rpc_proto.ProcessRpcProto.KvResponse.class, process_rpc_proto.ProcessRpcProto.KvResponse.Builder.class);
+    }
+
+    public interface KvGetResponseOrBuilder extends
+        // @@protoc_insertion_point(interface_extends:process_rpc_proto.KvResponse.KvGetResponse)
+        com.google.protobuf.MessageOrBuilder {
+
+      /**
+       * <code>repeated uint32 idxs = 1;</code>
+       */
+      java.util.List<java.lang.Integer> getIdxsList();
+      /**
+       * <code>repeated uint32 idxs = 1;</code>
+       */
+      int getIdxsCount();
+      /**
+       * <code>repeated uint32 idxs = 1;</code>
+       */
+      int getIdxs(int index);
+
+      /**
+       * <code>repeated bytes values = 2;</code>
+       */
+      java.util.List<com.google.protobuf.ByteString> getValuesList();
+      /**
+       * <code>repeated bytes values = 2;</code>
+       */
+      int getValuesCount();
+      /**
+       * <code>repeated bytes values = 2;</code>
+       */
+      com.google.protobuf.ByteString getValues(int index);
+    }
+    /**
+     * Protobuf type {@code process_rpc_proto.KvResponse.KvGetResponse}
+     */
+    public  static final class KvGetResponse extends
+        com.google.protobuf.GeneratedMessageV3 implements
+        // @@protoc_insertion_point(message_implements:process_rpc_proto.KvResponse.KvGetResponse)
+        KvGetResponseOrBuilder {
+    private static final long serialVersionUID = 0L;
+      // Use KvGetResponse.newBuilder() to construct.
+      private KvGetResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        super(builder);
+      }
+      private KvGetResponse() {
+        idxs_ = java.util.Collections.emptyList();
+        values_ = java.util.Collections.emptyList();
+      }
+
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+      getUnknownFields() {
+        return this.unknownFields;
+      }
+      private KvGetResponse(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        this();
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        int mutable_bitField0_ = 0;
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 8: {
+                if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                  idxs_ = new java.util.ArrayList<java.lang.Integer>();
+                  mutable_bitField0_ |= 0x00000001;
+                }
+                idxs_.add(input.readUInt32());
+                break;
+              }
+              case 10: {
+                int length = input.readRawVarint32();
+                int limit = input.pushLimit(length);
+                if (!((mutable_bitField0_ & 0x00000001) == 0x00000001) && input.getBytesUntilLimit() > 0) {
+                  idxs_ = new java.util.ArrayList<java.lang.Integer>();
+                  mutable_bitField0_ |= 0x00000001;
+                }
+                while (input.getBytesUntilLimit() > 0) {
+                  idxs_.add(input.readUInt32());
+                }
+                input.popLimit(limit);
+                break;
+              }
+              case 18: {
+                if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+                  values_ = new java.util.ArrayList<com.google.protobuf.ByteString>();
+                  mutable_bitField0_ |= 0x00000002;
+                }
+                values_.add(input.readBytes());
+                break;
+              }
+              default: {
+                if (!parseUnknownFieldProto3(
+                    input, unknownFields, extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
+            }
+          }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e).setUnfinishedMessage(this);
+        } finally {
+          if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+            idxs_ = java.util.Collections.unmodifiableList(idxs_);
+          }
+          if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+            values_ = java.util.Collections.unmodifiableList(values_);
+          }
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
+        }
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvResponse_KvGetResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvResponse_KvGetResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse.class, process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse.Builder.class);
+      }
+
+      public static final int IDXS_FIELD_NUMBER = 1;
+      private java.util.List<java.lang.Integer> idxs_;
+      /**
+       * <code>repeated uint32 idxs = 1;</code>
+       */
+      public java.util.List<java.lang.Integer>
+          getIdxsList() {
+        return idxs_;
+      }
+      /**
+       * <code>repeated uint32 idxs = 1;</code>
+       */
+      public int getIdxsCount() {
+        return idxs_.size();
+      }
+      /**
+       * <code>repeated uint32 idxs = 1;</code>
+       */
+      public int getIdxs(int index) {
+        return idxs_.get(index);
+      }
+      private int idxsMemoizedSerializedSize = -1;
+
+      public static final int VALUES_FIELD_NUMBER = 2;
+      private java.util.List<com.google.protobuf.ByteString> values_;
+      /**
+       * <code>repeated bytes values = 2;</code>
+       */
+      public java.util.List<com.google.protobuf.ByteString>
+          getValuesList() {
+        return values_;
+      }
+      /**
+       * <code>repeated bytes values = 2;</code>
+       */
+      public int getValuesCount() {
+        return values_.size();
+      }
+      /**
+       * <code>repeated bytes values = 2;</code>
+       */
+      public com.google.protobuf.ByteString getValues(int index) {
+        return values_.get(index);
+      }
+
+      private byte memoizedIsInitialized = -1;
+      @java.lang.Override
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized == 1) return true;
+        if (isInitialized == 0) return false;
+
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      @java.lang.Override
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        getSerializedSize();
+        if (getIdxsList().size() > 0) {
+          output.writeUInt32NoTag(10);
+          output.writeUInt32NoTag(idxsMemoizedSerializedSize);
+        }
+        for (int i = 0; i < idxs_.size(); i++) {
+          output.writeUInt32NoTag(idxs_.get(i));
+        }
+        for (int i = 0; i < values_.size(); i++) {
+          output.writeBytes(2, values_.get(i));
+        }
+        unknownFields.writeTo(output);
+      }
+
+      @java.lang.Override
+      public int getSerializedSize() {
+        int size = memoizedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        {
+          int dataSize = 0;
+          for (int i = 0; i < idxs_.size(); i++) {
+            dataSize += com.google.protobuf.CodedOutputStream
+              .computeUInt32SizeNoTag(idxs_.get(i));
+          }
+          size += dataSize;
+          if (!getIdxsList().isEmpty()) {
+            size += 1;
+            size += com.google.protobuf.CodedOutputStream
+                .computeInt32SizeNoTag(dataSize);
+          }
+          idxsMemoizedSerializedSize = dataSize;
+        }
+        {
+          int dataSize = 0;
+          for (int i = 0; i < values_.size(); i++) {
+            dataSize += com.google.protobuf.CodedOutputStream
+              .computeBytesSizeNoTag(values_.get(i));
+          }
+          size += dataSize;
+          size += 1 * getValuesList().size();
+        }
+        size += unknownFields.getSerializedSize();
+        memoizedSize = size;
+        return size;
+      }
+
+      @java.lang.Override
+      public boolean equals(final java.lang.Object obj) {
+        if (obj == this) {
+         return true;
+        }
+        if (!(obj instanceof process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse)) {
+          return super.equals(obj);
+        }
+        process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse other = (process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse) obj;
+
+        boolean result = true;
+        result = result && getIdxsList()
+            .equals(other.getIdxsList());
+        result = result && getValuesList()
+            .equals(other.getValuesList());
+        result = result && unknownFields.equals(other.unknownFields);
+        return result;
+      }
+
+      @java.lang.Override
+      public int hashCode() {
+        if (memoizedHashCode != 0) {
+          return memoizedHashCode;
+        }
+        int hash = 41;
+        hash = (19 * hash) + getDescriptor().hashCode();
+        if (getIdxsCount() > 0) {
+          hash = (37 * hash) + IDXS_FIELD_NUMBER;
+          hash = (53 * hash) + getIdxsList().hashCode();
+        }
+        if (getValuesCount() > 0) {
+          hash = (37 * hash) + VALUES_FIELD_NUMBER;
+          hash = (53 * hash) + getValuesList().hashCode();
+        }
+        hash = (29 * hash) + unknownFields.hashCode();
+        memoizedHashCode = hash;
+        return hash;
+      }
+
+      public static process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse parseFrom(
+          java.nio.ByteBuffer data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse parseFrom(
+          java.nio.ByteBuffer data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+
+      @java.lang.Override
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder() {
+        return DEFAULT_INSTANCE.toBuilder();
+      }
+      public static Builder newBuilder(process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse prototype) {
+        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      }
+      @java.lang.Override
+      public Builder toBuilder() {
+        return this == DEFAULT_INSTANCE
+            ? new Builder() : new Builder().mergeFrom(this);
+      }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code process_rpc_proto.KvResponse.KvGetResponse}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+          // @@protoc_insertion_point(builder_implements:process_rpc_proto.KvResponse.KvGetResponse)
+          process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponseOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvResponse_KvGetResponse_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvResponse_KvGetResponse_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse.class, process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse.Builder.class);
+        }
+
+        // Construct using process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessageV3
+                  .alwaysUseFieldBuilders) {
+          }
+        }
+        @java.lang.Override
+        public Builder clear() {
+          super.clear();
+          idxs_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          values_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+          return this;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvResponse_KvGetResponse_descriptor;
+        }
+
+        @java.lang.Override
+        public process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse getDefaultInstanceForType() {
+          return process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse.getDefaultInstance();
+        }
+
+        @java.lang.Override
+        public process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse build() {
+          process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        @java.lang.Override
+        public process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse buildPartial() {
+          process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse result = new process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse(this);
+          int from_bitField0_ = bitField0_;
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+            idxs_ = java.util.Collections.unmodifiableList(idxs_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.idxs_ = idxs_;
+          if (((bitField0_ & 0x00000002) == 0x00000002)) {
+            values_ = java.util.Collections.unmodifiableList(values_);
+            bitField0_ = (bitField0_ & ~0x00000002);
+          }
+          result.values_ = values_;
+          onBuilt();
+          return result;
+        }
+
+        @java.lang.Override
+        public Builder clone() {
+          return (Builder) super.clone();
+        }
+        @java.lang.Override
+        public Builder setField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return (Builder) super.setField(field, value);
+        }
+        @java.lang.Override
+        public Builder clearField(
+            com.google.protobuf.Descriptors.FieldDescriptor field) {
+          return (Builder) super.clearField(field);
+        }
+        @java.lang.Override
+        public Builder clearOneof(
+            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          return (Builder) super.clearOneof(oneof);
+        }
+        @java.lang.Override
+        public Builder setRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            int index, java.lang.Object value) {
+          return (Builder) super.setRepeatedField(field, index, value);
+        }
+        @java.lang.Override
+        public Builder addRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return (Builder) super.addRepeatedField(field, value);
+        }
+        @java.lang.Override
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse) {
+            return mergeFrom((process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse other) {
+          if (other == process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse.getDefaultInstance()) return this;
+          if (!other.idxs_.isEmpty()) {
+            if (idxs_.isEmpty()) {
+              idxs_ = other.idxs_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureIdxsIsMutable();
+              idxs_.addAll(other.idxs_);
+            }
+            onChanged();
+          }
+          if (!other.values_.isEmpty()) {
+            if (values_.isEmpty()) {
+              values_ = other.values_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensureValuesIsMutable();
+              values_.addAll(other.values_);
+            }
+            onChanged();
+          }
+          this.mergeUnknownFields(other.unknownFields);
+          onChanged();
+          return this;
+        }
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+          return true;
+        }
+
+        @java.lang.Override
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse) e.getUnfinishedMessage();
+            throw e.unwrapIOException();
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
+        private int bitField0_;
+
+        private java.util.List<java.lang.Integer> idxs_ = java.util.Collections.emptyList();
+        private void ensureIdxsIsMutable() {
+          if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+            idxs_ = new java.util.ArrayList<java.lang.Integer>(idxs_);
+            bitField0_ |= 0x00000001;
+           }
+        }
+        /**
+         * <code>repeated uint32 idxs = 1;</code>
+         */
+        public java.util.List<java.lang.Integer>
+            getIdxsList() {
+          return java.util.Collections.unmodifiableList(idxs_);
+        }
+        /**
+         * <code>repeated uint32 idxs = 1;</code>
+         */
+        public int getIdxsCount() {
+          return idxs_.size();
+        }
+        /**
+         * <code>repeated uint32 idxs = 1;</code>
+         */
+        public int getIdxs(int index) {
+          return idxs_.get(index);
+        }
+        /**
+         * <code>repeated uint32 idxs = 1;</code>
+         */
+        public Builder setIdxs(
+            int index, int value) {
+          ensureIdxsIsMutable();
+          idxs_.set(index, value);
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>repeated uint32 idxs = 1;</code>
+         */
+        public Builder addIdxs(int value) {
+          ensureIdxsIsMutable();
+          idxs_.add(value);
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>repeated uint32 idxs = 1;</code>
+         */
+        public Builder addAllIdxs(
+            java.lang.Iterable<? extends java.lang.Integer> values) {
+          ensureIdxsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, idxs_);
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>repeated uint32 idxs = 1;</code>
+         */
+        public Builder clearIdxs() {
+          idxs_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+          return this;
+        }
+
+        private java.util.List<com.google.protobuf.ByteString> values_ = java.util.Collections.emptyList();
+        private void ensureValuesIsMutable() {
+          if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+            values_ = new java.util.ArrayList<com.google.protobuf.ByteString>(values_);
+            bitField0_ |= 0x00000002;
+           }
+        }
+        /**
+         * <code>repeated bytes values = 2;</code>
+         */
+        public java.util.List<com.google.protobuf.ByteString>
+            getValuesList() {
+          return java.util.Collections.unmodifiableList(values_);
+        }
+        /**
+         * <code>repeated bytes values = 2;</code>
+         */
+        public int getValuesCount() {
+          return values_.size();
+        }
+        /**
+         * <code>repeated bytes values = 2;</code>
+         */
+        public com.google.protobuf.ByteString getValues(int index) {
+          return values_.get(index);
+        }
+        /**
+         * <code>repeated bytes values = 2;</code>
+         */
+        public Builder setValues(
+            int index, com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureValuesIsMutable();
+          values_.set(index, value);
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>repeated bytes values = 2;</code>
+         */
+        public Builder addValues(com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureValuesIsMutable();
+          values_.add(value);
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>repeated bytes values = 2;</code>
+         */
+        public Builder addAllValues(
+            java.lang.Iterable<? extends com.google.protobuf.ByteString> values) {
+          ensureValuesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, values_);
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>repeated bytes values = 2;</code>
+         */
+        public Builder clearValues() {
+          values_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+          onChanged();
+          return this;
+        }
+        @java.lang.Override
+        public final Builder setUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.setUnknownFieldsProto3(unknownFields);
+        }
+
+        @java.lang.Override
+        public final Builder mergeUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.mergeUnknownFields(unknownFields);
+        }
+
+
+        // @@protoc_insertion_point(builder_scope:process_rpc_proto.KvResponse.KvGetResponse)
+      }
+
+      // @@protoc_insertion_point(class_scope:process_rpc_proto.KvResponse.KvGetResponse)
+      private static final process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse DEFAULT_INSTANCE;
+      static {
+        DEFAULT_INSTANCE = new process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse();
+      }
+
+      public static process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse getDefaultInstance() {
+        return DEFAULT_INSTANCE;
+      }
+
+      private static final com.google.protobuf.Parser<KvGetResponse>
+          PARSER = new com.google.protobuf.AbstractParser<KvGetResponse>() {
+        @java.lang.Override
+        public KvGetResponse parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new KvGetResponse(input, extensionRegistry);
+        }
+      };
+
+      public static com.google.protobuf.Parser<KvGetResponse> parser() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<KvGetResponse> getParserForType() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse getDefaultInstanceForType() {
+        return DEFAULT_INSTANCE;
+      }
+
+    }
+
+    public interface KvPutOrDelResponseOrBuilder extends
+        // @@protoc_insertion_point(interface_extends:process_rpc_proto.KvResponse.KvPutOrDelResponse)
+        com.google.protobuf.MessageOrBuilder {
+
+      /**
+       * <code>.process_rpc_proto.KvPair kv = 1;</code>
+       */
+      boolean hasKv();
+      /**
+       * <code>.process_rpc_proto.KvPair kv = 1;</code>
+       */
+      process_rpc_proto.ProcessRpcProto.KvPair getKv();
+      /**
+       * <code>.process_rpc_proto.KvPair kv = 1;</code>
+       */
+      process_rpc_proto.ProcessRpcProto.KvPairOrBuilder getKvOrBuilder();
+    }
+    /**
+     * Protobuf type {@code process_rpc_proto.KvResponse.KvPutOrDelResponse}
+     */
+    public  static final class KvPutOrDelResponse extends
+        com.google.protobuf.GeneratedMessageV3 implements
+        // @@protoc_insertion_point(message_implements:process_rpc_proto.KvResponse.KvPutOrDelResponse)
+        KvPutOrDelResponseOrBuilder {
+    private static final long serialVersionUID = 0L;
+      // Use KvPutOrDelResponse.newBuilder() to construct.
+      private KvPutOrDelResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        super(builder);
+      }
+      private KvPutOrDelResponse() {
+      }
+
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+      getUnknownFields() {
+        return this.unknownFields;
+      }
+      private KvPutOrDelResponse(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        this();
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        int mutable_bitField0_ = 0;
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                process_rpc_proto.ProcessRpcProto.KvPair.Builder subBuilder = null;
+                if (kv_ != null) {
+                  subBuilder = kv_.toBuilder();
+                }
+                kv_ = input.readMessage(process_rpc_proto.ProcessRpcProto.KvPair.parser(), extensionRegistry);
+                if (subBuilder != null) {
+                  subBuilder.mergeFrom(kv_);
+                  kv_ = subBuilder.buildPartial();
+                }
+
+                break;
+              }
+              default: {
+                if (!parseUnknownFieldProto3(
+                    input, unknownFields, extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
+            }
+          }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e).setUnfinishedMessage(this);
+        } finally {
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
+        }
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvResponse_KvPutOrDelResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvResponse_KvPutOrDelResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse.class, process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse.Builder.class);
+      }
+
+      public static final int KV_FIELD_NUMBER = 1;
+      private process_rpc_proto.ProcessRpcProto.KvPair kv_;
+      /**
+       * <code>.process_rpc_proto.KvPair kv = 1;</code>
+       */
+      public boolean hasKv() {
+        return kv_ != null;
+      }
+      /**
+       * <code>.process_rpc_proto.KvPair kv = 1;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.KvPair getKv() {
+        return kv_ == null ? process_rpc_proto.ProcessRpcProto.KvPair.getDefaultInstance() : kv_;
+      }
+      /**
+       * <code>.process_rpc_proto.KvPair kv = 1;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.KvPairOrBuilder getKvOrBuilder() {
+        return getKv();
+      }
+
+      private byte memoizedIsInitialized = -1;
+      @java.lang.Override
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized == 1) return true;
+        if (isInitialized == 0) return false;
+
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      @java.lang.Override
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        if (kv_ != null) {
+          output.writeMessage(1, getKv());
+        }
+        unknownFields.writeTo(output);
+      }
+
+      @java.lang.Override
+      public int getSerializedSize() {
+        int size = memoizedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (kv_ != null) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(1, getKv());
+        }
+        size += unknownFields.getSerializedSize();
+        memoizedSize = size;
+        return size;
+      }
+
+      @java.lang.Override
+      public boolean equals(final java.lang.Object obj) {
+        if (obj == this) {
+         return true;
+        }
+        if (!(obj instanceof process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse)) {
+          return super.equals(obj);
+        }
+        process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse other = (process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse) obj;
+
+        boolean result = true;
+        result = result && (hasKv() == other.hasKv());
+        if (hasKv()) {
+          result = result && getKv()
+              .equals(other.getKv());
+        }
+        result = result && unknownFields.equals(other.unknownFields);
+        return result;
+      }
+
+      @java.lang.Override
+      public int hashCode() {
+        if (memoizedHashCode != 0) {
+          return memoizedHashCode;
+        }
+        int hash = 41;
+        hash = (19 * hash) + getDescriptor().hashCode();
+        if (hasKv()) {
+          hash = (37 * hash) + KV_FIELD_NUMBER;
+          hash = (53 * hash) + getKv().hashCode();
+        }
+        hash = (29 * hash) + unknownFields.hashCode();
+        memoizedHashCode = hash;
+        return hash;
+      }
+
+      public static process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse parseFrom(
+          java.nio.ByteBuffer data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse parseFrom(
+          java.nio.ByteBuffer data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+
+      @java.lang.Override
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder() {
+        return DEFAULT_INSTANCE.toBuilder();
+      }
+      public static Builder newBuilder(process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse prototype) {
+        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      }
+      @java.lang.Override
+      public Builder toBuilder() {
+        return this == DEFAULT_INSTANCE
+            ? new Builder() : new Builder().mergeFrom(this);
+      }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code process_rpc_proto.KvResponse.KvPutOrDelResponse}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+          // @@protoc_insertion_point(builder_implements:process_rpc_proto.KvResponse.KvPutOrDelResponse)
+          process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponseOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvResponse_KvPutOrDelResponse_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvResponse_KvPutOrDelResponse_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse.class, process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse.Builder.class);
+        }
+
+        // Construct using process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessageV3
+                  .alwaysUseFieldBuilders) {
+          }
+        }
+        @java.lang.Override
+        public Builder clear() {
+          super.clear();
+          if (kvBuilder_ == null) {
+            kv_ = null;
+          } else {
+            kv_ = null;
+            kvBuilder_ = null;
+          }
+          return this;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvResponse_KvPutOrDelResponse_descriptor;
+        }
+
+        @java.lang.Override
+        public process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse getDefaultInstanceForType() {
+          return process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse.getDefaultInstance();
+        }
+
+        @java.lang.Override
+        public process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse build() {
+          process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        @java.lang.Override
+        public process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse buildPartial() {
+          process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse result = new process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse(this);
+          if (kvBuilder_ == null) {
+            result.kv_ = kv_;
+          } else {
+            result.kv_ = kvBuilder_.build();
+          }
+          onBuilt();
+          return result;
+        }
+
+        @java.lang.Override
+        public Builder clone() {
+          return (Builder) super.clone();
+        }
+        @java.lang.Override
+        public Builder setField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return (Builder) super.setField(field, value);
+        }
+        @java.lang.Override
+        public Builder clearField(
+            com.google.protobuf.Descriptors.FieldDescriptor field) {
+          return (Builder) super.clearField(field);
+        }
+        @java.lang.Override
+        public Builder clearOneof(
+            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          return (Builder) super.clearOneof(oneof);
+        }
+        @java.lang.Override
+        public Builder setRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            int index, java.lang.Object value) {
+          return (Builder) super.setRepeatedField(field, index, value);
+        }
+        @java.lang.Override
+        public Builder addRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return (Builder) super.addRepeatedField(field, value);
+        }
+        @java.lang.Override
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse) {
+            return mergeFrom((process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse other) {
+          if (other == process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse.getDefaultInstance()) return this;
+          if (other.hasKv()) {
+            mergeKv(other.getKv());
+          }
+          this.mergeUnknownFields(other.unknownFields);
+          onChanged();
+          return this;
+        }
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+          return true;
+        }
+
+        @java.lang.Override
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse) e.getUnfinishedMessage();
+            throw e.unwrapIOException();
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
+
+        private process_rpc_proto.ProcessRpcProto.KvPair kv_ = null;
+        private com.google.protobuf.SingleFieldBuilderV3<
+            process_rpc_proto.ProcessRpcProto.KvPair, process_rpc_proto.ProcessRpcProto.KvPair.Builder, process_rpc_proto.ProcessRpcProto.KvPairOrBuilder> kvBuilder_;
+        /**
+         * <code>.process_rpc_proto.KvPair kv = 1;</code>
+         */
+        public boolean hasKv() {
+          return kvBuilder_ != null || kv_ != null;
+        }
+        /**
+         * <code>.process_rpc_proto.KvPair kv = 1;</code>
+         */
+        public process_rpc_proto.ProcessRpcProto.KvPair getKv() {
+          if (kvBuilder_ == null) {
+            return kv_ == null ? process_rpc_proto.ProcessRpcProto.KvPair.getDefaultInstance() : kv_;
+          } else {
+            return kvBuilder_.getMessage();
+          }
+        }
+        /**
+         * <code>.process_rpc_proto.KvPair kv = 1;</code>
+         */
+        public Builder setKv(process_rpc_proto.ProcessRpcProto.KvPair value) {
+          if (kvBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            kv_ = value;
+            onChanged();
+          } else {
+            kvBuilder_.setMessage(value);
+          }
+
+          return this;
+        }
+        /**
+         * <code>.process_rpc_proto.KvPair kv = 1;</code>
+         */
+        public Builder setKv(
+            process_rpc_proto.ProcessRpcProto.KvPair.Builder builderForValue) {
+          if (kvBuilder_ == null) {
+            kv_ = builderForValue.build();
+            onChanged();
+          } else {
+            kvBuilder_.setMessage(builderForValue.build());
+          }
+
+          return this;
+        }
+        /**
+         * <code>.process_rpc_proto.KvPair kv = 1;</code>
+         */
+        public Builder mergeKv(process_rpc_proto.ProcessRpcProto.KvPair value) {
+          if (kvBuilder_ == null) {
+            if (kv_ != null) {
+              kv_ =
+                process_rpc_proto.ProcessRpcProto.KvPair.newBuilder(kv_).mergeFrom(value).buildPartial();
+            } else {
+              kv_ = value;
+            }
+            onChanged();
+          } else {
+            kvBuilder_.mergeFrom(value);
+          }
+
+          return this;
+        }
+        /**
+         * <code>.process_rpc_proto.KvPair kv = 1;</code>
+         */
+        public Builder clearKv() {
+          if (kvBuilder_ == null) {
+            kv_ = null;
+            onChanged();
+          } else {
+            kv_ = null;
+            kvBuilder_ = null;
+          }
+
+          return this;
+        }
+        /**
+         * <code>.process_rpc_proto.KvPair kv = 1;</code>
+         */
+        public process_rpc_proto.ProcessRpcProto.KvPair.Builder getKvBuilder() {
+          
+          onChanged();
+          return getKvFieldBuilder().getBuilder();
+        }
+        /**
+         * <code>.process_rpc_proto.KvPair kv = 1;</code>
+         */
+        public process_rpc_proto.ProcessRpcProto.KvPairOrBuilder getKvOrBuilder() {
+          if (kvBuilder_ != null) {
+            return kvBuilder_.getMessageOrBuilder();
+          } else {
+            return kv_ == null ?
+                process_rpc_proto.ProcessRpcProto.KvPair.getDefaultInstance() : kv_;
+          }
+        }
+        /**
+         * <code>.process_rpc_proto.KvPair kv = 1;</code>
+         */
+        private com.google.protobuf.SingleFieldBuilderV3<
+            process_rpc_proto.ProcessRpcProto.KvPair, process_rpc_proto.ProcessRpcProto.KvPair.Builder, process_rpc_proto.ProcessRpcProto.KvPairOrBuilder> 
+            getKvFieldBuilder() {
+          if (kvBuilder_ == null) {
+            kvBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                process_rpc_proto.ProcessRpcProto.KvPair, process_rpc_proto.ProcessRpcProto.KvPair.Builder, process_rpc_proto.ProcessRpcProto.KvPairOrBuilder>(
+                    getKv(),
+                    getParentForChildren(),
+                    isClean());
+            kv_ = null;
+          }
+          return kvBuilder_;
+        }
+        @java.lang.Override
+        public final Builder setUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.setUnknownFieldsProto3(unknownFields);
+        }
+
+        @java.lang.Override
+        public final Builder mergeUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.mergeUnknownFields(unknownFields);
+        }
+
+
+        // @@protoc_insertion_point(builder_scope:process_rpc_proto.KvResponse.KvPutOrDelResponse)
+      }
+
+      // @@protoc_insertion_point(class_scope:process_rpc_proto.KvResponse.KvPutOrDelResponse)
+      private static final process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse DEFAULT_INSTANCE;
+      static {
+        DEFAULT_INSTANCE = new process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse();
+      }
+
+      public static process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse getDefaultInstance() {
+        return DEFAULT_INSTANCE;
+      }
+
+      private static final com.google.protobuf.Parser<KvPutOrDelResponse>
+          PARSER = new com.google.protobuf.AbstractParser<KvPutOrDelResponse>() {
+        @java.lang.Override
+        public KvPutOrDelResponse parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new KvPutOrDelResponse(input, extensionRegistry);
+        }
+      };
+
+      public static com.google.protobuf.Parser<KvPutOrDelResponse> parser() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<KvPutOrDelResponse> getParserForType() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse getDefaultInstanceForType() {
+        return DEFAULT_INSTANCE;
+      }
+
+    }
+
+    private int respCase_ = 0;
+    private java.lang.Object resp_;
+    public enum RespCase
+        implements com.google.protobuf.Internal.EnumLite {
+      GET(1),
+      PUT_OR_DEL(2),
+      LOCK_ID(3),
+      RESP_NOT_SET(0);
+      private final int value;
+      private RespCase(int value) {
+        this.value = value;
+      }
+      /**
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static RespCase valueOf(int value) {
+        return forNumber(value);
+      }
+
+      public static RespCase forNumber(int value) {
+        switch (value) {
+          case 1: return GET;
+          case 2: return PUT_OR_DEL;
+          case 3: return LOCK_ID;
+          case 0: return RESP_NOT_SET;
+          default: return null;
+        }
+      }
+      public int getNumber() {
+        return this.value;
+      }
+    };
+
+    public RespCase
+    getRespCase() {
+      return RespCase.forNumber(
+          respCase_);
+    }
+
+    public static final int GET_FIELD_NUMBER = 1;
+    /**
+     * <code>.process_rpc_proto.KvResponse.KvGetResponse get = 1;</code>
+     */
+    public boolean hasGet() {
+      return respCase_ == 1;
+    }
+    /**
+     * <code>.process_rpc_proto.KvResponse.KvGetResponse get = 1;</code>
+     */
+    public process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse getGet() {
+      if (respCase_ == 1) {
+         return (process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse) resp_;
+      }
+      return process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse.getDefaultInstance();
+    }
+    /**
+     * <code>.process_rpc_proto.KvResponse.KvGetResponse get = 1;</code>
+     */
+    public process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponseOrBuilder getGetOrBuilder() {
+      if (respCase_ == 1) {
+         return (process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse) resp_;
+      }
+      return process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse.getDefaultInstance();
+    }
+
+    public static final int PUT_OR_DEL_FIELD_NUMBER = 2;
+    /**
+     * <code>.process_rpc_proto.KvResponse.KvPutOrDelResponse put_or_del = 2;</code>
+     */
+    public boolean hasPutOrDel() {
+      return respCase_ == 2;
+    }
+    /**
+     * <code>.process_rpc_proto.KvResponse.KvPutOrDelResponse put_or_del = 2;</code>
+     */
+    public process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse getPutOrDel() {
+      if (respCase_ == 2) {
+         return (process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse) resp_;
+      }
+      return process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse.getDefaultInstance();
+    }
+    /**
+     * <code>.process_rpc_proto.KvResponse.KvPutOrDelResponse put_or_del = 2;</code>
+     */
+    public process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponseOrBuilder getPutOrDelOrBuilder() {
+      if (respCase_ == 2) {
+         return (process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse) resp_;
+      }
+      return process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse.getDefaultInstance();
+    }
+
+    public static final int LOCK_ID_FIELD_NUMBER = 3;
+    /**
+     * <pre>
+     * 0 is invalid lock id
+     * </pre>
+     *
+     * <code>uint32 lock_id = 3;</code>
+     */
+    public int getLockId() {
+      if (respCase_ == 3) {
+        return (java.lang.Integer) resp_;
+      }
+      return 0;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (respCase_ == 1) {
+        output.writeMessage(1, (process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse) resp_);
+      }
+      if (respCase_ == 2) {
+        output.writeMessage(2, (process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse) resp_);
+      }
+      if (respCase_ == 3) {
+        output.writeUInt32(
+            3, (int)((java.lang.Integer) resp_));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (respCase_ == 1) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, (process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse) resp_);
+      }
+      if (respCase_ == 2) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, (process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse) resp_);
+      }
+      if (respCase_ == 3) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(
+              3, (int)((java.lang.Integer) resp_));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof process_rpc_proto.ProcessRpcProto.KvResponse)) {
+        return super.equals(obj);
+      }
+      process_rpc_proto.ProcessRpcProto.KvResponse other = (process_rpc_proto.ProcessRpcProto.KvResponse) obj;
+
+      boolean result = true;
+      result = result && getRespCase().equals(
+          other.getRespCase());
+      if (!result) return false;
+      switch (respCase_) {
+        case 1:
+          result = result && getGet()
+              .equals(other.getGet());
+          break;
+        case 2:
+          result = result && getPutOrDel()
+              .equals(other.getPutOrDel());
+          break;
+        case 3:
+          result = result && (getLockId()
+              == other.getLockId());
+          break;
+        case 0:
+        default:
+      }
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      switch (respCase_) {
+        case 1:
+          hash = (37 * hash) + GET_FIELD_NUMBER;
+          hash = (53 * hash) + getGet().hashCode();
+          break;
+        case 2:
+          hash = (37 * hash) + PUT_OR_DEL_FIELD_NUMBER;
+          hash = (53 * hash) + getPutOrDel().hashCode();
+          break;
+        case 3:
+          hash = (37 * hash) + LOCK_ID_FIELD_NUMBER;
+          hash = (53 * hash) + getLockId();
+          break;
+        case 0:
+        default:
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static process_rpc_proto.ProcessRpcProto.KvResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static process_rpc_proto.ProcessRpcProto.KvResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(process_rpc_proto.ProcessRpcProto.KvResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code process_rpc_proto.KvResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:process_rpc_proto.KvResponse)
+        process_rpc_proto.ProcessRpcProto.KvResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                process_rpc_proto.ProcessRpcProto.KvResponse.class, process_rpc_proto.ProcessRpcProto.KvResponse.Builder.class);
+      }
+
+      // Construct using process_rpc_proto.ProcessRpcProto.KvResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        respCase_ = 0;
+        resp_ = null;
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return process_rpc_proto.ProcessRpcProto.internal_static_process_rpc_proto_KvResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public process_rpc_proto.ProcessRpcProto.KvResponse getDefaultInstanceForType() {
+        return process_rpc_proto.ProcessRpcProto.KvResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public process_rpc_proto.ProcessRpcProto.KvResponse build() {
+        process_rpc_proto.ProcessRpcProto.KvResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public process_rpc_proto.ProcessRpcProto.KvResponse buildPartial() {
+        process_rpc_proto.ProcessRpcProto.KvResponse result = new process_rpc_proto.ProcessRpcProto.KvResponse(this);
+        if (respCase_ == 1) {
+          if (getBuilder_ == null) {
+            result.resp_ = resp_;
+          } else {
+            result.resp_ = getBuilder_.build();
+          }
+        }
+        if (respCase_ == 2) {
+          if (putOrDelBuilder_ == null) {
+            result.resp_ = resp_;
+          } else {
+            result.resp_ = putOrDelBuilder_.build();
+          }
+        }
+        if (respCase_ == 3) {
+          result.resp_ = resp_;
+        }
+        result.respCase_ = respCase_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof process_rpc_proto.ProcessRpcProto.KvResponse) {
+          return mergeFrom((process_rpc_proto.ProcessRpcProto.KvResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(process_rpc_proto.ProcessRpcProto.KvResponse other) {
+        if (other == process_rpc_proto.ProcessRpcProto.KvResponse.getDefaultInstance()) return this;
+        switch (other.getRespCase()) {
+          case GET: {
+            mergeGet(other.getGet());
+            break;
+          }
+          case PUT_OR_DEL: {
+            mergePutOrDel(other.getPutOrDel());
+            break;
+          }
+          case LOCK_ID: {
+            setLockId(other.getLockId());
+            break;
+          }
+          case RESP_NOT_SET: {
+            break;
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        process_rpc_proto.ProcessRpcProto.KvResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (process_rpc_proto.ProcessRpcProto.KvResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int respCase_ = 0;
+      private java.lang.Object resp_;
+      public RespCase
+          getRespCase() {
+        return RespCase.forNumber(
+            respCase_);
+      }
+
+      public Builder clearResp() {
+        respCase_ = 0;
+        resp_ = null;
+        onChanged();
+        return this;
+      }
+
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse, process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse.Builder, process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponseOrBuilder> getBuilder_;
+      /**
+       * <code>.process_rpc_proto.KvResponse.KvGetResponse get = 1;</code>
+       */
+      public boolean hasGet() {
+        return respCase_ == 1;
+      }
+      /**
+       * <code>.process_rpc_proto.KvResponse.KvGetResponse get = 1;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse getGet() {
+        if (getBuilder_ == null) {
+          if (respCase_ == 1) {
+            return (process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse) resp_;
+          }
+          return process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse.getDefaultInstance();
+        } else {
+          if (respCase_ == 1) {
+            return getBuilder_.getMessage();
+          }
+          return process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.process_rpc_proto.KvResponse.KvGetResponse get = 1;</code>
+       */
+      public Builder setGet(process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse value) {
+        if (getBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          resp_ = value;
+          onChanged();
+        } else {
+          getBuilder_.setMessage(value);
+        }
+        respCase_ = 1;
+        return this;
+      }
+      /**
+       * <code>.process_rpc_proto.KvResponse.KvGetResponse get = 1;</code>
+       */
+      public Builder setGet(
+          process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse.Builder builderForValue) {
+        if (getBuilder_ == null) {
+          resp_ = builderForValue.build();
+          onChanged();
+        } else {
+          getBuilder_.setMessage(builderForValue.build());
+        }
+        respCase_ = 1;
+        return this;
+      }
+      /**
+       * <code>.process_rpc_proto.KvResponse.KvGetResponse get = 1;</code>
+       */
+      public Builder mergeGet(process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse value) {
+        if (getBuilder_ == null) {
+          if (respCase_ == 1 &&
+              resp_ != process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse.getDefaultInstance()) {
+            resp_ = process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse.newBuilder((process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse) resp_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            resp_ = value;
+          }
+          onChanged();
+        } else {
+          if (respCase_ == 1) {
+            getBuilder_.mergeFrom(value);
+          }
+          getBuilder_.setMessage(value);
+        }
+        respCase_ = 1;
+        return this;
+      }
+      /**
+       * <code>.process_rpc_proto.KvResponse.KvGetResponse get = 1;</code>
+       */
+      public Builder clearGet() {
+        if (getBuilder_ == null) {
+          if (respCase_ == 1) {
+            respCase_ = 0;
+            resp_ = null;
+            onChanged();
+          }
+        } else {
+          if (respCase_ == 1) {
+            respCase_ = 0;
+            resp_ = null;
+          }
+          getBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>.process_rpc_proto.KvResponse.KvGetResponse get = 1;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse.Builder getGetBuilder() {
+        return getGetFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.process_rpc_proto.KvResponse.KvGetResponse get = 1;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponseOrBuilder getGetOrBuilder() {
+        if ((respCase_ == 1) && (getBuilder_ != null)) {
+          return getBuilder_.getMessageOrBuilder();
+        } else {
+          if (respCase_ == 1) {
+            return (process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse) resp_;
+          }
+          return process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.process_rpc_proto.KvResponse.KvGetResponse get = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse, process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse.Builder, process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponseOrBuilder> 
+          getGetFieldBuilder() {
+        if (getBuilder_ == null) {
+          if (!(respCase_ == 1)) {
+            resp_ = process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse.getDefaultInstance();
+          }
+          getBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse, process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse.Builder, process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponseOrBuilder>(
+                  (process_rpc_proto.ProcessRpcProto.KvResponse.KvGetResponse) resp_,
+                  getParentForChildren(),
+                  isClean());
+          resp_ = null;
+        }
+        respCase_ = 1;
+        onChanged();;
+        return getBuilder_;
+      }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse, process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse.Builder, process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponseOrBuilder> putOrDelBuilder_;
+      /**
+       * <code>.process_rpc_proto.KvResponse.KvPutOrDelResponse put_or_del = 2;</code>
+       */
+      public boolean hasPutOrDel() {
+        return respCase_ == 2;
+      }
+      /**
+       * <code>.process_rpc_proto.KvResponse.KvPutOrDelResponse put_or_del = 2;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse getPutOrDel() {
+        if (putOrDelBuilder_ == null) {
+          if (respCase_ == 2) {
+            return (process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse) resp_;
+          }
+          return process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse.getDefaultInstance();
+        } else {
+          if (respCase_ == 2) {
+            return putOrDelBuilder_.getMessage();
+          }
+          return process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.process_rpc_proto.KvResponse.KvPutOrDelResponse put_or_del = 2;</code>
+       */
+      public Builder setPutOrDel(process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse value) {
+        if (putOrDelBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          resp_ = value;
+          onChanged();
+        } else {
+          putOrDelBuilder_.setMessage(value);
+        }
+        respCase_ = 2;
+        return this;
+      }
+      /**
+       * <code>.process_rpc_proto.KvResponse.KvPutOrDelResponse put_or_del = 2;</code>
+       */
+      public Builder setPutOrDel(
+          process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse.Builder builderForValue) {
+        if (putOrDelBuilder_ == null) {
+          resp_ = builderForValue.build();
+          onChanged();
+        } else {
+          putOrDelBuilder_.setMessage(builderForValue.build());
+        }
+        respCase_ = 2;
+        return this;
+      }
+      /**
+       * <code>.process_rpc_proto.KvResponse.KvPutOrDelResponse put_or_del = 2;</code>
+       */
+      public Builder mergePutOrDel(process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse value) {
+        if (putOrDelBuilder_ == null) {
+          if (respCase_ == 2 &&
+              resp_ != process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse.getDefaultInstance()) {
+            resp_ = process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse.newBuilder((process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse) resp_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            resp_ = value;
+          }
+          onChanged();
+        } else {
+          if (respCase_ == 2) {
+            putOrDelBuilder_.mergeFrom(value);
+          }
+          putOrDelBuilder_.setMessage(value);
+        }
+        respCase_ = 2;
+        return this;
+      }
+      /**
+       * <code>.process_rpc_proto.KvResponse.KvPutOrDelResponse put_or_del = 2;</code>
+       */
+      public Builder clearPutOrDel() {
+        if (putOrDelBuilder_ == null) {
+          if (respCase_ == 2) {
+            respCase_ = 0;
+            resp_ = null;
+            onChanged();
+          }
+        } else {
+          if (respCase_ == 2) {
+            respCase_ = 0;
+            resp_ = null;
+          }
+          putOrDelBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>.process_rpc_proto.KvResponse.KvPutOrDelResponse put_or_del = 2;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse.Builder getPutOrDelBuilder() {
+        return getPutOrDelFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.process_rpc_proto.KvResponse.KvPutOrDelResponse put_or_del = 2;</code>
+       */
+      public process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponseOrBuilder getPutOrDelOrBuilder() {
+        if ((respCase_ == 2) && (putOrDelBuilder_ != null)) {
+          return putOrDelBuilder_.getMessageOrBuilder();
+        } else {
+          if (respCase_ == 2) {
+            return (process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse) resp_;
+          }
+          return process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.process_rpc_proto.KvResponse.KvPutOrDelResponse put_or_del = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse, process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse.Builder, process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponseOrBuilder> 
+          getPutOrDelFieldBuilder() {
+        if (putOrDelBuilder_ == null) {
+          if (!(respCase_ == 2)) {
+            resp_ = process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse.getDefaultInstance();
+          }
+          putOrDelBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse, process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse.Builder, process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponseOrBuilder>(
+                  (process_rpc_proto.ProcessRpcProto.KvResponse.KvPutOrDelResponse) resp_,
+                  getParentForChildren(),
+                  isClean());
+          resp_ = null;
+        }
+        respCase_ = 2;
+        onChanged();;
+        return putOrDelBuilder_;
+      }
+
+      /**
+       * <pre>
+       * 0 is invalid lock id
+       * </pre>
+       *
+       * <code>uint32 lock_id = 3;</code>
+       */
+      public int getLockId() {
+        if (respCase_ == 3) {
+          return (java.lang.Integer) resp_;
+        }
+        return 0;
+      }
+      /**
+       * <pre>
+       * 0 is invalid lock id
+       * </pre>
+       *
+       * <code>uint32 lock_id = 3;</code>
+       */
+      public Builder setLockId(int value) {
+        respCase_ = 3;
+        resp_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 0 is invalid lock id
+       * </pre>
+       *
+       * <code>uint32 lock_id = 3;</code>
+       */
+      public Builder clearLockId() {
+        if (respCase_ == 3) {
+          respCase_ = 0;
+          resp_ = null;
+          onChanged();
+        }
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:process_rpc_proto.KvResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:process_rpc_proto.KvResponse)
+    private static final process_rpc_proto.ProcessRpcProto.KvResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new process_rpc_proto.ProcessRpcProto.KvResponse();
+    }
+
+    public static process_rpc_proto.ProcessRpcProto.KvResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<KvResponse>
+        PARSER = new com.google.protobuf.AbstractParser<KvResponse>() {
+      @java.lang.Override
+      public KvResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new KvResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<KvResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<KvResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public process_rpc_proto.ProcessRpcProto.KvResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_process_rpc_proto_FnTaskId_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_process_rpc_proto_FnTaskId_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_process_rpc_proto_AppStarted_descriptor;
   private static final 
@@ -2655,6 +11867,56 @@ public final class ProcessRpcProto {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_process_rpc_proto_UpdateCheckpoint_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_process_rpc_proto_KeyRange_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_process_rpc_proto_KeyRange_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_process_rpc_proto_KvPair_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_process_rpc_proto_KvPair_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_process_rpc_proto_KvRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_process_rpc_proto_KvRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_process_rpc_proto_KvRequest_KvPutRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_process_rpc_proto_KvRequest_KvPutRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_process_rpc_proto_KvRequest_KvGetRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_process_rpc_proto_KvRequest_KvGetRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_process_rpc_proto_KvRequest_KvDeleteRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_process_rpc_proto_KvRequest_KvDeleteRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_process_rpc_proto_KvPairs_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_process_rpc_proto_KvPairs_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_process_rpc_proto_KvResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_process_rpc_proto_KvResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_process_rpc_proto_KvResponse_KvGetResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_process_rpc_proto_KvResponse_KvGetResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_process_rpc_proto_KvResponse_KvPutOrDelResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_process_rpc_proto_KvResponse_KvPutOrDelResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -2665,11 +11927,38 @@ public final class ProcessRpcProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\027process_rpc_proto.proto\022\021process_rpc_p" +
-      "roto\";\n\nAppStarted\022\r\n\005appid\030\001 \002(\t\022\021\n\thtt" +
-      "p_port\030\002 \001(\t\022\013\n\003pid\030\003 \002(\r\",\n\013FuncCallReq" +
-      "\022\014\n\004func\030\001 \002(\t\022\017\n\007arg_str\030\002 \002(\t\"\037\n\014FuncC" +
-      "allResp\022\017\n\007ret_str\030\001 \002(\t\"\022\n\020UpdateCheckp" +
-      "oint"
+      "roto\"1\n\010FnTaskId\022\024\n\014call_node_id\030\001 \001(\r\022\017" +
+      "\n\007task_id\030\002 \001(\r\";\n\nAppStarted\022\r\n\005appid\030\001" +
+      " \001(\t\022\021\n\thttp_port\030\002 \001(\t\022\013\n\003pid\030\003 \001(\r\"^\n\013" +
+      "FuncCallReq\0220\n\013src_task_id\030\001 \001(\0132\033.proce" +
+      "ss_rpc_proto.FnTaskId\022\014\n\004func\030\002 \001(\t\022\017\n\007a" +
+      "rg_str\030\003 \001(\t\"\037\n\014FuncCallResp\022\017\n\007ret_str\030" +
+      "\001 \001(\t\"\022\n\020UpdateCheckpoint\"&\n\010KeyRange\022\r\n" +
+      "\005start\030\001 \001(\014\022\013\n\003end\030\002 \001(\014\"%\n\006KvPair\022\013\n\003k" +
+      "ey\030\001 \001(\014\022\016\n\006values\030\002 \003(\014\"\314\004\n\tKvRequest\0228" +
+      "\n\003set\030\001 \001(\0132).process_rpc_proto.KvReques" +
+      "t.KvPutRequestH\000\0228\n\003get\030\002 \001(\0132).process_" +
+      "rpc_proto.KvRequest.KvGetRequestH\000\022>\n\006de" +
+      "lete\030\003 \001(\0132,.process_rpc_proto.KvRequest" +
+      ".KvDeleteRequestH\000\032w\n\014KvPutRequest\0220\n\013sr" +
+      "c_task_id\030\001 \001(\0132\033.process_rpc_proto.FnTa" +
+      "skId\022\016\n\006app_fn\030\002 \001(\t\022%\n\002kv\030\003 \001(\0132\031.proce" +
+      "ss_rpc_proto.KvPair\032\212\001\n\014KvGetRequest\0220\n\013" +
+      "src_task_id\030\001 \001(\0132\033.process_rpc_proto.Fn" +
+      "TaskId\022\016\n\006app_fn\030\002 \001(\t\022*\n\005range\030\003 \001(\0132\033." +
+      "process_rpc_proto.KeyRange\022\014\n\004idxs\030\004 \003(\r" +
+      "\032\177\n\017KvDeleteRequest\0220\n\013src_task_id\030\001 \001(\013" +
+      "2\033.process_rpc_proto.FnTaskId\022\016\n\006app_fn\030" +
+      "\002 \001(\t\022*\n\005range\030\003 \001(\0132\033.process_rpc_proto" +
+      ".KeyRangeB\004\n\002op\"1\n\007KvPairs\022&\n\003kvs\030\001 \003(\0132" +
+      "\031.process_rpc_proto.KvPair\"\227\002\n\nKvRespons" +
+      "e\022:\n\003get\030\001 \001(\0132+.process_rpc_proto.KvRes" +
+      "ponse.KvGetResponseH\000\022F\n\nput_or_del\030\002 \001(" +
+      "\01320.process_rpc_proto.KvResponse.KvPutOr" +
+      "DelResponseH\000\022\021\n\007lock_id\030\003 \001(\rH\000\032-\n\rKvGe" +
+      "tResponse\022\014\n\004idxs\030\001 \003(\r\022\016\n\006values\030\002 \003(\014\032" +
+      ";\n\022KvPutOrDelResponse\022%\n\002kv\030\001 \001(\0132\031.proc" +
+      "ess_rpc_proto.KvPairB\006\n\004respb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -2683,30 +11972,96 @@ public final class ProcessRpcProto {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
-    internal_static_process_rpc_proto_AppStarted_descriptor =
+    internal_static_process_rpc_proto_FnTaskId_descriptor =
       getDescriptor().getMessageTypes().get(0);
+    internal_static_process_rpc_proto_FnTaskId_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_process_rpc_proto_FnTaskId_descriptor,
+        new java.lang.String[] { "CallNodeId", "TaskId", });
+    internal_static_process_rpc_proto_AppStarted_descriptor =
+      getDescriptor().getMessageTypes().get(1);
     internal_static_process_rpc_proto_AppStarted_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_process_rpc_proto_AppStarted_descriptor,
         new java.lang.String[] { "Appid", "HttpPort", "Pid", });
     internal_static_process_rpc_proto_FuncCallReq_descriptor =
-      getDescriptor().getMessageTypes().get(1);
+      getDescriptor().getMessageTypes().get(2);
     internal_static_process_rpc_proto_FuncCallReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_process_rpc_proto_FuncCallReq_descriptor,
-        new java.lang.String[] { "Func", "ArgStr", });
+        new java.lang.String[] { "SrcTaskId", "Func", "ArgStr", });
     internal_static_process_rpc_proto_FuncCallResp_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_process_rpc_proto_FuncCallResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_process_rpc_proto_FuncCallResp_descriptor,
         new java.lang.String[] { "RetStr", });
     internal_static_process_rpc_proto_UpdateCheckpoint_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_process_rpc_proto_UpdateCheckpoint_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_process_rpc_proto_UpdateCheckpoint_descriptor,
         new java.lang.String[] { });
+    internal_static_process_rpc_proto_KeyRange_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_process_rpc_proto_KeyRange_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_process_rpc_proto_KeyRange_descriptor,
+        new java.lang.String[] { "Start", "End", });
+    internal_static_process_rpc_proto_KvPair_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_process_rpc_proto_KvPair_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_process_rpc_proto_KvPair_descriptor,
+        new java.lang.String[] { "Key", "Values", });
+    internal_static_process_rpc_proto_KvRequest_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_process_rpc_proto_KvRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_process_rpc_proto_KvRequest_descriptor,
+        new java.lang.String[] { "Set", "Get", "Delete", "Op", });
+    internal_static_process_rpc_proto_KvRequest_KvPutRequest_descriptor =
+      internal_static_process_rpc_proto_KvRequest_descriptor.getNestedTypes().get(0);
+    internal_static_process_rpc_proto_KvRequest_KvPutRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_process_rpc_proto_KvRequest_KvPutRequest_descriptor,
+        new java.lang.String[] { "SrcTaskId", "AppFn", "Kv", });
+    internal_static_process_rpc_proto_KvRequest_KvGetRequest_descriptor =
+      internal_static_process_rpc_proto_KvRequest_descriptor.getNestedTypes().get(1);
+    internal_static_process_rpc_proto_KvRequest_KvGetRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_process_rpc_proto_KvRequest_KvGetRequest_descriptor,
+        new java.lang.String[] { "SrcTaskId", "AppFn", "Range", "Idxs", });
+    internal_static_process_rpc_proto_KvRequest_KvDeleteRequest_descriptor =
+      internal_static_process_rpc_proto_KvRequest_descriptor.getNestedTypes().get(2);
+    internal_static_process_rpc_proto_KvRequest_KvDeleteRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_process_rpc_proto_KvRequest_KvDeleteRequest_descriptor,
+        new java.lang.String[] { "SrcTaskId", "AppFn", "Range", });
+    internal_static_process_rpc_proto_KvPairs_descriptor =
+      getDescriptor().getMessageTypes().get(8);
+    internal_static_process_rpc_proto_KvPairs_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_process_rpc_proto_KvPairs_descriptor,
+        new java.lang.String[] { "Kvs", });
+    internal_static_process_rpc_proto_KvResponse_descriptor =
+      getDescriptor().getMessageTypes().get(9);
+    internal_static_process_rpc_proto_KvResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_process_rpc_proto_KvResponse_descriptor,
+        new java.lang.String[] { "Get", "PutOrDel", "LockId", "Resp", });
+    internal_static_process_rpc_proto_KvResponse_KvGetResponse_descriptor =
+      internal_static_process_rpc_proto_KvResponse_descriptor.getNestedTypes().get(0);
+    internal_static_process_rpc_proto_KvResponse_KvGetResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_process_rpc_proto_KvResponse_KvGetResponse_descriptor,
+        new java.lang.String[] { "Idxs", "Values", });
+    internal_static_process_rpc_proto_KvResponse_KvPutOrDelResponse_descriptor =
+      internal_static_process_rpc_proto_KvResponse_descriptor.getNestedTypes().get(1);
+    internal_static_process_rpc_proto_KvResponse_KvPutOrDelResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_process_rpc_proto_KvResponse_KvPutOrDelResponse_descriptor,
+        new java.lang.String[] { "Kv", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

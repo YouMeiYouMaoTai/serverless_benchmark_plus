@@ -153,7 +153,7 @@ os_system_sure(f"mkdir -p {temp_prj_dir}/pack")
 
 # directly copy app.yml
 os_system_sure(f"cp ../{prj}/app.yml {temp_prj_dir}/pack/app.yml")
-app_yml=yaml.load(open(f"{temp_prj_dir}/pack/app.yml","r"))
+app_yml=yaml.safe_load(open(f"{temp_prj_dir}/pack/app.yml","r"))
 
 ## gen adapt codes
 #  pom.xml

@@ -9,7 +9,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-
+import process_rpc_proto.ProcessRpcProto.FnTaskId;
 class RpcFuncMeta {
     private String methodName;
     private LinkedHashMap<String, Class<?>> parameters;
@@ -72,7 +72,7 @@ public class RpcHandle<T> {
 
     // protected abstract Object rpcDispatch(String func, Object requestObj);
 
-    public String handleRpc(String func, String argStr) {
+    public String handleFuncRpc(FnTaskId srcTaskId, String func, String argStr) {
         // Get meta
         RpcFuncMeta rpcFunc = handleMeta.get(func);
         if (rpcFunc == null) {
@@ -81,6 +81,9 @@ public class RpcHandle<T> {
 
         // Deserialize request
         JsonObject req = gson.fromJson(argStr, JsonObject.class);
+        req.addProperty("srcTaskCalledBy", srcTaskId.getCallNodeId());
+        req.addProperty("srcTaskId", srcTaskId.getTaskId());
+
         Object[] params={req};
         // try {
         //     JsonObject jsonObject = gson.fromJson(argStr, JsonObject.class);

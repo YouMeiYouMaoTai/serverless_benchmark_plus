@@ -78,11 +78,33 @@ public class Resize {
         return newFilename;
     }
     public JsonObject call(JsonObject args) {
-        
-        String imagepath = args.get("image_s3_path").getAsString();
-        int targetWidth = args.get("target_width").getAsInt();
-        int targetHeight = args.get("target_height").getAsInt();
-        String useMinio = args.get("use_minio").getAsString();
+        /// waverless embbed data storage
+        /// - binded request data and big data in DataSet
+        ///   https://fvd360f8oos.feishu.cn/wiki/M4ubwJkvcichuHkiGhjc0miHn5f#share-F0WBdFFhdop2ELxS3ZlcHWvZnD8
+        String imagepath=null;
+        int targetWidth=0;
+        int targetHeight=0;
+        String useMinio=null;
+        DataApiFuncBinded dataApi = null;
+        if (args.get("trigger_data") != null) {
+            dataApi = new DataApiFuncBinded("resize", "");
+            // request json str
+            String requestJsonStr = dataApi.get(args.get("trigger_data").getAsString(),{0})[0];
+            args=new JsonParser().parse(requestJsonStr);
+
+            imagepath = args.get("image_s3_path").getAsString();
+            targetWidth = args.get("target_width").getAsInt();
+            targetHeight = args.get("target_height").getAsInt();
+            useMinio = "minio";
+        }else{
+            imagepath = args.get("image_s3_path").getAsString();
+            targetWidth = args.get("target_width").getAsInt();
+            targetHeight = args.get("target_height").getAsInt();
+            useMinio = args.get("use_minio").getAsString();
+            // dataApi.init(useMinio);
+            dataApi=new DataApiFuncBinded("resize", useMinio);
+        }
+
         // print useMinio
         System.out.println("--------------------------------");
         System.out.println("imagepath: " + imagepath);
@@ -92,8 +114,7 @@ public class Resize {
         System.out.println("--------------------------------");
 
         // 使用静态方法获取DataApi实例
-        DataApi dataApi = DataApi.getInstance();
-        dataApi.init(useMinio);
+        
 
         JsonObject result = new JsonObject();
         try {
