@@ -217,6 +217,7 @@ public class DataApi implements InitializingBean {
         
         Map<Integer, byte[]> result = new HashMap<>();
         
+        long beginTime = System.currentTimeMillis();
         if ("waverless_storage".equals(storageMode)) {
             try {
                 // Create KeyRange for the KvGetRequest
@@ -245,7 +246,10 @@ public class DataApi implements InitializingBean {
                     60,
                     TimeUnit.SECONDS
                 );
-                
+
+                if (kvResponse == null) {
+                    throw new IOException("Failed to get object " + key + " from storage: response is null");
+                }
                 
                 if (kvResponse.hasGet()) {
                     KvResponse.KvGetResponse getResponse = kvResponse.getGet();
@@ -265,6 +269,8 @@ public class DataApi implements InitializingBean {
                     throw new IOException("Failed to get object " + key + " from storage: response doesn't contain get field");
                 }
             } catch (Exception e) {
+                long errTime = System.currentTimeMillis();
+                System.out.println("get data err trigger cost time: " + (errTime - beginTime) + "ms");
                 throw new IOException("Failed to get data from waverless storage: " + e.getMessage(), e);
             }
             return result;

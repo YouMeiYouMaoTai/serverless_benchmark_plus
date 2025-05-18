@@ -46,7 +46,7 @@ impl FnDetails {
         fn_name: &str,
         arg_json_value: &serde_json::Value,
         platform: &PlatformOpsBind,
-    ) -> bool {
+    ) -> Option<String> {
         // read file content and write
         // we don't need the detailed path, just bool
         let use_minio: bool = if let Some(args) = &self.args {
@@ -66,7 +66,7 @@ impl FnDetails {
 
         let Some(big_data) = self.big_data.clone() else {
             tracing::error!("no big data to write");
-            return use_minio;
+            return None;
         };
 
         tracing::info!("writing big data: {:?}", big_data);
@@ -102,14 +102,15 @@ impl FnDetails {
                     )
                     .await
                     .unwrap();
+                return None;
             } else {
                 // try platform write_data
                 tracing::info!("writing big data to embbed storage");
-                platform
+                return platform
                     .write_data(big_data_write_path, arg_json_value, &content)
                     .await;
             }
         }
-        use_minio
+        None
     }
 }

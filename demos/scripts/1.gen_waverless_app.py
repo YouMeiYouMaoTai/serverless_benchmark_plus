@@ -197,8 +197,16 @@ for fn in app_yml["fns"]:
     private {snake_to_big_camel(fn)} {fn}= new {snake_to_big_camel(fn)}();
     public JsonObject {fn}(JsonObject arg){{
         long fnStartTime = System.currentTimeMillis();
-
-        JsonObject res= {fn}.call(arg);
+        
+        JsonObject res;
+        try{{
+            res= {fn}.call(arg);
+        }}catch(Exception e){{
+            e.printStackTrace();
+            JsonObject errResp=new JsonObject();
+            errResp.addProperty("error", e.getMessage());
+            return errResp;
+        }}
         
         long fnEndTime=System.currentTimeMillis();
         res.addProperty("recover_begin_time",io.serverless_lib.CracManager.recoverBeginTime);

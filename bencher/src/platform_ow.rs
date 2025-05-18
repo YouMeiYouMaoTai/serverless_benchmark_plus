@@ -125,7 +125,12 @@ impl PlatformOps for PlatfromOw {
         }
     }
 
-    async fn write_data(&self, key: &str, arg_json_value: &serde_json::Value, data: &[u8]) {
+    async fn write_data(
+        &self,
+        key: &str,
+        arg_json_value: &serde_json::Value,
+        data: &[u8],
+    ) -> Option<String> {
         panic!("openwhisk doesn't support write data");
     }
 }

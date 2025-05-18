@@ -1,6 +1,6 @@
 use reqwest::{header, Client};
 
-use crate::Metric;
+use crate::metric::Metric;
 
 pub(crate) async fn upload_fn_call_metric(fnname: &str, metric: &Metric) {
     let cmd = format!(

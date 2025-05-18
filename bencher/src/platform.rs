@@ -22,9 +22,9 @@ impl PlatformOpsBind {
         arg_json_value: &serde_json::Value,
         big_data: &Option<Vec<String>>,
         fn_details: &FnDetails,
-    ) -> bool {
+    ) -> Option<String> {
         // write big data
-        let use_minio = fn_details
+        let trigger_fn_res = fn_details
             .write_big_data(app, func, arg_json_value, self)
             .await;
 
@@ -35,7 +35,7 @@ impl PlatformOpsBind {
         // )
 
         // use minio need explicit call fn
-        use_minio
+        trigger_fn_res
     }
 }
 
@@ -58,5 +58,11 @@ pub trait PlatformOps: Send + 'static {
     /// - binded request data and big data in DataSet
     ///   https://fvd360f8oos.feishu.cn/wiki/M4ubwJkvcichuHkiGhjc0miHn5f#share-F0WBdFFhdop2ELxS3ZlcHWvZnD8
     /// - may panic if not support
-    async fn write_data(&self, key: &str, arg_json_value: &serde_json::Value, data: &[u8]);
+    /// - return sub trigger fn result if triggered
+    async fn write_data(
+        &self,
+        key: &str,
+        arg_json_value: &serde_json::Value,
+        data: &[u8],
+    ) -> Option<String>;
 }

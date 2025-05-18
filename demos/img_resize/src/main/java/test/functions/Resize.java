@@ -17,6 +17,8 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 import javax.imageio.ImageIO;
 import io.serverless_lib.DataApi;
+import com.google.gson.JsonParser;
+import io.serverless_lib.DataApiFuncBinded;
 
 public class Resize {
     // Initialize Minio Client
@@ -58,22 +60,30 @@ public class Resize {
         return newBuffer;
     }
     public static String renameFile(String originalFilename) {
-        // Find the last dot in the filename
-        int dotIndex = originalFilename.lastIndexOf('.');
+        // // Find the last dot in the filename
+        // int dotIndex = originalFilename.lastIndexOf('.');
+        
+        
+        // String baseName;
+        // String extension;
+        // // If there is no dot, or it's the first character, handle it
+        // if (dotIndex == -1 || dotIndex == 0) {
+        //     // allow no tail
+        //     baseName = originalFilename;
+        //     extension = "";
+        // }
+        // else{
+        //     baseName = originalFilename.substring(0, dotIndex);
+        //     extension = originalFilename.substring(dotIndex);
+        // }
 
-        // If there is no dot, or it's the first character, handle it
-        if (dotIndex == -1 || dotIndex == 0) {
-            throw new IllegalArgumentException("Invalid file name format: " + originalFilename);
-        }
-
-        // Extract the base name (without extension)
-        String baseName = originalFilename.substring(0, dotIndex);
-
-        // Extract the extension
-        String extension = originalFilename.substring(dotIndex);
+        // // Extract the base name (without extension)
+        // String baseName = originalFilename.substring(0, dotIndex);
+        // // Extract the extension
+        // String extension = originalFilename.substring(dotIndex);
 
         // Construct the new filename
-        String newFilename = baseName + "_resize" + extension;
+        String newFilename = "_resized_"+ originalFilename;
 
         return newFilename;
     }
@@ -86,11 +96,28 @@ public class Resize {
         int targetHeight=0;
         String useMinio=null;
         DataApiFuncBinded dataApi = null;
-        if (args.get("trigger_data") != null) {
-            dataApi = new DataApiFuncBinded("resize", "");
+
+        // Debug function args
+        System.out.println("------------ debug -------------");
+        System.out.println("args: " + args.toString());
+        System.out.println("--------------------------------");
+
+        if (args.get("trigger_data_key") != null) {
+            dataApi = new DataApiFuncBinded("resize", args, ""); // "" pass empty minio config
             // request json str
-            String requestJsonStr = dataApi.get(args.get("trigger_data").getAsString(),{0})[0];
-            args=new JsonParser().parse(requestJsonStr);
+            int[] item_idxs = {0};
+            String trigger_data_key = args.get("trigger_data_key").getAsString();
+            System.out.println("try to get trigger_data_key: " + trigger_data_key);
+            try{
+                String requestJsonStr = new String(dataApi.get(trigger_data_key,item_idxs).get(0), "UTF-8");
+                args=new JsonParser().parse(requestJsonStr).getAsJsonObject();
+            }catch(Exception e){
+                e.printStackTrace();
+                JsonObject errResp=new JsonObject();
+                errResp.addProperty("error", e.getMessage());
+                return errResp;
+                // throw new Exception("Failed to get trigger_data_key: " + trigger_data_key);
+            }
 
             imagepath = args.get("image_s3_path").getAsString();
             targetWidth = args.get("target_width").getAsInt();
@@ -102,7 +129,7 @@ public class Resize {
             targetHeight = args.get("target_height").getAsInt();
             useMinio = args.get("use_minio").getAsString();
             // dataApi.init(useMinio);
-            dataApi=new DataApiFuncBinded("resize", useMinio);
+            dataApi=new DataApiFuncBinded("resize", args, useMinio);
         }
 
         // print useMinio
@@ -123,7 +150,8 @@ public class Resize {
             //             .bucket("serverless-bench")
             //             .object(imagepath)
             //             .build();
-            byte[] imageData = dataApi.get(imagepath);
+            int[] item_idxs = {1};
+            byte[] imageData = dataApi.get(imagepath, item_idxs).get(1);
             // ByteBuffer bf=readToByteBuffer(downloadedStream);
 
 
@@ -132,7 +160,8 @@ public class Resize {
             // ByteArrayInputStream inputStream = new ByteArrayInputStream(resizedImage);
             // ByteArrayInputStream inputStream = new ByteArrayInputStream(resizedImage);
 
-            dataApi.put(renameFile(imagepath), resizedImage);
+            byte[][] resizedImageData = {resizedImage};
+            dataApi.put(renameFile(imagepath), resizedImageData);
             // minioClient.putObject(
             //         PutObjectArgs.builder()
             //                 .bucket("serverless-bench")

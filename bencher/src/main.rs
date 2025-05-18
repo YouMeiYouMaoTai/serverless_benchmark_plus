@@ -70,50 +70,6 @@ fn is_once_mode(cli: &Cli) -> bool {
 //     Sequential(demo_sequential::Sequential),
 // }
 
-/// unit: ms
-#[derive(Debug, Serialize, Deserialize, Clone)]
-struct Metric {
-    pub start_call_time: u64,
-    pub req_arrive_time: u64,
-    pub bf_exec_time: u64,
-    pub recover_begin_time: u64,
-    pub fn_start_time: u64,
-    pub fn_end_time: u64,
-    pub receive_resp_time: u64,
-}
-
-impl Metric {
-    // println!(
-    //     "\ntotal request latency: {}",
-    //     receive_resp_time - start_call_ms
-    // );
-
-    // println!("- req trans time: {}", req_arrive_time - start_call_ms);
-    // println!("- app verify time: {}", bf_exec_time - req_arrive_time);
-    // println!("- cold start time: {}", recover_begin_time - bf_exec_time);
-    // println!("- cold start time2: {}", fn_start_ms - recover_begin_time);
-    // println!("- exec time:{}", fn_end_ms - fn_start_ms);
-
-    fn get_total_req(&self) -> u64 {
-        self.receive_resp_time - self.start_call_time
-    }
-    fn get_req_trans_time(&self) -> u64 {
-        self.req_arrive_time - self.start_call_time
-    }
-    fn get_app_verify_time(&self) -> u64 {
-        self.bf_exec_time - self.req_arrive_time
-    }
-    fn get_cold_start_time(&self) -> u64 {
-        self.recover_begin_time - self.bf_exec_time
-    }
-    fn get_cold_start_time2(&self) -> u64 {
-        self.fn_start_time - self.recover_begin_time
-    }
-    fn get_exec_time(&self) -> u64 {
-        self.fn_end_time - self.fn_start_time
-    }
-}
-
 // #[enum_dispatch]
 // trait SpecTarget: Send + 'static {
 //     fn app(&self) -> App;
@@ -252,7 +208,9 @@ async fn main() -> Result<(), GooseError> {
         if is_prepare_mode(&cli) {
             mode_call_once::prepare(&mut platform, seed.to_owned(), cli.clone()).await;
         } else {
-            mode_call_once::call(&mut platform, cli, &config).await;
+            let m = mode_call_once::call(&mut platform, cli, &config).await;
+            // println!("metric collected for once call: {:?}", m);
+            m.debug_print();
         }
     } else {
         panic!("unreachable")

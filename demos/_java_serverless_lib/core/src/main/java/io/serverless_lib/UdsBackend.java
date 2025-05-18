@@ -11,6 +11,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.annotation.PostConstruct;
 import process_rpc_proto.ProcessRpcProto.AppStarted;
@@ -60,6 +63,9 @@ public class UdsBackend
     @Autowired
     RpcHandleOwner rpcHandleOwner;
 
+    @Autowired
+    private Executor taskExecutor;
+
     Channel channel = null;
 
     String agentSock="";
@@ -77,7 +83,6 @@ public class UdsBackend
 
     // Map to store pending RPC requests
     private final ConcurrentHashMap<Integer, CompletableFuture<Message>> pendingRpcRequests = new ConcurrentHashMap<>();
-
 
     @EventListener
     public void bootArgCheckOk(BootArgCheckOkEvent e) {
@@ -108,8 +113,17 @@ public class UdsBackend
         }
         sendlock.unlock();
 
-        System.out.println("Sending pack, packid:"+pack.id+", taskid:"+pack.taskId);
-        channel.writeAndFlush(pack.encode());
+        ByteBuf buffer = pack.encode();
+        // get partial for debug 0..20
+        // ByteBuf partial = buffer.readBytes(Math.min(buffer.readableBytes(), 20));
+        String partial = "";
+        for(int i=0;i<Math.min(buffer.readableBytes(), 20);i++){
+            // format as common number
+            partial += String.format("%d ", (int)buffer.getByte(i)+128);
+        }
+        System.out.println("Sending pack, packid:"+pack.id+", taskid:"+pack.taskId+", length:"+buffer.readableBytes()+", partial:"+partial);
+
+        channel.writeAndFlush(buffer);
     }
 
     public void setUpChannel(Channel channel){
@@ -125,11 +139,11 @@ public class UdsBackend
 
     public void close(){
         try{
-
             sendlock.lock();
             channel.close().sync();
             netty_thread.join();
             channel=null;
+            
             sendlock.unlock();
         }catch (Exception e){
             System.out.println("close uds with err");
@@ -215,6 +229,11 @@ public class UdsBackend
         } else {
             System.out.println("Received response for unknown taskId: " + taskId);
         }
+    }
+
+    // 提供一个获取线程池的方法，返回Spring注入的taskExecutor
+    public Executor getTaskExecutor() {
+        return taskExecutor;
     }
 }
 
@@ -309,7 +328,7 @@ class UnixChannelHandle {
                                             int packId = in.readShort();
                                             int length = in.readInt();
                                             int taskId = in.readInt();
-                                            System.out.println("Received message from server: " + length + " bytes, taskId: " + taskId);
+                                            System.out.println("Received message from server: " + length + " bytes, taskId: " + taskId+", packId:"+packId);
 
                                             // 确保有足够的字节来读取数据
                                             if (in.readableBytes() < length) {
@@ -321,6 +340,7 @@ class UnixChannelHandle {
                                             // 读取数据
                                             ByteBuf frame = in.readBytes(length);
                                             out.add(UdsPack.decodeRecv(packId, taskId, frame));
+                                            in.markReaderIndex();
                                         }
                                     })
                                     .addLast(new SimpleChannelInboundHandler<UdsPack>() {
@@ -329,39 +349,43 @@ class UnixChannelHandle {
                                                 throws Exception {
                                             System.out.println("Received message from server, id:" + msg.id);
                                             
-                                            // // If this is a FuncCallResp (ID=3), it might be a response to our RPC
-                                            // if (messageTypeId == 3) { // FuncCallResp ID
-                                            //     // Parse the response
-                                            //     FuncCallResp funcCallResp = FuncCallResp.parseFrom(stream);
-                                            //     String responseData = funcCallResp.getRetStr();
-                                                
-                                            //     // Notify the waiting future
-                                            //     udsHandle.handleRpcResponse(msg.taskId, responseData);
-                                            // } 
-                                            // If this is a FuncCallReq (ID=1), handle it as a request
-                                            if (msg.id==2){ // FuncCallReq ID
-                                                FuncCallReq funcCallReq = (FuncCallReq) msg.pack;
-                                                
-                                                String func = funcCallReq.getFunc();
-                                                String argStr = funcCallReq.getArgStr();
-                                                
-                                                // Process the request
-                                                try {
-                                                    String resStr = rpcHandleOwner.rpcHandle.handleFuncRpc(funcCallReq.getSrcTaskId(),func, argStr);
-                                                    FuncCallResp resp = FuncCallResp.newBuilder().setRetStr(resStr).build();
-                                                    ctx.writeAndFlush(new UdsPack(resp, msg.taskId,3).encode());
-                                                    System.out.println("Response sent.");
-                                                } catch (Exception e) {
-                                                    e.printStackTrace();
-                                                }
-                                            }
-                                            // rpc response
-                                            else if (msg.isRpcResponse()) {
+                                            // rpc response - 直接在当前线程处理响应
+                                            if (msg.isRpcResponse()) {
                                                 System.out.println("Received rpc response, id:" + msg.id);
+                                                
                                                 // handle rpc response
                                                 udsHandle.handleRpcResponse(msg.taskId, msg.pack);
                                             }
-                                            // Other message types can be handled here
+                                            // 函数调用请求 - 提交到线程池异步处理
+                                            else if (msg.id == 2) { // FuncCallReq ID
+                                                final FuncCallReq funcCallReq = (FuncCallReq) msg.pack;
+                                                final int taskId = msg.taskId;
+                                                
+                                                // 将请求处理提交到线程池
+                                                udsHandle.getTaskExecutor().execute(() -> {
+                                                    try {
+                                                        String func = funcCallReq.getFunc();
+                                                        String argStr = funcCallReq.getArgStr();
+                                                        
+                                                        // 执行实际处理逻辑
+                                                        String resStr = rpcHandleOwner.rpcHandle.handleFuncRpc(
+                                                            funcCallReq.getSrcTaskId(),
+                                                            func, 
+                                                            argStr
+                                                        );
+                                                        
+                                                        // 构建响应
+                                                        FuncCallResp resp = FuncCallResp.newBuilder().setRetStr(resStr).build();
+                                                        
+                                                        // 发送响应回客户端
+                                                        ctx.writeAndFlush(new UdsPack(resp, taskId, 3).encode());
+                                                        System.out.println("Response sent with resStr:"+resStr);
+                                                    } catch (Exception e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                });
+                                            }
+                                            // 其他消息类型
                                             else {
                                                 System.out.println("unhandled message type, id:" + msg.id);
                                             }
@@ -378,7 +402,7 @@ class UnixChannelHandle {
                                             // Serialize the message
                                             byte[] data = commu.toByteArray();
 
-                                            System.err.println("data length: " + data.length);
+                                            System.err.println("app started data length: " + data.length);
                                             int length = data.length;
 
                                             // Create a buffer to hold the length and the data
@@ -387,7 +411,20 @@ class UnixChannelHandle {
                                             buffer.writeBytes(data);
 
                                             // Send the buffer to the server
-                                            ctx.writeAndFlush(buffer);
+                                            // ctx.writeAndFlush(buffer);
+                                            ctx.channel().writeAndFlush(buffer);
+                                            System.out.println("app started data sent with length: " + buffer.readableBytes());
+
+                                            udsHandle.setUpChannel(ctx.channel());
+                                            // sendlock.lock();
+                                            // this.channel=ctx.channel();
+                                            // // this.channel=channel;
+                                            // for(UdsPack pack:waitingPacks){
+                                            //     System.out.println("Sending pended pack, packid:"+pack.id+", taskid:"+pack.taskId);
+                                            //     send(pack);
+                                            // }
+                                            // waitingPacks.clear();
+                                            // sendlock.unlock();
                                         }
 
                                         @Override
@@ -402,7 +439,7 @@ class UnixChannelHandle {
             // System.out.println("agent's sock is ready");
             Channel channel = bootstrap.connect(new DomainSocketAddress(sock_path.toString())).sync()
                     .channel();
-            udsHandle.setUpChannel(channel);
+            // udsHandle.setUpChannel(channel);
             channel.closeFuture().sync();
 
             // final FullHttpRequest request = new

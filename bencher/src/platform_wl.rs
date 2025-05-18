@@ -129,7 +129,12 @@ impl PlatformOps for PlatfromWl {
     /// - binded request data and big data in DataSet
     ///   https://fvd360f8oos.feishu.cn/wiki/M4ubwJkvcichuHkiGhjc0miHn5f#share-F0WBdFFhdop2ELxS3ZlcHWvZnD8
     /// - may panic if not support
-    async fn write_data(&self, key: &str, arg_json_value: &serde_json::Value, data: &[u8]) {
+    async fn write_data(
+        &self,
+        key: &str,
+        arg_json_value: &serde_json::Value,
+        data: &[u8],
+    ) -> Option<String> {
         let client = reqwest::Client::new();
         let upload_endpoint = format!("{}/upload_data", self.master_url);
         let arg_json_str = serde_json::to_string(&arg_json_value).unwrap();
@@ -146,16 +151,21 @@ impl PlatformOps for PlatfromWl {
             );
 
         match client.post(&upload_endpoint).multipart(form).send().await {
+            Err(e) => {
+                panic!("上传请求发送失败: {:?}", e);
+            }
             Ok(response) => {
                 if !response.status().is_success() {
-                    tracing::error!("上传失败，状态码: {}", response.status());
+                    panic!("上传失败，响应 {:?}", response);
+                } else {
+                    tracing::info!("上传成功，状态码: {}", response.status());
                     if let Ok(text) = response.text().await {
-                        tracing::error!("错误信息: {}", text);
+                        // tracing::error!("错误信息: {}", text);
+                        Some(text)
+                    } else {
+                        None
                     }
                 }
-            }
-            Err(e) => {
-                tracing::error!("上传请求发送失败: {}", e);
             }
         }
     }
