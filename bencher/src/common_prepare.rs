@@ -4,6 +4,13 @@ use tokio::{fs, process::Command};
 
 use crate::config::Config;
 
+pub async fn link_source_app_data(source: &str, app: &str, func: &str) {
+    let source_app_data = PathBuf::from("prepare_data").join(source);
+    let app_data = PathBuf::from("prepare_data").join(app);
+    // fs::create_dir_all(&app_data).await.unwrap();
+    fs::symlink(source_app_data, app_data).await.unwrap();
+}
+
 /// return each app datas
 /// app->[data1,data2]
 pub async fn prepare_data(

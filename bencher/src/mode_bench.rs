@@ -3,11 +3,46 @@ use rand::{Rng, SeedableRng};
 use rand_chacha::ChaCha8Rng;
 use std::sync::Arc;
 
-use crate::{config::Config, mode_call_once, parse::Cli, platform::PlatformOpsBind};
+use crate::{
+    common_prepare::link_source_app_data, config::Config, mode_call_once, parse::Cli,
+    platform::PlatformOpsBind, RANDOM_SEED,
+};
+
+pub async fn prepare(config: &Config, platform: &mut PlatformOpsBind, cli: &Cli) {
+    // for each source fn, prepare first
+    let source_fns = config
+        .benchlist
+        .iter()
+        .filter(|one_bench_target| {
+            let (app, func) = one_bench_target.split_once('/').unwrap();
+            config.models.contains_key(app)
+        })
+        .collect::<Vec<&String>>();
+    let replica_fns = config
+        .benchlist
+        .iter()
+        .filter(|one_bench_target| {
+            let (app, func) = one_bench_target.split_once('/').unwrap();
+            config.replicas.contains_key(app)
+        })
+        .map(|v| {
+            let (app, func) = v.split_once('/').unwrap();
+            let source_app = config.replicas.get(app).unwrap().source.clone();
+            (source_app, app.to_string(), func.to_string())
+        })
+        .collect::<Vec<(String, String, String)>>();
+
+    for one_source_fn in source_fns {
+        mode_call_once::prepare(platform, RANDOM_SEED.to_owned(), one_source_fn, &config).await;
+    }
+    for (source, app, func) in replica_fns {
+        // link source fn prepare dir to replica fn prepare dir
+        link_source_app_data(&source, &app, &func).await;
+    }
+}
 
 pub async fn call_bench(platform: PlatformOpsBind, cli: Cli, config: Config) {
     // unimplemented!();
-    const RANDOM_SEED: &str = "1234567890";
     const TASK_COUNT: usize = 1000;
     const SLEEP_MAX_MS: u64 = 2000;
     const EACH_TASK_REQ_COUNT: usize = 100;
@@ -22,9 +57,9 @@ pub async fn call_bench(platform: PlatformOpsBind, cli: Cli, config: Config) {
         fn_list.push((
             app.to_string(),
             func.to_string(),
-            config
-                .get_fn_details(app, func)
-                .expect(format!("bench target {:?} supposed to be exist", one_bench_target).as_str()),
+            config.get_fn_details(app, func).expect(
+                format!("bench target {:?} supposed to be exist", one_bench_target).as_str(),
+            ),
         ))
     }
     let fn_list = Arc::new(fn_list);

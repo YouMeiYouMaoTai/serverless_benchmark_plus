@@ -30,7 +30,13 @@ async fn read_file(path: &impl AsRef<Path>) -> Arc<Vec<u8>> {
         }
     }
 
-    let content = tokio::fs::read(path).await.unwrap();
+    let content = tokio::fs::read(path).await.unwrap_or_else(|err| {
+        panic!(
+            "failed to read file {}, err: {:?}",
+            path.as_ref().to_str().unwrap(),
+            err
+        );
+    });
     {
         let mut cache = CACHE.get_or_init(|| DashMap::new());
         let ret = Arc::new(content);

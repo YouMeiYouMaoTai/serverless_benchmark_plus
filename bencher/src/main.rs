@@ -49,6 +49,8 @@ use tracing_subscriber::layer::SubscriberExt;
 use tracing_subscriber::util::SubscriberInitExt;
 use tracing_subscriber::Layer;
 
+const RANDOM_SEED: &str = "1234567890";
+
 fn is_bench_mode(cli: &Cli) -> bool {
     cli.bench_mode > 0
 }
@@ -171,7 +173,6 @@ async fn main() -> Result<(), GooseError> {
 
     minio::init_bucket(&config.minio).await;
 
-    let seed = "helloworld";
     tracing::debug!("Preparing paltform >>>");
     let mut platform = if cli.with_ow > 0 {
         PlatformOpsBind::from(platform_ow::PlatfromOw::new(&cli, &config))
@@ -188,14 +189,17 @@ async fn main() -> Result<(), GooseError> {
         tracing::debug!("Preparing: {preparing}");
         tracing::debug!("===========================");
     }
-    if is_prepare_mode(&cli) {
-        common_prepare::prepare_data(cli.target_apps(), &config).await;
-        platform.prepare_apps_bin(cli.target_apps(), &config).await;
-    }
+    // if is_prepare_mode(&cli) {
+
+    // }
 
     if is_bench_mode(&cli) {
         print_mode("bench", is_bench_mode(&cli));
-        mode_bench::call_bench(platform, cli, config).await;
+        if is_prepare_mode(&cli) {
+            mode_bench::prepare(&config, &mut platform, &cli).await;
+        } else {
+            mode_bench::call_bench(platform, cli, config).await;
+        }
         // target.prepare_bench(seed.to_owned(), cli.clone()).await;
         // target.call_bench(cli).await;
     } else if is_first_call_mode(&cli) {
@@ -208,7 +212,13 @@ async fn main() -> Result<(), GooseError> {
     } else if is_once_mode(&cli) {
         print_mode("first_call", is_bench_mode(&cli));
         if is_prepare_mode(&cli) {
-            mode_call_once::prepare(&mut platform, seed.to_owned(), cli.clone()).await;
+            mode_call_once::prepare(
+                &mut platform,
+                RANDOM_SEED.to_owned(),
+                cli.app().unwrap().as_str(),
+                &config,
+            )
+            .await;
         } else {
             let m = mode_call_once::call(
                 cli.app().unwrap().as_str(),

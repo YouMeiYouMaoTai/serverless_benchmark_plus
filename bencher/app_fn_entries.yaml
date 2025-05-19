@@ -113,7 +113,7 @@ replicas:
       resize:
         args:
           use_minio: true
-  img_reisze4:
+  img_resize4:
     source: img_resize
     fns:
       resize:

@@ -9,13 +9,18 @@ use clap::Args;
 use serde_yaml::Value;
 
 use crate::{
-    config::Config, metric::Metric, new_map, parse::Cli, platform::PlatformOps,
+    common_prepare, config::Config, metric::Metric, new_map, parse::Cli, platform::PlatformOps,
     util_call_fn::prepare_once_call_arg, PlatformOpsBind,
 };
 
-pub async fn prepare(platform: &mut PlatformOpsBind, seed: String, cli: Cli) {
-    platform.remove_all_fn().await;
-    platform.upload_fn(&cli.app().unwrap(), "").await;
+pub async fn prepare(platform: &mut PlatformOpsBind, seed: String, app: &str, config: &Config) {
+    // platform.remove_all_fn().await;
+    common_prepare::prepare_data(vec![app.to_string()], &config).await;
+    platform
+        .prepare_apps_bin(vec![app.to_string()], &config)
+        .await;
+
+    platform.upload_fn(app, "").await;
     // self.prepare_img(&seed);
 }
 
@@ -57,8 +62,8 @@ pub async fn call(
 
     let trigger_fn_res_opt = platform
         .bf_call_fn(
-            &cli.app().unwrap(),
-            &cli.func().unwrap(),
+            app,
+            func,
             &request_arg_json,
             &fndetail.big_data,
             &fndetail,
