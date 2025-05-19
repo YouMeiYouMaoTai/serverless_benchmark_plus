@@ -16,7 +16,7 @@ use crate::config::FnDetails;
 #[command(version, about, long_about = None)]
 pub struct Cli {
     // #[arg(action = clap::ArgAction::Count)]
-    pub app_fn: String,
+    pub app_fn: Option<String>,
 
     #[arg(long, action = clap::ArgAction::Count)]
     pub prepare: u8,
@@ -43,16 +43,22 @@ impl Cli {
         vec![self.app().unwrap()]
     }
     pub fn app(&self) -> Option<String> {
-        if self.app_fn.find("/").is_none() {
+        let Some(app_fn) = self.app_fn.as_ref() else {
+            return None;
+        };
+        if app_fn.find("/").is_none() {
             return None;
         }
-        return Some(self.app_fn.split("/").next().unwrap().to_owned());
+        return Some(app_fn.split("/").next().unwrap().to_owned());
     }
     pub fn func(&self) -> Option<String> {
-        if self.app_fn.find("/").is_none() {
+        let Some(app_fn) = self.app_fn.as_ref() else {
+            return None;
+        };
+        if app_fn.find("/").is_none() {
             return None;
         }
-        let mut iter = self.app_fn.split("/");
+        let mut iter = app_fn.split("/");
         iter.next();
         return Some(iter.next().unwrap().to_owned());
     }
@@ -85,11 +91,14 @@ impl Cli {
     //     f.clone()
     // }
     pub fn check_app_fn(&self) -> &Self {
+        if self.bench_mode > 0 {
+            return self;
+        }
         let app = self.app().unwrap_or_else(|| {
-            panic!("missing app name, cur input is {}", self.app_fn);
+            panic!("missing app name, cur input is {:?}", self.app_fn);
         });
         let func = self.func().unwrap_or_else(|| {
-            panic!("missing fn name, cur input is {}", self.app_fn);
+            panic!("missing fn name, cur input is {:?}", self.app_fn);
         });
 
         //read 'app_fn_entries.yaml'

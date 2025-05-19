@@ -23,10 +23,10 @@ models:
     fns:
       resize:
         big_data:
-        - image_to_resize:image_to_resize
+        - image_to_resize:image_to_resize_${REQUEST_ID}
         args: 
           # use_minio: true
-          image_s3_path: "image_to_resize"
+          image_s3_path: "image_to_resize_${REQUEST_ID}"
           target_width: 50
           target_height: 50
     prepare_data: ["image_to_resize"]
@@ -104,11 +104,27 @@ models:
           text_s3_path: "large_text_file.txt"
 
 # 函数配置项变体
-replicas: {}
-benchlist: {}
+replicas: 
+  img_resize2:
+    source: img_resize
+  img_resize3:
+    source: img_resize
+    fns:
+      resize:
+        args:
+          use_minio: true
+  img_reisze4:
+    source: img_resize
+    fns:
+      resize:
+        args:
+          use_minio: true
+  
+  
+
+# benchlist: {}
 #   img_resize2: # 函数 和 是否使用minio排列组合，每种两个
 #     source: img_resize
-
 #   img_resize3:
 #     source: img_resize
 #     args:
@@ -120,11 +136,11 @@ benchlist: {}
 
   
 
-# benchlist:
-#   img_resize:
-#   img_resize2:
-#   img_resize3:
-#   img_resize4:
+benchlist:
+- img_resize/resize
+- img_resize2/resize
+- img_resize3/resize
+- img_resize4/resize
   
 
 # parallel_composition:

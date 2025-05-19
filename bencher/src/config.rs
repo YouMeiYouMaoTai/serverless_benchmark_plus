@@ -17,7 +17,7 @@ pub struct AppFnEntry {
 #[derive(serde::Deserialize, Debug, Clone)]
 pub struct AppFnReplica {
     pub source: String,
-    pub fns: HashMap<String, FnDetails>,
+    pub fns: Option<HashMap<String, FnDetails>>,
 }
 
 // app:
@@ -48,7 +48,7 @@ impl MinioConfig {
 pub struct Config {
     pub models: HashMap<String, AppFnEntry>,
     pub replicas: HashMap<String, AppFnReplica>,
-    pub benchlist: HashMap<String, ()>,
+    pub benchlist: Vec<String>,
     pub minio: MinioConfig,
 }
 
@@ -67,13 +67,16 @@ impl Config {
             let source_fn_details = self.get_fn_details(&source, func);
             if let Some(mut source_fn_details) = source_fn_details {
                 // cover by replica args
-                for (key, value) in replica.fns.get(func).unwrap().args.as_ref().unwrap() {
-                    source_fn_details
-                        .args
-                        .as_mut()
-                        .unwrap()
-                        .insert(key.clone(), value.clone());
+                if let Some(fns) = replica.fns.as_ref() {
+                    for (key, value) in fns.get(func).unwrap().args.as_ref().unwrap() {
+                        source_fn_details
+                            .args
+                            .as_mut()
+                            .unwrap()
+                            .insert(key.clone(), value.clone());
+                    }
                 }
+
                 Some(source_fn_details)
             } else {
                 None

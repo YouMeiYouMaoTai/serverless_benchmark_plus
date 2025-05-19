@@ -1,6 +1,7 @@
 use std::{
     collections::HashMap,
     fs,
+    hash::Hash,
     time::{SystemTime, UNIX_EPOCH},
 };
 
@@ -8,7 +9,8 @@ use clap::Args;
 use serde_yaml::Value;
 
 use crate::{
-    config::Config, metric::Metric, new_map, parse::Cli, platform::PlatformOps, PlatformOpsBind,
+    config::Config, metric::Metric, new_map, parse::Cli, platform::PlatformOps,
+    util_call_fn::prepare_once_call_arg, PlatformOpsBind,
 };
 
 pub async fn prepare(platform: &mut PlatformOpsBind, seed: String, cli: Cli) {
@@ -17,11 +19,16 @@ pub async fn prepare(platform: &mut PlatformOpsBind, seed: String, cli: Cli) {
     // self.prepare_img(&seed);
 }
 
-pub async fn call(platform: &mut PlatformOpsBind, cli: Cli, config: &Config) -> Metric {
+pub async fn call(
+    app: &str,
+    func: &str,
+    platform: &PlatformOpsBind,
+    cli: &Cli,
+    config: &Config,
+) -> Metric {
     // read image from file
     // let img = fs::read("img_resize/image_0.jpg").unwrap();
-    let app = cli.app().unwrap();
-    let func = cli.func().unwrap();
+
     // BUCKET
     //     // .lock()
     //     // .await
@@ -30,12 +37,6 @@ pub async fn call(platform: &mut PlatformOpsBind, cli: Cli, config: &Config) -> 
     //     .unwrap();
 
     let fndetail = config.get_fn_details(&app, &func).unwrap();
-    // let args = cli.func_details().args;
-    // let arg = Args {
-    //     image_s3_path: format!("image_{}.jpg", 0),
-    //     target_width: 50,
-    //     target_height: 50,
-    // };
 
     let start_call_ms = SystemTime::now()
         .duration_since(UNIX_EPOCH)
@@ -45,7 +46,14 @@ pub async fn call(platform: &mut PlatformOpsBind, cli: Cli, config: &Config) -> 
     //     .call_fn("img_resize", "resize", &serde_json::to_value(args).unwrap())
     //     .await;
 
-    let request_arg_json = serde_json::to_value(&fndetail.args).unwrap();
+    // let request_arg_json = serde_json::to_value(&fndetail.args).unwrap();
+
+    let mut hold_new_empty_map = None;
+    let (request_arg_json, request_id) =
+        prepare_once_call_arg(fndetail.args.as_ref().unwrap_or_else(|| {
+            hold_new_empty_map = Some(HashMap::new());
+            hold_new_empty_map.as_ref().unwrap()
+        }));
 
     let trigger_fn_res_opt = platform
         .bf_call_fn(
@@ -54,6 +62,7 @@ pub async fn call(platform: &mut PlatformOpsBind, cli: Cli, config: &Config) -> 
             &request_arg_json,
             &fndetail.big_data,
             &fndetail,
+            request_id,
         )
         .await;
     let mut receive_resp_time = SystemTime::now()
@@ -71,7 +80,10 @@ pub async fn call(platform: &mut PlatformOpsBind, cli: Cli, config: &Config) -> 
         //     "fn_end_time".to_string() => start_call_ms,
         // }))
         // .unwrap()
-        tracing::debug!("fn triggered by data written, skip function call");
+        tracing::debug!(
+            "fn triggered by data written, skip function call, result: {}",
+            trigger_fn_res
+        );
         serde_json::from_str(&trigger_fn_res).unwrap_or_else(|e| {
             tracing::error!("failed to parse json: {}", e);
             panic!("output is not json: '{}'", trigger_fn_res);

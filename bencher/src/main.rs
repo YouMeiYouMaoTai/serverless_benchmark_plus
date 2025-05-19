@@ -17,6 +17,8 @@ mod platform_wl;
 mod prometheus;
 mod test_call_once;
 mod util;
+mod util_call_fn;
+mod util_serde;
 // mod reponse;
 
 use async_trait::async_trait;
@@ -193,7 +195,7 @@ async fn main() -> Result<(), GooseError> {
 
     if is_bench_mode(&cli) {
         print_mode("bench", is_bench_mode(&cli));
-        unimplemented!();
+        mode_bench::call_bench(platform, cli, config).await;
         // target.prepare_bench(seed.to_owned(), cli.clone()).await;
         // target.call_bench(cli).await;
     } else if is_first_call_mode(&cli) {
@@ -208,7 +210,14 @@ async fn main() -> Result<(), GooseError> {
         if is_prepare_mode(&cli) {
             mode_call_once::prepare(&mut platform, seed.to_owned(), cli.clone()).await;
         } else {
-            let m = mode_call_once::call(&mut platform, cli, &config).await;
+            let m = mode_call_once::call(
+                cli.app().unwrap().as_str(),
+                cli.func().unwrap().as_str(),
+                &platform,
+                &cli,
+                &config,
+            )
+            .await;
             // println!("metric collected for once call: {:?}", m);
             m.debug_print();
         }

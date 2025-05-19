@@ -46,6 +46,7 @@ impl FnDetails {
         fn_name: &str,
         arg_json_value: &serde_json::Value,
         platform: &PlatformOpsBind,
+        request_id: usize,
     ) -> Option<String> {
         // read file content and write
         // we don't need the detailed path, just bool
@@ -69,13 +70,15 @@ impl FnDetails {
             return None;
         };
 
-        tracing::info!("writing big data: {:?}", big_data);
-
         // for each big data item
         for big_data in big_data.iter() {
             let big_data_item = big_data.split(":").collect::<Vec<&str>>();
             let big_data_read_path = big_data_item[0];
             let big_data_write_path = big_data_item[1];
+            let big_data_write_path =
+                big_data_write_path.replace("${REQUEST_ID}", &request_id.to_string());
+
+            tracing::info!("writing big data: {:?}", big_data_write_path);
 
             let to_read_path = app_dir(app_name).join(big_data_read_path);
             // panic if file not exists
@@ -107,7 +110,7 @@ impl FnDetails {
                 // try platform write_data
                 tracing::info!("writing big data to embbed storage");
                 return platform
-                    .write_data(big_data_write_path, arg_json_value, &content)
+                    .write_data(&big_data_write_path, arg_json_value, &content)
                     .await;
             }
         }

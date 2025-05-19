@@ -22,10 +22,11 @@ impl PlatformOpsBind {
         arg_json_value: &serde_json::Value,
         big_data: &Option<Vec<String>>,
         fn_details: &FnDetails,
+        request_id: usize,
     ) -> Option<String> {
         // write big data
         let trigger_fn_res = fn_details
-            .write_big_data(app, func, arg_json_value, self)
+            .write_big_data(app, func, arg_json_value, self, request_id)
             .await;
 
         // self.call_fn(
