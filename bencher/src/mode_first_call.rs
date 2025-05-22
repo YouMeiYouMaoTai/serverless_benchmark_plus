@@ -18,7 +18,9 @@ pub async fn call(platform: &mut PlatformOpsBind, cli: Cli, config: &Config) {
     let mut metrics = vec![];
     for _ in 0..20 {
         platform.upload_fn("simple_demo", "").await;
-        let m = mode_call_once::call(&app, &func, platform, &cli, config).await; //self.call_once(cli.clone()).await;
+        let m = mode_call_once::call(&app, &func, platform, &cli, config)
+            .await
+            .unwrap(); //self.call_once(cli.clone()).await;
         recorder.record(m.clone());
         // prometheus::upload_fn_call_metric("simple_demo", &m).await;
         metrics.push(m);

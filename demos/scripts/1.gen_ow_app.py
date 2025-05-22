@@ -103,6 +103,11 @@ def snake_to_big_camel(snake_str):
     components = snake_str.split('_')
     # 将每个单词的首字母大写并连接成一个字符串
     return ''.join(x.title() for x in components)
+
+def print_step(step):
+    print("\n==========================")
+    print(step)
+    print("==========================\n")
 #################################################################################################
 
 
@@ -127,6 +132,70 @@ os_system_sure(f"mkdir -p ow/{prj}/tmp")
 
 ## copy prj
 os_system_sure(f"cp -r ../{prj}/* ./ow/{prj}/tmp/")
+
+def build_app_lib():
+    build_dir=os.path.abspath("../_java_serverless_lib_ow")
+    curdir_abs=os.path.abspath("./")
+    print_step(f"build app lib at dir: {build_dir}")
+    os.chdir(build_dir)
+    print(f"running mvn clean install at dir: {os.path.abspath('./')}")
+    os_system_sure("mvn clean install")
+    os.chdir(curdir_abs)
+
+build_app_lib()
+
+def add_dependency_to_pom():
+    def add_dependency_to_pom_inner(file_path, group_id, artifact_id, version=None):
+        # 解析pom.xml文件
+        ET.register_namespace('', 'http://maven.apache.org/POM/4.0.0')
+        tree = ET.parse(file_path)
+        root = tree.getroot()
+
+        # 找到<dependencies>标签
+        dependencies = root.find('{http://maven.apache.org/POM/4.0.0}dependencies')
+        if dependencies is None:
+            # 如果<dependencies>标签不存在，则创建一个新的
+            dependencies = ET.SubElement(root, 'dependencies')
+
+        # 创建新的<dependency>标签
+        dependency = ET.SubElement(dependencies, 'dependency')
+        
+        group_id_element = ET.SubElement(dependency, 'groupId')
+        group_id_element.text = group_id
+        
+        artifact_id_element = ET.SubElement(dependency, 'artifactId')
+        artifact_id_element.text = artifact_id
+        
+        if version:
+            version_element = ET.SubElement(dependency, 'version')
+            version_element.text = version
+        else:
+            # 注释掉<version>标签
+            version_element = ET.Comment(' <version>0.0.1-SNAPSHOT</version> ')
+            dependency.append(version_element)
+
+        # 将修改后的内容写回pom.xml文件
+        tree.write(file_path, encoding='utf-8', xml_declaration=True)
+        
+    # ## gen adapt codes
+    # #  pom.xml
+    # """
+    # <dependency>
+    #     <groupId>io.serverless_lib</groupId>
+    #     <artifactId>serverless-lib-core</artifactId>
+    #     <!-- <version>0.0.1-SNAPSHOT</version> -->
+    # </dependency>
+    # """
+    print_step("add dependency to pom.xml")
+    add_dependency_to_pom_inner(
+        f"{temp_prj_dir}/tmp/pom.xml",
+        "io.serverless_lib",
+        "serverless-lib-core",
+        "0.0.1-SNAPSHOT-OW")
+
+# parse pom.xml
+add_dependency_to_pom()
+
 
 ## construct app config file for waverless
 #  find functions dir in prj
@@ -196,7 +265,18 @@ public class Application {{
         JsonParser parser = new JsonParser();
         // 将JSON字符串解析为JsonObject
         JsonObject req = parser.parse(args[0]).getAsJsonObject();
-        JsonObject resp=new {snake_to_big_camel(fn)}().call(req);
+        long fnStartTime = System.currentTimeMillis();
+        JsonObject resp;
+        try {{
+            resp=new {snake_to_big_camel(fn)}().call(req);
+        }} catch (Exception e) {{
+            e.printStackTrace();
+            resp=new JsonObject();
+            resp.addProperty("error",e.getMessage());
+        }}
+        long fnEndTime=System.currentTimeMillis();
+        resp.addProperty("fn_start_time",fnStartTime);
+        resp.addProperty("fn_end_time",fnEndTime);
         
         out.println(resp.toString());
     }}

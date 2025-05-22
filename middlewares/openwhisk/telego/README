@@ -1,0 +1,1 @@
+ln -s {this dir} {telego_prj_dir}/k8s_openwhisk

@@ -229,7 +229,7 @@ async fn main() -> Result<(), GooseError> {
             )
             .await;
             // println!("metric collected for once call: {:?}", m);
-            m.debug_print();
+            m.unwrap().debug_print();
         }
     } else {
         panic!("unreachable")

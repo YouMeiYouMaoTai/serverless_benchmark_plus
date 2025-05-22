@@ -17,6 +17,13 @@ pub struct Metric {
 }
 
 impl Metric {
+    pub fn total_req_time(&self) -> u64 {
+        self.receive_resp_time - self.start_call_time
+    }
+    pub fn total_exec_time(&self) -> u64 {
+        self.fn_end_time - self.fn_start_time
+    }
+
     pub fn debug_print(&self) {
         // // let mut time_interval = vec![];
         // let mut cur_time_step = 0;

@@ -67,6 +67,8 @@ impl PlatformOps for PlatfromWl {
             .filter(|app| config.models.contains_key(app))
             .collect();
 
+        tracing::info!("prepare apps bin for {:?}", model_apps);
+
         for app in model_apps {
             let (_, _, mut child) = process::Command::new("python3")
                 .args(&["../demos/scripts/1.gen_waverless_app.py", &app])

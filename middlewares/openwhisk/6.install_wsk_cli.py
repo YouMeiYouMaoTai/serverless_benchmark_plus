@@ -7,7 +7,7 @@ import shutil
 
 def check_wsk_installed():
     try:
-        subprocess.run(['wsk', '--version'], capture_output=True, check=True)
+        subprocess.run(['wsk'], capture_output=True, check=True)
         return True
     except (subprocess.SubprocessError, FileNotFoundError):
         return False
@@ -57,7 +57,7 @@ def main():
     # Set OpenWhisk properties
     subprocess.run([
         'wsk', 'property', 'set',
-        '--apihost', 'http://192.168.31.162:32062',
+        '--apihost', 'http://192.168.31.162:31836',
         '--auth', '23bc46b1-71f6-4ed5-8c54-816aa4f8c502:123zO3xZCLrMN6v2BKK1dXYFpXlPkccOFqm12CdAsMgRU4VrNZ9lyGVCGuMDGIwP'
     ], check=True)
 

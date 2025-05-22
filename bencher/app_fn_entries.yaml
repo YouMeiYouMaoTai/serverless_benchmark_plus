@@ -25,7 +25,7 @@ models:
         big_data:
         - image_to_resize:image_to_resize_${REQUEST_ID}
         args: 
-          # use_minio: true
+          use_minio: true
           image_s3_path: "image_to_resize_${REQUEST_ID}"
           target_width: 50
           target_height: 50
@@ -83,7 +83,7 @@ models:
           return paragraph
 
       def generate_large_text_file(file_path, target_size_gb):
-          target_size_bytes = target_size_gb * 1024 * 1024 * 1024
+          target_size_bytes = target_size_gb * 1024 * 1024 * 10
           paragraph = generate_paragraph()
           paragraph_length = len(paragraph.encode('utf-8'))
 
@@ -100,8 +100,22 @@ models:
       generate_large_text_file(file_path, target_size_gb)
     fns:
       count:
+        big_data:
+        - large_text_file.txt:large_text_file_${REQUEST_ID}
         args:
-          text_s3_path: "large_text_file.txt"
+          use_minio: true
+          text_s3_path: "large_text_file_${REQUEST_ID}"
+  parallel_composition:
+    prepare_data: []
+    prepare_scripts: []
+    fns:
+      parallel:
+        args: {}
+        # args:
+          # loopTime: 10000000
+          # parallelIndex: 100
+      sequential:
+        args: {}
 
 # 函数配置项变体
 replicas: 
@@ -137,10 +151,13 @@ replicas:
   
 
 benchlist:
-- img_resize/resize
-- img_resize2/resize
-- img_resize3/resize
-- img_resize4/resize
+# - img_resize/resize
+# - img_resize2/resize
+# - img_resize3/resize
+# - img_resize4/resize
+# - word_count/count
+# - parallel_composition/parallel
+- parallel_composition/sequential
   
 
 # parallel_composition:

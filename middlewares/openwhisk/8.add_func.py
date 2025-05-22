@@ -15,6 +15,13 @@ def os_system_sure(command):
         exit(1)
     print(f"命令执行成功：{command}\n\n")
 
+def os_system(command):
+    print(f"执行命令：{command}")
+    result = os.system(command)
+    if result != 0:
+        print(f"命令执行失败：{command}")
+    else:
+        print(f"命令执行成功：{command}\n\n")
 
 def run_cmd_with_res(cmd):
     print(f"执行命令：{cmd}")
@@ -35,12 +42,29 @@ rename=demo_app+sys.argv[2]
 os.chdir(f"../../demos")
 os_system_sure(f"python3 scripts/1.gen_ow_app.py {demo_app}")
 
-ow_app_dir=f"scripts/ow/{demo_app}"
-# list funcs in ow_app_dir
-file_pattern = os.path.join(ow_app_dir, '*with-dependencies*')
-for file_path in glob.glob(file_pattern):
-    fn = os.path.basename(file_path)  # 获取文件名
-    os_system_sure(f"wsk -i action create {demo_app}_{fn} {file_path}/target/hello-1.0-SNAPSHOT-jar-with-dependencies.jar --main test.Application")
+
+ow_app_dir=os.path.abspath(f"scripts/ow/{demo_app}")
+
+# get fnlist
+fnlist=os.listdir(ow_app_dir)
+
+print(f">>> find funcs in {ow_app_dir}: {fnlist}")
+    
+for fn in fnlist:
+    # list funcs in ow_app_dir
+    file_pattern = os.path.join(ow_app_dir, 
+        fn,'target','*with-dependencies*')
+    glob_results = glob.glob(file_pattern)
+
+
+    print(f">>> find jar files in {ow_app_dir}: {glob_results}")
+    first_jar_file = glob_results[0]
+    print(f">>> we use the first jar file: {first_jar_file}")
+
+    print(f"uploading file {first_jar_file} as app/fn {demo_app}/{fn}")
+    os_system(f"wsk action delete {demo_app}_{fn}")
+    # -c concurrency 100 in container
+    os_system_sure(f"wsk -i action create {demo_app}_{fn} {first_jar_file} --main test.Application")
 
 # list funcs
 os_system_sure("wsk list")

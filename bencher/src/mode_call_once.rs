@@ -15,11 +15,15 @@ use crate::{
 
 pub async fn prepare(platform: &mut PlatformOpsBind, seed: String, app: &str, config: &Config) {
     // platform.remove_all_fn().await;
+    tracing::info!(">>> preparing data for {}", app);
     common_prepare::prepare_data(vec![app.to_string()], &config).await;
+
+    tracing::info!(">>> prepare apps bin for {}", app);
     platform
         .prepare_apps_bin(vec![app.to_string()], &config)
         .await;
 
+    tracing::info!(">>> upload fn for {}", app);
     platform.upload_fn(app, "").await;
     // self.prepare_img(&seed);
 }
@@ -30,7 +34,7 @@ pub async fn call(
     platform: &PlatformOpsBind,
     cli: &Cli,
     config: &Config,
-) -> Metric {
+) -> Option<Metric> {
     // read image from file
     // let img = fs::read("img_resize/image_0.jpg").unwrap();
 
@@ -89,15 +93,23 @@ pub async fn call(
             "fn triggered by data written, skip function call, result: {}",
             trigger_fn_res
         );
-        serde_json::from_str(&trigger_fn_res).unwrap_or_else(|e| {
-            tracing::error!("failed to parse json: {}", e);
-            panic!("output is not json: '{}'", trigger_fn_res);
-        })
+        match serde_json::from_str(&trigger_fn_res) {
+            Ok(res) => res,
+            Err(e) => {
+                tracing::error!("failed to parse json: {}", e);
+                // panic!("output is not json: '{}'", trigger_fn_res);
+                return None;
+            }
+        }
+        // .unwrap_or_else(|e| {
+        //     tracing::error!("failed to parse json: {}", e);
+        //     panic!("output is not json: '{}'", trigger_fn_res);
+        // })
     } else {
         let output = platform
             .call_fn(
-                &cli.app().unwrap(),
-                &cli.func().unwrap(),
+                app,
+                func,
                 &request_arg_json,
                 // &fndetail.big_data,
             )
@@ -107,10 +119,19 @@ pub async fn call(
             .expect("Time went backwards")
             .as_millis() as u64;
         // tracing::info!("debug output {}", output);
-        let res: serde_json::Value = serde_json::from_str(&output).unwrap_or_else(|e| {
-            tracing::error!("failed to parse json: {}", e);
-            panic!("output is not json: '{}'", output);
-        });
+        let res: Result<serde_json::Value, serde_json::Error> = serde_json::from_str(&output);
+        let res = match res {
+            Ok(res) => res,
+            Err(e) => {
+                tracing::error!("failed to parse json: {}", e);
+                return None;
+            }
+        };
+        // .unwrap_or_else(|e| {
+        //     tracing::error!("failed to parse json: {}", e);
+        //     panic!("output is not json: '{}'", output);
+        // });
+
         res
     };
 
@@ -192,7 +213,7 @@ pub async fn call(
     // let res = BUCKET.get_object(&res.resized_image).await.unwrap();
     // std::fs::write("resized_image.jpg", res.as_slice()).unwrap();
 
-    Metric {
+    Some(Metric {
         start_call_time: start_call_ms,
         req_arrive_time: res
             .get("req_arrive_time")
@@ -215,5 +236,5 @@ pub async fn call(
             .map(|v| v.as_u64().unwrap())
             .unwrap_or(0),
         receive_resp_time: receive_resp_time,
-    }
+    })
 }

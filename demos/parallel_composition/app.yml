@@ -1,0 +1,17 @@
+# 应用描述 yaml 设计
+# https://fvd360f8oos.feishu.cn/wiki/GGUnw0H1diVoHSkgm3vcMhtbnjI
+
+fns:
+  parallel:
+    http.post:
+      call: direct
+  sequential:
+    http.post:
+      call: direct
+
+      
+    # kvs:
+    #   image_to_resize:
+    #   - trigger_by_new
+    #   - trigger_by_write
+    #   - read

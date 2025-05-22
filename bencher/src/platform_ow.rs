@@ -118,11 +118,15 @@ impl PlatformOps for PlatfromOw {
             .await
             .expect("Failed to execute wsk action invoke");
 
-        if res.status.success() {
+        tracing::info!("fn call result: {:?}", res);
+
+        let res = if res.status.success() {
             from_utf8(&res.stdout).unwrap().to_owned()
         } else {
             from_utf8(&res.stderr).unwrap().to_owned()
-        }
+        };
+
+        res
     }
 
     async fn write_data(

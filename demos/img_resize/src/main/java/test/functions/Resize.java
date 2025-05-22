@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import javax.imageio.ImageIO;
-import io.serverless_lib.DataApi;
 import com.google.gson.JsonParser;
 import io.serverless_lib.DataApiFuncBinded;
 
@@ -108,10 +107,13 @@ public class Resize {
             int[] item_idxs = {0};
             String trigger_data_key = args.get("trigger_data_key").getAsString();
             System.out.println("try to get trigger_data_key: " + trigger_data_key);
+            String requestJsonStr = null;
             try{
-                String requestJsonStr = new String(dataApi.get(trigger_data_key,item_idxs).get(0), "UTF-8");
+                requestJsonStr = new String(dataApi.get(trigger_data_key,item_idxs).get(0), "UTF-8");
                 args=new JsonParser().parse(requestJsonStr).getAsJsonObject();
             }catch(Exception e){
+                // print string trying to parse
+                System.out.println("trying to parse: '" + requestJsonStr + "'");
                 e.printStackTrace();
                 JsonObject errResp=new JsonObject();
                 errResp.addProperty("error", e.getMessage());
@@ -153,7 +155,11 @@ public class Resize {
             int[] item_idxs = {1};
             byte[] imageData = dataApi.get(imagepath, item_idxs).get(1);
             // ByteBuffer bf=readToByteBuffer(downloadedStream);
-
+            if (imageData==null){
+                JsonObject errResp=new JsonObject();
+                errResp.addProperty("error", "imageData is null");
+                return errResp;
+            }
 
             byte[] resizedImage = resizeImage(imageData, targetWidth, targetHeight);
             

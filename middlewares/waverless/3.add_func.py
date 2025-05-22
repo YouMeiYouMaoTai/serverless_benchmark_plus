@@ -18,10 +18,10 @@ def run_cmd_with_res(cmd):
 
 import sys
 if len(sys.argv) !=4:
-    print("Usage: python 3.add_func.py <demo_app> <rename_sub> <cluster_config_path>")
+    print("Usage: python 3.add_func.py <demo_app> <rename> <cluster_config_path>")
     exit(1)
 demo_app=sys.argv[1]
-rename_sub=sys.argv[2]
+rename=sys.argv[2]
 cluster_config_path=sys.argv[3]
 cluster_config_path=os.path.abspath(cluster_config_path)
 
@@ -40,7 +40,7 @@ if len(sys.argv) !=4:
     print("Usage: python 3.add_func.py <demo_app> <rename_sub> <cluster_config_path>")
     exit(1)
 demo_app=sys.argv[1]
-rename_sub=sys.argv[2]
+rename=sys.argv[2]
 cluster_config_path=sys.argv[3]
 cluster_config_path=os.path.abspath(cluster_config_path)
 
@@ -111,4 +111,7 @@ def upload_app(appname,rename):
     except requests.exceptions.RequestException as e:
         print(f"An error occurred: {e}")
 
-upload_app(demo_app,demo_app+rename_sub)
+if rename=="":
+    rename=demo_app
+
+upload_app(demo_app, rename)

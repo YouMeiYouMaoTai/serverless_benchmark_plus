@@ -1,0 +1,91 @@
+scheduler:
+  enabled: true
+metrics:
+  prometheusEnabled: true
+  userMetricsEnabled: true
+invoker:
+  containerFactory:
+    impl: "kubernetes"
+whisk:
+  # Ingress defines how to access OpenWhisk from outside the Kubernetes cluster.
+  # Only a subset of the values are actually used on any specific type of cluster.
+  # See the "Configuring OpenWhisk section" of the docs/k8s-*.md that matches
+  # your cluster type for details on what values to provide and how to get them.
+  ingress:
+    apiHostName: ${ingress_ip}
+    apiHostProto: "http"
+  limits:
+    actionsInvokesPerminute: 100000
+    actionsInvokesConcurrent: 100000
+
+utility:
+  imageName: "${IMG_REPO}/teleinfra/ow-utils"
+
+zookeeper:
+  imageName: "${IMG_REPO}/teleinfra/zookeeper"
+
+kafka:
+  imageName: "${IMG_REPO}/teleinfra/kafka"
+
+db:
+  imageName: "${IMG_REPO}/teleinfra/couchdb"
+
+nginx:
+  imageName: "${IMG_REPO}/teleinfra/nginx"
+
+controller:
+  imageName: "${IMG_REPO}/teleinfra/controller"
+
+scheduler:
+  imageName: "${IMG_REPO}/teleinfra/scheduler"
+
+etcd:
+  imageName: "${IMG_REPO}/teleinfra/etcd"
+  imageTag: "3.4.0"
+
+invoker:
+  imageName: "${IMG_REPO}/teleinfra/invoker"
+
+apigw:
+  imageName: "${IMG_REPO}/teleinfra/apigateway"
+
+redis:
+  imageName: "${IMG_REPO}/teleinfra/redis"
+
+user_events:
+  imageName: "${IMG_REPO}/teleinfra/user-events"
+
+prometheus:
+  imageName: "${IMG_REPO}/teleinfra/prometheus"
+
+grafana:
+  imageName: "${IMG_REPO}/teleinfra/grafana"
+
+providers:
+  alarm:
+    imageName: "${IMG_REPO}/teleinfra/alarmprovider"
+  kafka:
+    imageName: "${IMG_REPO}/teleinfra/kafkaprovider"
+
+busybox:
+  imageName: "${IMG_REPO}/teleinfra/busybox"
+
+elasticsearch:
+  image: "${IMG_REPO}/teleinfra/elasticsearch"
+
+
+
+
+
+
+
+
+
+
+
+
+
+# utility:
+#   imageName: "openwhisk/ow-utils"
+#   imageTag: "415ae98"
+#   imagePullPolicy: "IfNotPresent"

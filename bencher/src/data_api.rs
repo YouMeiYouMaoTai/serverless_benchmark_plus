@@ -22,25 +22,34 @@ lazy_static::lazy_static! {
 }
 
 async fn read_file(path: &impl AsRef<Path>) -> Arc<Vec<u8>> {
+    fn get_real_path(path: &impl AsRef<Path>) -> PathBuf {
+        // resolve soft link one by one
+        let mut making_path = PathBuf::new();
+        for split in path.as_ref().to_str().unwrap().split("/") {
+            making_path.push(split);
+            if making_path.is_symlink() {
+                making_path = making_path.read_link().unwrap();
+            }
+        }
+        making_path
+    }
+    let path = get_real_path(path);
+
     //access cache first
     {
         let cache = CACHE.get_or_init(|| DashMap::new());
-        if let Some(content) = cache.get(path.as_ref().to_str().unwrap()) {
+        if let Some(content) = cache.get(path.to_str().unwrap()) {
             return content.clone();
         }
     }
 
-    let content = tokio::fs::read(path).await.unwrap_or_else(|err| {
-        panic!(
-            "failed to read file {}, err: {:?}",
-            path.as_ref().to_str().unwrap(),
-            err
-        );
+    let content = tokio::fs::read(&path).await.unwrap_or_else(|err| {
+        panic!("failed to read file {:?}, err: {:?}", path, err);
     });
     {
         let mut cache = CACHE.get_or_init(|| DashMap::new());
         let ret = Arc::new(content);
-        cache.insert(path.as_ref().to_str().unwrap().to_string(), ret.clone());
+        cache.insert(path.to_str().unwrap().to_string(), ret.clone());
         ret
     }
 }
@@ -72,7 +81,7 @@ impl FnDetails {
         };
 
         let Some(big_data) = self.big_data.clone() else {
-            tracing::error!("no big data to write");
+            tracing::warn!("no big data to write, make sure the workload description is complete");
             return None;
         };
 
@@ -100,7 +109,7 @@ impl FnDetails {
             let content = read_file(&to_read_path).await;
 
             if use_minio {
-                tracing::info!("writing big data to minio");
+                tracing::info!("writing big data ({}) to minio", big_data_write_path);
                 // write to minio
                 let bucket = BUCKET.get().unwrap();
                 bucket

@@ -1,0 +1,123 @@
+# avg_req_time: 446.61538461538464
+
+
+########################################################
+# low request rate
+
+low:
+  wl:
+    sequential:
+      avg_exec_time: 18.414893617021278
+      avg_coldtrans_time: 44.180851063829785
+      rps: 1.9119765760418763
+    parallel:
+      avg_exec_time: 36.44444444444444
+      avg_coldtrans_time: 31.755555555555556
+      rps: 1.80030525072078
+    img_resize:
+      avg_exec_time: 130.05769230769232
+      avg_coldtrans_time: 316.5576923076923
+      rps: 1.975
+    word_count:
+      avg_exec_time: 1203.7142857142858
+      avg_coldtrans_time: 1843.3285714285714
+      rps: 0.4970680483419335
+
+  ow:
+    sequential:
+      avg_exec_time: 43
+      avg_coldtrans_time: 6604.142857142857
+      rps: 0.03452838301323117
+    parallel:
+      avg_exec_time: 40.608695652173914
+      avg_coldtrans_time: 5611.717391304348
+      rps: 0.40923817964099574
+    img_resize:
+      avg_exec_time: 246.7
+      avg_coldtrans_time: 1453.32
+      rps: 1.5695
+    word_count:
+      avg_exec_time: 877.375
+      avg_coldtrans_time: 6014.833333333333
+      rps: 0.16396384111188952
+
+
+########################################################  
+# middle request rate
+
+middle:
+  ow:
+    sequential:
+      avg_exec_time: 41.666666666666664
+      avg_coldtrans_time: 7682.666666666667
+      rps: 0.009177145437642637
+    parallel:
+      avg_exec_time: 33.714285714285715
+      avg_coldtrans_time: 4666.25
+      rps: 0.1633734873608183
+    img_resize:
+      avg_exec_time: 225.73333333333332
+      avg_coldtrans_time: 5245.266666666666
+      rps: 0.6796559186767136
+    word_count:
+      avg_exec_time: 1005.8823529411765
+      avg_coldtrans_time: 5438.058823529412
+      rps: 0.0818282632719202
+
+  wl:
+    sequential:
+      avg_exec_time: 20.88888888888889
+      avg_coldtrans_time: 50.30555555555556
+      rps: 2.676373669968494
+    parallel:
+      avg_exec_time: 32.50714285714286
+      avg_coldtrans_time: 34.57857142857143
+      rps: 2.937533851163108
+    img_resize:
+      avg_exec_time: 76.55223880597015
+      avg_coldtrans_time: 345.4776119402985
+      rps: 1.4948816720882512
+    word_count:
+      avg_exec_time: 1727.34375
+      avg_coldtrans_time: 1764.71875
+      rps: 0.5350616992057671
+
+########################################################
+# high request rate
+
+high:
+  ow:
+    sequential:
+      avg_exec_time: 47.08695652173913
+      avg_coldtrans_time: 6993.95652173913
+      rps: 0.10544500584526674
+    parallel:
+      avg_exec_time: 38.642857142857146
+      avg_coldtrans_time: 5227.392857142857
+      rps: 0.11358618183976035
+    img_resize:
+      avg_exec_time: 213.17808219178082
+      avg_coldtrans_time: 6234.479452054795
+      rps: 0.5199551947642697
+    word_count:
+      avg_exec_time: 922.6
+      avg_coldtrans_time: 4845
+      rps: 0.01653300608324337
+
+  wl:
+    sequential:
+      avg_exec_time: 22.90721649484536
+      avg_coldtrans_time: 39.16494845360825
+      rps: 3.4796177966059214
+    parallel:
+      avg_exec_time: 41.240437158469945
+      avg_coldtrans_time: 37.48087431693989
+      rps: 2.732183361824382
+    img_resize:
+      avg_exec_time: 83.61538461538461
+      avg_coldtrans_time: 346.8205128205128
+      rps: 1.5485815923510138
+    word_count:
+      avg_exec_time: 2073.598360655738
+      avg_coldtrans_time: 2131.5737704918033
+      rps: 0.6517586217232241

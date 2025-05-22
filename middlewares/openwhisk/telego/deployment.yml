@@ -1,0 +1,51 @@
+comment: openwhisk serverless 计算平台
+
+local_values:
+  ingress_ip: 192.168.31.162
+  openwhisk-override-values:
+    read_from_file: template/override-values.yml
+  override-init_db:
+    read_from_file: template/override-init_db.sh
+  override-runtimes:
+    read_from_file: template/override-runtimes.json
+
+prepare:
+  - filemap: 
+      content: ${openwhisk-override-values}
+      path: teledeploy/override-values.yml
+      mode: 755
+  - filemap:
+      content: ${override-runtimes}
+      path: openwhisk-deploy-kube/helm/openwhisk/runtimes.json
+      mode: 755
+  - filemap:
+      content: ${override-init_db}
+      path: openwhisk-deploy-kube/helm/openwhisk/configMapFiles/initCouchDB/initdb.sh
+      mode: 755
+  - git: https://github.com/apache/openwhisk:ef725a653ab112391f79c274d8e3dcfb915d59a3
+
+  - image: openwhisk/java8action:1.17.0
+  - image: openwhisk/ow-utils:ef725a6
+  - image: zookeeper:3.4
+  - image: wurstmeister/kafka:2.12-2.3.1
+  - image: apache/couchdb:2.3
+  - image: nginx:1.21.1
+  - image: openwhisk/controller:ef725a6
+  - image: openwhisk/scheduler:ef725a6
+  - image: bitnami/etcd:3.4.0
+  - image: openwhisk/invoker:ef725a6
+  - image: openwhisk/apigateway:1.0.0
+  - image: redis:4.0
+  - image: openwhisk/user-events:ef725a6
+  - image: prom/prometheus:v2.14.0
+  - image: grafana/grafana:6.3.0
+  - image: openwhisk/alarmprovider:2.3.0
+  - image: openwhisk/kafkaprovider:2.1.0
+  - image: busybox:latest
+  - image: docker.elastic.co/elasticsearch/elasticsearch:6.7.2
+  
+helms:
+  openwhisk:
+    helm-dir: openwhisk-deploy-kube/helm/openwhisk
+    overwrite-config: teledeploy/override-values.yml
+    namespace: openwhisk
